@@ -30,12 +30,8 @@ The complete release history has moved to [changelog.md](changelog.md).
 
 ### 💬 Instant Messaging
 - Private & group chat with text, images, videos, files, and voice messages
-- One-on-one video and voice calls
-- LiveKit SFU group video meetings for up to 100 participants
-- Video grid, participant panel, active-speaker and media-state indicators
-- Host controls for mute-all, lecture mode, and open discussion
-- Moments (timeline) posting and browsing
 - Contact management, QR code friend requests
+- Lite excludes private/group voice and video calls, Moments, Timeline, and the Discover page
 
 ### 🔐 End-to-End Encryption
 - **E2EE**: All messages encrypted before sending; the server cannot read them
@@ -92,23 +88,6 @@ The macOS client embeds the official Tor Project Tor and lyrebird runtimes for b
 
 If Moat is temporarily unavailable, the client tries the last successfully cached bridge. The login screen displays live bootstrap status and provides manual retry.
 
-## 🎥 Video Meetings
-
-1. Open a group chat and select the voice- or video-meeting button.
-2. On first use, grant microphone and camera access when prompted by macOS.
-3. The group owner is the meeting host and can mute everyone or switch between lecture and discussion modes.
-4. In lecture mode, regular participants remain muted; they can unmute after the host returns the room to discussion mode.
-
-Group meetings and one-on-one calls use a LiveKit SFU. The Mac client requires an updated PaperPhoneLite server exposing `/api/calls/meeting-token` and `/api/calls/direct-token`. Configure these production environment variables on the server:
-
-```text
-LIVEKIT_URL=wss://meeting.example.com
-LIVEKIT_API_KEY=<API key>
-LIVEKIT_API_SECRET=<secret of at least 32 bytes>
-```
-
-LiveKit and the PaperPhoneLite server must use the same key and secret. Production deployments should also expose TCP 7881 and UDP 7882; TURN/TLS is recommended for restrictive networks.
-
 ### Build from Source
 
 #### Prerequisites
@@ -161,9 +140,9 @@ The proxy is implemented via Electron's `session.setProxy()` API, transparently 
 │          Preload (contextBridge)         │
 ├─────────────────────────────────────────┤
 │          Renderer (React 19 + Vite)      │
-│  ┌──────┐ ┌───────┐ ┌──────┐ ┌──────┐ │
-│  │Login │ │ Chats │ │Calls │ │Moments│ │
-│  └──────┘ └───────┘ └──────┘ └──────┘ │
+│       ┌──────┐       ┌──────────┐       │
+│       │Login │       │  Chats   │       │
+│       └──────┘       └──────────┘       │
 │  ┌─────────────────────────────────┐   │
 │  │  Crypto (libsodium + Kyber)     │   │
 │  │  Double Ratchet + E2EE          │   │
@@ -179,7 +158,6 @@ The proxy is implemented via Electron's `session.setProxy()` API, transparently 
 | Frontend | React 19 + TypeScript 5.7 |
 | Build Tool | Vite 6 |
 | State Management | Zustand 5 |
-| Video Meetings | LiveKit Client 2.20 (SFU) |
 | Encryption | libsodium-wrappers-sumo + crystals-kyber-js |
 | Packaging | electron-builder |
 | Persistence | electron-store |
@@ -193,7 +171,6 @@ The proxy is implemented via Electron's `session.setProxy()` API, transparently 
 ├── src/
 │   ├── api/             # HTTP, WebSocket, proxy bridge
 │   ├── components/      # UI components
-│   ├── contexts/        # React Context (calls, etc.)
 │   ├── crypto/          # E2EE encryption modules
 │   ├── hooks/           # Custom hooks
 │   ├── i18n/            # Internationalization

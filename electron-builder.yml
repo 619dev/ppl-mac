@@ -19,6 +19,7 @@ publish: null
 mac:
   category: public.app-category.social-networking
   icon: build/icon.icns
+  x64ArchFiles: Contents/Resources/tor/**
   # A distributable DMG must never be produced without a valid Developer ID
   # signature. electron-builder will auto-discover a valid identity from the
   # keychain, or use CSC_LINK/CSC_KEY_PASSWORD in CI.
@@ -46,8 +47,7 @@ mac:
     - Contents/Resources/tor/darwin-x64/tor/pluggable_transports/lyrebird
   notarize: true
   extendInfo:
-    NSCameraUsageDescription: PaperPhoneLite 需要访问摄像头以进行视频会议。
-    NSMicrophoneUsageDescription: PaperPhoneLite 需要访问麦克风以进行语音和视频会议。
+    NSMicrophoneUsageDescription: PaperPhoneLite 需要访问麦克风以录制语音消息。
 
 dmg:
   artifactName: ${productName}-${version}-macOS.${ext}

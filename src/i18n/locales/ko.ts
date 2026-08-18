@@ -9,7 +9,7 @@ export const ko: Record<string, string> = {
   'auth.server_url_placeholder': '서버 URL (https://...)',
   'security.local_keys': '키는 로컬에만 저장', 'security.e2e': '종단간 암호화', 'security.forward': '순방향 비밀성', 'security.quantum': '양자 내성 암호화',
 
-  'tab.chats': '채팅', 'tab.contacts': '연락처', 'tab.discover': '발견', 'tab.profile': '프로필',
+  'tab.chats': '채팅', 'tab.contacts': '연락처', 'tab.profile': '프로필',
 
   'chats.title': '채팅', 'chats.search': '채팅 검색...', 'chats.empty': '채팅이 없습니다',
   'chats.empty_hint': '친구를 추가하여 대화를 시작하세요', 'chats.image': '[이미지]',
@@ -39,7 +39,6 @@ export const ko: Record<string, string> = {
   'group.uploading_avatar': '그룹 아이콘 업로드 중...', 'group.disband_confirm': '이 그룹을 해산하시겠습니까? 되돌릴 수 없습니다.', 'group.leave_confirm': '이 그룹을 나가시겠습니까?',
   'group.qr_code': '그룹 QR 코드', 'group.qr_expire_1w': '1주', 'group.qr_expire_1m': '1개월', 'group.qr_expire_3m': '3개월', 'group.qr_hint': 'QR 코드를 스캔하여 그룹에 참여하세요. 링크는 선택한 기간 후 만료됩니다.',
   'group.invite_friends': '친구 초대', 'group.select_friends': '친구 선택', 'group.invite_success': '초대 완료', 'group.no_friends_to_invite': '모든 친구가 이미 그룹에 있습니다',
-  'group.voice_call': '그룹 음성 통화', 'group.video_call': '그룹 영상 통화',
   'group.encryption': '암호화 모드', 'group.encryption_on': '종단간 암호화 활성화', 'group.encryption_off': '비암호화',
   'group.encryption_switch_confirm': '암호화 모드를 전환하면 모든 채팅 기록이 삭제됩니다. 계속하시겠습니까?',
   'group.encryption_bot_warning': '그룹에서 암호화를 활성화하면 봇을 사용할 수 없습니다. 봇을 다시 사용하려면 암호화를 비활성화하세요.',
@@ -49,18 +48,9 @@ export const ko: Record<string, string> = {
   'group.distributing_keys': '암호화 키 배포 중...',
   'group.owner_only_encryption': '그룹 소유자만 암호화를 전환할 수 있습니다',
 
-  'discover.title': '발견', 'discover.moments': '모먼트', 'discover.timeline': '타임라인',
-  'discover.scan': 'QR 스캔', 'discover.scan_result': '스캔 결과', 'discover.invite_expired': '초대 링크가 만료되었거나 유효하지 않습니다',
 
-  'moments.title': '모먼트', 'moments.post': '게시', 'moments.like': '좋아요',
-  'moments.comment': '댓글', 'moments.write_comment': '댓글 작성...',
-  'moments.new_post': '새 게시물', 'moments.write_something': '무엇을 생각하고 있나요...', 'moments.visibility': '공개 범위',
-  'moments.public': '모두에게 공개', 'moments.whitelist': '선택한 사람만', 'moments.blacklist': '일부 제외',
-  'moments.select_scope': '범위 선택', 'moments.add_images': '사진 추가', 'moments.add_video': '동영상 추가', 'moments.empty': '아직 게시물이 없습니다', 'moments.text_too_long': '텍스트는 1024자까지 가능합니다', 'moments.video_too_long': '동영상은 10분까지 가능합니다', 'moments.upload_failed': '업로드 실패', 'moments.publish_failed': '게시 실패',
 
-  'timeline.title': '타임라인', 'timeline.post': '게시', 'timeline.anonymous': '익명',
-  'timeline.new_post': '새 게시물', 'timeline.write_something': '생각을 공유하세요...', 'timeline.empty': '아직 게시물이 없습니다', 'timeline.detail': '게시물 상세', 'timeline.comments': '댓글', 'timeline.write_comment': '댓글 작성...', 'timeline.add_images': '사진 추가', 'timeline.add_video': '동영상 추가', 'timeline.posting_anonymous': '익명 게시', 'timeline.posting_public': '공개 게시', 'timeline.anon_desc': '다른 사람에게 신원이 공개되지 않습니다', 'timeline.public_desc': '닉네임과 프로필 사진이 표시됩니다', 'timeline.text_too_long': '텍스트는 2048자까지 가능합니다', 'timeline.video_too_long': '동영상은 10분까지 가능합니다', 'timeline.upload_failed': '업로드 실패', 'timeline.publish_failed': '게시 실패',
-  'friend.remark': '친구 메모', 'friend.remark_placeholder': '메모 이름 설정', 'friend.no_remark': '메모 없음', 'friend.original_name': '원래 이름', 'friend.privacy': '모먼트 권한', 'friend.hide_their_moments': '상대 모먼트 숨기기', 'friend.hide_my_moments': '내 모먼트 숨기기', 'friend.latest_moments': '최근 모먼트', 'friend.no_moments': '아직 모먼트가 없습니다', 'friend.has_video': '동영상 포함',
+  'friend.remark': '친구 메모', 'friend.remark_placeholder': '메모 이름 설정', 'friend.no_remark': '메모 없음', 'friend.original_name': '원래 이름',
   'contacts.online': '온라인', 'contacts.offline': '오프라인',
 
   'profile.title': '설정', 'profile.account': '계정', 'profile.security': '보안',
@@ -72,13 +62,6 @@ export const ko: Record<string, string> = {
   'ntfy.title': 'ntfy 푸시 (중국 Android)', 'ntfy.description': 'Android 기기가 Google 서비스를 지원하지 않는 경우(Huawei 등), ntfy를 통해 푸시 알림을 받을 수 있습니다.', 'ntfy.step1': '1. 앱 스토어에서 ntfy 앱을 설치하세요', 'ntfy.step2': '2. ntfy 앱에서 +를 탭하고 다음 주제를 구독하세요:', 'ntfy.step3': '3. 아래 버튼을 탭하여 등록하세요', 'ntfy.register': '푸시 등록', 'ntfy.registered': '✅ 등록됨', 'ntfy.copy_topic': '주제 복사', 'ntfy.copied': '복사됨', 'ntfy.download_ntfy': 'ntfy 앱 다운로드', 'ntfy.register_failed': '등록 실패, 다시 시도해 주세요',
   'pwa.install_title': '홈 화면에 추가', 'pwa.install_step1': '1. Safari 도구 모음의 공유 버튼 ⬆️ 탭', 'pwa.install_step2': '2. "홈 화면에 추가" 탭', 'pwa.install_step3': '3. 오른쪽 상단의 "추가" 탭',
 
-  'call.incoming': '수신 전화', 'call.outgoing': '발신 중...', 'call.connected': '통화 중',
-  'call.ended': '통화 종료', 'call.video': '영상 통화', 'call.voice': '음성 통화',
-  'call.accept': '수락', 'call.reject': '거절', 'call.hangup': '종료',
-  'call.mute': '음소거', 'call.camera': '카메라',
-  'call.group_incoming': '그룹 통화 초대', 'call.group_voice': '그룹 음성 통화', 'call.group_video': '그룹 영상 통화',
-  'call.participants': '명 참여', 'call.joining': '참여 중...', 'call.group_ended': '그룹 통화가 종료되었습니다',
-  'call.voice_change': '변성', 'call.voice_slow': '느림 0.8x', 'call.voice_normal': '보통', 'call.voice_fast': '빠름 1.2x',
 
   'common.ok': '확인', 'common.cancel': '취소', 'common.save': '저장', 'common.delete': '삭제',
   'common.edit': '편집', 'common.loading': '로딩 중...', 'common.error': '오류',
@@ -98,7 +81,7 @@ export const ko: Record<string, string> = {
   'profile.appearance': '외관',
   'fingerprint.title': '키 지문', 'fingerprint.identity_key': '신원 키 지문', 'fingerprint.my_key_title': '내 신원 키', 'fingerprint.my_key_subtitle': '내 신원 키 지문', 'fingerprint.my_key_desc': '이것은 당신의 신원 키 지문입니다. 연락처와의 암호화를 확인하려면 상대방의 프로필에서 「안전 번호」를 확인하세요.', 'fingerprint.my_key_verify_hint': '종단 간 암호화를 확인하려면 연락처의 프로필 → 「암호화 확인」을 탭하고 안전 번호를 직접 비교하세요.', 'fingerprint.description': '이 지문을 연락처와 직접 비교하여 통신이 제3자에 의해 가로채지 않았는지 확인하세요.', 'fingerprint.copy': '복사', 'fingerprint.copied': '복사됨', 'fingerprint.how_to_verify': '확인 방법', 'fingerprint.verify_steps': '연락처와 직접 만나 지문을 비교하세요. 설정 → 키 지문을 열고 모든 줄이 일치하는지 확인합니다.',
   'safety.title': '암호화 확인', 'safety.verify_encryption': '암호화 확인', 'safety.description': '당신과 연락처가 동일한 안전 번호를 보고 있다면, 종단 간 암호화가 안전하며 제3자에 의해 가로채지 않은 것입니다.', 'safety.how_to_verify': '확인 방법', 'safety.verify_steps': '연락처와 직접 만나(또는 신뢰할 수 있는 다른 채널을 통해) 서로의 프로필을 열고 「암호화 확인」을 탭하여 안전 번호를 한 줄씩 비교하세요. 일치하면 암호화가 안전합니다.',
-  'notification.new_message': '새 메시지', 'notification.incoming_call': '음성 수신', 'notification.incoming_video_call': '영상 수신', 'notification.image': '[이미지]', 'notification.voice': '[음성]', 'notification.file': '[파일]', 'notification.video': '[동영상]', 'notification.sticker': '[스티커]',
+  'notification.new_message': '새 메시지', 'notification.image': '[이미지]', 'notification.voice': '[음성]', 'notification.file': '[파일]', 'notification.video': '[동영상]', 'notification.sticker': '[스티커]',
   'privacy.title': '개인정보 처리방침', 'privacy.hero_title': '개인정보 보호를 중요시합니다', 'privacy.hero_subtitle': '개인정보와 통신 보안을 보호하기 위해 최선을 다합니다', 'privacy.last_updated': '최종 업데이트',
 
   // Proxy
@@ -139,15 +122,14 @@ export const ko: Record<string, string> = {
 
   // Delete Account
   'profile.delete_account': '계정 삭제',
-  'profile.delete_warning': '이 작업은 취소할 수 없습니다. 계정을 삭제하면 메시지, 연락처, 모먼트를 포함한 모든 데이터가 영구적으로 삭제되며 복구할 수 없습니다.',
+  'profile.delete_warning': '이 작업은 취소할 수 없습니다. 계정을 삭제하면 메시지와 연락처를 포함한 모든 데이터가 영구적으로 삭제되며 복구할 수 없습니다.',
   'profile.delete_confirm': '계정 삭제',
   'profile.delete_enter_password': '비밀번호를 입력하여 확인',
   'profile.delete_need_password': '비밀번호를 입력해 주세요',
-  'chat.ws_disconnected': '연결이 끊어져 다시 연결 중...', 'group.name_hint': '그룹 이름 입력', 'profile.push_blocked': '알림이 차단되었습니다. 브라우저 설정에서 활성화하세요.', 'profile.push_failed': '알림을 활성화하지 못했습니다. 자세한 내용은 콘솔을 확인하세요.', 'call.connecting': '연결 중...',
+  'chat.ws_disconnected': '연결이 끊어져 다시 연결 중...', 'group.name_hint': '그룹 이름 입력', 'profile.push_blocked': '알림이 차단되었습니다. 브라우저 설정에서 활성화하세요.', 'profile.push_failed': '알림을 활성화하지 못했습니다. 자세한 내용은 콘솔을 확인하세요.',
   'terms.title': '이용약관', 'terms.agree_prefix': '다음을 읽고 동의합니다:', 'terms.agree_link': '이용약관', 'terms.must_agree': '계속하려면 이용약관에 동의해야 합니다', 'terms.hero_title': '이용약관', 'terms.hero_subtitle': 'PaperPhoneLite를 사용하기 전에 약관을 자세히 읽어 주세요',
-  'report.title': '콘텐츠 신고', 'report.reason': '신고 사유', 'report.reason_offensive': '모욕적이거나 부적절한 콘텐츠', 'report.reason_spam': '스팸 또는 광고', 'report.reason_harassment': '괴롭힘 또는 따돌림', 'report.reason_violence': '폭력 또는 위협', 'report.reason_misinformation': '허위 정보', 'report.reason_other': '기타', 'report.detail_placeholder': '추가 세부 사항(선택)', 'report.submit': '신고 제출', 'report.success': '신고가 제출되었습니다. 24시간 이내에 검토하겠습니다.', 'report.failed': '신고를 제출하지 못했습니다. 다시 시도하세요.', 'report.report_post': '게시물 신고', 'report.report_message': '메시지 신고', 'report.report_user': '사용자 신고',
-  'block.user': '사용자 차단', 'block.confirm_title': '이 사용자를 차단할까요?', 'block.confirm_desc': '차단된 사용자는 메시지를 보낼 수 없고 피드에서 해당 콘텐츠가 제거됩니다. 나중에 차단을 해제할 수 있습니다.', 'block.success': '사용자를 차단했습니다', 'block.failed': '사용자 차단에 실패했습니다', 'unblock.user': '사용자 차단 해제', 'unblock.success': '차단을 해제했습니다', 'unblock.failed': '차단 해제에 실패했습니다',
-  'meeting.video_title': '그룹 화상 회의', 'meeting.voice_title': '그룹 음성 회의', 'meeting.video': '화상 회의', 'meeting.voice': '음성 회의', 'meeting.invites_you': '님이 당신을 초대했습니다:', 'meeting.reject': '거절', 'meeting.join': '참가', 'meeting.leave': '회의 나가기', 'meeting.joining': '회의 참가 중…', 'meeting.people_unit': '명', 'meeting.lecture_mode': '강의 모드', 'meeting.discussion_mode': '자유 토론', 'meeting.mute': '음소거', 'meeting.unmute': '음소거 해제', 'meeting.start_video': '비디오 시작', 'meeting.stop_video': '비디오 중지', 'meeting.mute_all': '전체 음소거', 'meeting.me': '나', 'meeting.more_people': '추가 참가자:', 'meeting.host': '호스트', 'meeting.participants': '참가자', 'meeting.close': '닫기', 'meeting.connection_failed': '회의 서버에 연결할 수 없습니다',
+  'report.title': '콘텐츠 신고', 'report.reason': '신고 사유', 'report.reason_offensive': '모욕적이거나 부적절한 콘텐츠', 'report.reason_spam': '스팸 또는 광고', 'report.reason_harassment': '괴롭힘 또는 따돌림', 'report.reason_violence': '폭력 또는 위협', 'report.reason_misinformation': '허위 정보', 'report.reason_other': '기타', 'report.detail_placeholder': '추가 세부 사항(선택)', 'report.submit': '신고 제출', 'report.success': '신고가 제출되었습니다. 24시간 이내에 검토하겠습니다.', 'report.failed': '신고를 제출하지 못했습니다. 다시 시도하세요.', 'report.report_message': '메시지 신고', 'report.report_user': '사용자 신고',
+  'block.user': '사용자 차단', 'block.confirm_title': '이 사용자를 차단할까요?', 'block.confirm_desc': '차단된 사용자는 메시지를 보낼 수 없고 나중에 차단을 해제할 수 있습니다.', 'block.success': '사용자를 차단했습니다', 'block.failed': '사용자 차단에 실패했습니다', 'unblock.user': '사용자 차단 해제', 'unblock.success': '차단을 해제했습니다', 'unblock.failed': '차단 해제에 실패했습니다',
   "chat.encryption_send_failed": "암호화에 실패하여 메시지를 보내지 않았습니다.",
   "chat.crypto_downgraded": "양자 내성 보호를 사용할 수 없음(다운그레이드됨)",
   "chat.presentation_title": "텍스트 모양과 추가 암호화",

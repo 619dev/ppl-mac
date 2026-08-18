@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { get, post, put, del, normalizeFileUrl } from '../api/http'
+import { get, post, put, del } from '../api/http'
 import { useStore } from '../store'
 import { useI18n } from '../hooks/useI18n'
 import { deriveSafetyNumber } from '../crypto/safetyNumber'
-import { Camera, Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Film, Fingerprint, Lock, MessageCircle, Pencil, Phone, ShieldCheck, Flag, Ban } from 'lucide-react'
+import { Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Fingerprint, MessageCircle, Pencil, ShieldCheck, Flag, Ban } from 'lucide-react'
 
 export default function UserProfile({ userId }: { userId: string }) {
   const id = userId
@@ -17,17 +17,10 @@ export default function UserProfile({ userId }: { userId: string }) {
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
-  // Privacy
-  const [hideTheir, setHideTheir] = useState(false)
-  const [hideMine, setHideMine] = useState(false)
-
   // Remark
   const [remark, setRemark] = useState('')
   const [editingRemark, setEditingRemark] = useState(false)
   const [remarkInput, setRemarkInput] = useState('')
-
-  // Latest moments
-  const [moments, setMoments] = useState<any[]>([])
 
   // Safety number
   const [safetyNumber, setSafetyNumber] = useState('')
@@ -52,15 +45,6 @@ export default function UserProfile({ userId }: { userId: string }) {
 
     // Load user info
     get(`/api/users/${id}`).then(setUser).catch(() => {})
-
-    // Load privacy settings
-    get(`/api/moments/privacy/${id}`).then((data: any) => {
-      setHideTheir(!!data.hide_their)
-      setHideMine(!!data.hide_mine)
-    }).catch(() => {})
-
-    // Load latest moments
-    get(`/api/moments/user/${id}?limit=3`).then(setMoments).catch(() => {})
 
     // Set remark from friend store
     if (friend?.remark) setRemark(friend.remark)
@@ -102,20 +86,6 @@ export default function UserProfile({ userId }: { userId: string }) {
     if (friend?.remark) setRemark(friend.remark)
   }, [friend?.remark])
 
-  const handleTogglePrivacy = async (field: 'hide_their' | 'hide_mine', value: boolean) => {
-    const payload: any = { target_id: id }
-    if (field === 'hide_their') {
-      setHideTheir(value)
-      payload.hide_their = value
-      payload.hide_mine = hideMine
-    } else {
-      setHideMine(value)
-      payload.hide_their = hideTheir
-      payload.hide_mine = value
-    }
-    try { await post('/api/moments/privacy', payload) } catch {}
-  }
-
   const saveRemark = async () => {
     const val = remarkInput.trim() || null
     try {
@@ -126,14 +96,6 @@ export default function UserProfile({ userId }: { userId: string }) {
       const f = await get('/api/friends')
       useStore.getState().setFriends(f)
     } catch {}
-  }
-
-  const formatTime = (ts: number) => {
-    const diff = Date.now() - ts
-    if (diff < 60000) return t('time.just_now')
-    if (diff < 3600000) return `${Math.floor(diff / 60000)} ${t('time.minutes_ago')}`
-    if (diff < 86400000) return `${Math.floor(diff / 3600000)} ${t('time.hours_ago')}`
-    return new Date(ts).toLocaleDateString()
   }
 
   if (loading || !user) return <div className="page"><div className="loading-spinner" /></div>
@@ -223,12 +185,9 @@ export default function UserProfile({ userId }: { userId: string }) {
           }}>
             {user.is_online ? '● ' + t('contacts.online') : '○ ' + t('contacts.offline')}
           </div>
-          <div style={{ display: 'flex', gap: 12, width: '100%', maxWidth: 280 }}>
+          <div style={{ width: '100%', maxWidth: 280 }}>
             <button className="btn btn-primary btn-full" onClick={() => setActiveChat(id, false)}>
               <MessageCircle size={16} /> {t('chat.send')}
-            </button>
-            <button className="btn btn-secondary btn-full" onClick={() => setActiveChat(id, false)}>
-              <Phone size={16} /> {t('call.voice')}
             </button>
           </div>
         </div>
@@ -263,43 +222,6 @@ export default function UserProfile({ userId }: { userId: string }) {
             <span className="arrow"><ChevronRight size={14} /></span>
           </div>
         )}
-
-        {/* Privacy settings */}
-        <div className="section-title" style={{ padding: '16px 16px 6px' }}>
-          <Lock size={14} /> {t('friend.privacy')}
-        </div>
-
-        <div className="settings-item" onClick={() => handleTogglePrivacy('hide_their', !hideTheir)} style={{ cursor: 'pointer' }}>
-          <span className="label">{t('friend.hide_their_moments')}</span>
-          <div style={{
-            width: 44, height: 24, borderRadius: 12,
-            background: hideTheir ? 'var(--accent)' : 'var(--border)',
-            position: 'relative', transition: 'background 0.2s',
-          }}>
-            <div style={{
-              width: 20, height: 20, borderRadius: 10,
-              background: '#fff', position: 'absolute', top: 2,
-              left: hideTheir ? 22 : 2, transition: 'left 0.2s',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-            }} />
-          </div>
-        </div>
-
-        <div className="settings-item" onClick={() => handleTogglePrivacy('hide_mine', !hideMine)} style={{ cursor: 'pointer' }}>
-          <span className="label">{t('friend.hide_my_moments')}</span>
-          <div style={{
-            width: 44, height: 24, borderRadius: 12,
-            background: hideMine ? 'var(--accent)' : 'var(--border)',
-            position: 'relative', transition: 'background 0.2s',
-          }}>
-            <div style={{
-              width: 20, height: 20, borderRadius: 10,
-              background: '#fff', position: 'absolute', top: 2,
-              left: hideMine ? 22 : 2, transition: 'left 0.2s',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-            }} />
-          </div>
-        </div>
 
         {/* Safety Number — E2E verification */}
         <div className="section-title" style={{ padding: '16px 16px 6px' }}>
@@ -375,59 +297,6 @@ export default function UserProfile({ userId }: { userId: string }) {
               {t('safety.verify_steps')}
             </div>
           </div>
-        )}
-
-        {/* Latest moments */}
-        <div className="section-title" style={{ padding: '16px 16px 6px' }}>
-          <Camera size={16} /> {t('friend.latest_moments')}
-        </div>
-
-        {moments.length === 0 ? (
-          <div style={{ padding: '16px', color: 'var(--text-muted)', fontSize: 13, textAlign: 'center' }}>
-            {t('friend.no_moments')}
-          </div>
-        ) : (
-          moments.map(m => (
-            <div key={m.id} style={{
-              padding: '12px 16px', borderBottom: '1px solid var(--border)',
-            }}>
-              {m.text_content && (
-                <div style={{ fontSize: 14, marginBottom: 8, lineHeight: 1.5 }}>
-                  {m.text_content.length > 120 ? m.text_content.slice(0, 120) + '...' : m.text_content}
-                </div>
-              )}
-
-              {/* Images preview — show up to 3 thumbnails */}
-              {m.images?.length > 0 && (
-                <div style={{ display: 'flex', gap: 4, marginBottom: 6 }}>
-                  {m.images.slice(0, 3).map((url: string, i: number) => (
-                    <img key={i} src={normalizeFileUrl(url)} alt="" style={{
-                      width: 64, height: 64, objectFit: 'cover', borderRadius: 6,
-                    }} loading="lazy" />
-                  ))}
-                  {m.images.length > 3 && (
-                    <div style={{
-                      width: 64, height: 64, borderRadius: 6,
-                      background: 'var(--bg-card)', display: 'flex',
-                      alignItems: 'center', justifyContent: 'center',
-                      fontSize: 13, color: 'var(--text-muted)',
-                    }}>+{m.images.length - 3}</div>
-                  )}
-                </div>
-              )}
-
-              {/* Video indicator */}
-              {m.videos?.length > 0 && (
-                <div style={{ fontSize: 12, color: 'var(--accent)', marginBottom: 4 }}>
-                  <Film size={16} /> {t('friend.has_video')}
-                </div>
-              )}
-
-              <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>
-                {formatTime(m.created_at)}
-              </div>
-            </div>
-          ))
         )}
 
         {/* Report & Block section */}

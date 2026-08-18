@@ -7,16 +7,9 @@ import Chat from '../pages/Chat'
 import Profile from '../pages/Profile'
 import UserProfile from '../pages/UserProfile'
 import GroupInfo from '../pages/GroupInfo'
-import Moments from '../pages/Moments'
-import Timeline from '../pages/Timeline'
 import PrivacyPolicy from '../pages/PrivacyPolicy'
 import TermsOfUse from '../pages/TermsOfUse'
-import CallOverlay from './CallOverlay'
-import GroupCallOverlay from './GroupCallOverlay'
-import CallKeepAwake from './CallKeepAwake'
 import NotificationToast from './NotificationToast'
-import { CallProvider } from '../contexts/CallContext'
-import { GroupCallProvider } from '../contexts/GroupCallContext'
 import { MessageCircle } from 'lucide-react'
 import { useI18n } from '../hooks/useI18n'
 
@@ -45,16 +38,6 @@ function MainPanel() {
   // Group info view
   if (mainView === 'groupInfo' && mainViewId) {
     return <GroupInfo groupId={mainViewId} />
-  }
-
-  // Moments view
-  if (mainView === 'moments') {
-    return <Moments />
-  }
-
-  // Timeline view
-  if (mainView === 'timeline') {
-    return <Timeline />
   }
 
   // Privacy policy view
@@ -86,19 +69,14 @@ export default function DesktopLayout() {
   useAutoDeleteCleanup()
 
   return (
-    <CallProvider>
-      <GroupCallProvider>
-        <CallKeepAwake />
-        <div className="desktop-layout">
-          <Sidebar />
-          <main className="main-content">
-            <MainPanel />
-          </main>
-        </div>
-        <CallOverlay />
-        <GroupCallOverlay />
-        <NotificationToast />
-      </GroupCallProvider>
-    </CallProvider>
+    <>
+      <div className="desktop-layout">
+        <Sidebar />
+        <main className="main-content">
+          <MainPanel />
+        </main>
+      </div>
+      <NotificationToast />
+    </>
   )
 }

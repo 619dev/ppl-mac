@@ -27,8 +27,8 @@ export default function TermsOfUse({ onBack }: { onBack?: () => void }) {
 
         <Section icon={<Network size={20} />} title={zh ? '2. 服务与发行范围' : '2. Service and Distribution'}>
           <p>{zh
-            ? 'macOS 客户端提供私聊、群聊、联系人、加密消息、语音消息、附件、消息同步、定时删除、二维码、两步验证和拉黑，并保留桌面端通话与时间线能力。它不使用 APNs、FCM 或 OneSignal；应用保持运行和连接时可显示本地提醒。生产环境应通过 Tor 代理连接用户选择的 v3 .onion 服务。macOS 安装包通过项目 GitHub Releases 发布。'
-            : 'The macOS client provides private and group chat, contacts, encrypted messaging, voice messages, attachments, synchronization, expiring messages, QR features, two-factor authentication, and blocking, while retaining desktop calling and timeline capabilities. It does not use APNs, FCM, or OneSignal; local alerts can appear while the app is running and connected. Production use should connect to a user-selected v3 .onion service through a Tor proxy. macOS packages are distributed through the project’s GitHub Releases.'}</p>
+            ? 'macOS Lite 客户端提供私聊、群聊、联系人、加密消息、语音消息、附件、消息同步、定时删除、二维码、两步验证和拉黑；不提供私聊或群聊音视频通话、朋友圈、时间线及“发现”页面。它不使用 APNs、FCM 或 OneSignal；应用保持运行和连接时可显示本地提醒。生产环境应通过 Tor 代理连接用户选择的 v3 .onion 服务。macOS 安装包通过项目 GitHub Releases 发布。'
+            : 'The macOS Lite client provides private and group chat, contacts, encrypted messaging, voice messages, attachments, synchronization, expiring messages, QR features, two-factor authentication, and blocking. It does not include private or group voice/video calls, Moments, Timeline, or a Discover page. It does not use APNs, FCM, or OneSignal; local alerts can appear while the app is running and connected. Production use should connect to a user-selected v3 .onion service through a Tor proxy. macOS packages are distributed through the project’s GitHub Releases.'}</p>
         </Section>
 
         <Section icon={<Lock size={20} />} title={zh ? '3. 账号、密钥与安全责任' : '3. Accounts, Keys, and Security'}>

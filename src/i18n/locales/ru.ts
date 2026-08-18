@@ -10,7 +10,7 @@ export const ru: Record<string, string> = {
   'auth.server_url_placeholder': 'URL сервера (https://...)',
   'security.local_keys': 'Ключи хранятся локально', 'security.e2e': 'Сквозное шифрование', 'security.forward': 'Прямая секретность', 'security.quantum': 'Квантовая устойчивость',
 
-  'tab.chats': 'Чаты', 'tab.contacts': 'Контакты', 'tab.discover': 'Обзор', 'tab.profile': 'Профиль',
+  'tab.chats': 'Чаты', 'tab.contacts': 'Контакты', 'tab.profile': 'Профиль',
 
   'chats.title': 'Чаты', 'chats.search': 'Поиск чатов...', 'chats.empty': 'Нет чатов',
   'chats.empty_hint': 'Добавьте друзей чтобы начать', 'chats.image': '[Изображение]',
@@ -41,7 +41,6 @@ export const ru: Record<string, string> = {
   'group.uploading_avatar': 'Загрузка аватара группы...', 'group.disband_confirm': 'Вы уверены, что хотите распустить эту группу? Это нельзя отменить.', 'group.leave_confirm': 'Вы уверены, что хотите покинуть эту группу?',
   'group.qr_code': 'QR-код группы', 'group.qr_expire_1w': '1 неделя', 'group.qr_expire_1m': '1 месяц', 'group.qr_expire_3m': '3 месяца', 'group.qr_hint': 'Отсканируйте QR-код, чтобы присоединиться к группе. Ссылка истекает после выбранного периода.',
   'group.invite_friends': 'Пригласить друзей', 'group.select_friends': 'Выбрать друзей', 'group.invite_success': 'Приглашение отправлено', 'group.no_friends_to_invite': 'Все друзья уже в этой группе',
-  'group.voice_call': 'Групповой голосовой звонок', 'group.video_call': 'Групповой видеозвонок',
   'group.encryption': 'Режим шифрования', 'group.encryption_on': 'Сквозное шифрование включено', 'group.encryption_off': 'Без шифрования',
   'group.encryption_switch_confirm': 'Переключение режима шифрования удалит всю историю чата. Продолжить?',
   'group.encryption_bot_warning': 'После включения шифрования в группе боты не могут использоваться. Отключите шифрование, чтобы снова использовать ботов.',
@@ -51,18 +50,9 @@ export const ru: Record<string, string> = {
   'group.distributing_keys': 'Распределение ключей шифрования...',
   'group.owner_only_encryption': 'Только владелец группы может переключать шифрование',
 
-  'discover.title': 'Обзор', 'discover.moments': 'Моменты', 'discover.timeline': 'Лента',
-  'discover.scan': 'Сканировать QR', 'discover.scan_result': 'Результат сканирования', 'discover.invite_expired': 'Ссылка-приглашение истекла или недействительна',
 
-  'moments.title': 'Моменты', 'moments.post': 'Опубликовать', 'moments.like': 'Нравится',
-  'moments.comment': 'Комментарий', 'moments.write_comment': 'Написать комментарий...',
-  'moments.new_post': 'Новая запись', 'moments.write_something': 'Поделитесь мыслями...', 'moments.visibility': 'Видимость',
-  'moments.public': 'Все', 'moments.whitelist': 'Только выбранные', 'moments.blacklist': 'Все кроме',
-  'moments.select_scope': 'Выбрать круг', 'moments.add_images': 'Добавить фото', 'moments.add_video': 'Добавить видео', 'moments.empty': 'Пока нет записей', 'moments.text_too_long': 'Текст до 1024 символов', 'moments.video_too_long': 'Видео до 10 минут', 'moments.upload_failed': 'Ошибка загрузки', 'moments.publish_failed': 'Ошибка публикации',
 
-  'timeline.title': 'Лента', 'timeline.post': 'Опубликовать', 'timeline.anonymous': 'Анонимно',
-  'timeline.new_post': 'Новая запись', 'timeline.write_something': 'Поделитесь мыслями...', 'timeline.empty': 'Пока нет записей', 'timeline.detail': 'Подробности', 'timeline.comments': 'Комментарии', 'timeline.write_comment': 'Написать комментарий...', 'timeline.add_images': 'Добавить фото', 'timeline.add_video': 'Добавить видео', 'timeline.posting_anonymous': 'Анонимная публикация', 'timeline.posting_public': 'Публичная публикация', 'timeline.anon_desc': 'Другие не узнают вашу личность', 'timeline.public_desc': 'Ваш ник и аватар будут видны', 'timeline.text_too_long': 'Текст до 2048 символов', 'timeline.video_too_long': 'Видео до 10 минут', 'timeline.upload_failed': 'Ошибка загрузки', 'timeline.publish_failed': 'Ошибка публикации',
-  'friend.remark': 'Заметка о друге', 'friend.remark_placeholder': 'Установить имя', 'friend.no_remark': 'Нет заметки', 'friend.original_name': 'Оригинальное имя', 'friend.privacy': 'Приватность моментов', 'friend.hide_their_moments': 'Скрыть их моменты', 'friend.hide_my_moments': 'Скрыть мои от них', 'friend.latest_moments': 'Последние моменты', 'friend.no_moments': 'Пока нет моментов', 'friend.has_video': 'Содержит видео',
+  'friend.remark': 'Заметка о друге', 'friend.remark_placeholder': 'Установить имя', 'friend.no_remark': 'Нет заметки', 'friend.original_name': 'Оригинальное имя',
   'contacts.online': 'В сети', 'contacts.offline': 'Не в сети',
 
   'profile.title': 'Настройки', 'profile.account': 'Аккаунт', 'profile.security': 'Безопасность',
@@ -74,13 +64,6 @@ export const ru: Record<string, string> = {
   'ntfy.title': 'ntfy Push (Android Китай)', 'ntfy.description': 'Если ваш Android-телефон не поддерживает сервисы Google (Huawei и др.), вы можете получать push-уведомления через ntfy.', 'ntfy.step1': '1. Установите приложение ntfy из магазина приложений', 'ntfy.step2': '2. В приложении ntfy нажмите + и подпишитесь на эту тему:', 'ntfy.step3': '3. Нажмите кнопку ниже для регистрации', 'ntfy.register': 'Зарегистрировать push', 'ntfy.registered': '✅ Зарегистрировано', 'ntfy.copy_topic': 'Копировать тему', 'ntfy.copied': 'Скопировано', 'ntfy.download_ntfy': 'Скачать ntfy', 'ntfy.register_failed': 'Регистрация не удалась, попробуйте снова',
   'pwa.install_title': 'Добавить на экран', 'pwa.install_step1': '1. Нажмите кнопку «Поделиться» ⬆️ в Safari', 'pwa.install_step2': '2. Прокрутите и нажмите «На экран «Домой»»', 'pwa.install_step3': '3. Нажмите «Добавить» в правом верхнем углу',
 
-  'call.incoming': 'Входящий звонок', 'call.outgoing': 'Вызов...', 'call.connected': 'Подключён',
-  'call.ended': 'Звонок завершён', 'call.video': 'Видеозвонок', 'call.voice': 'Голосовой звонок',
-  'call.accept': 'Принять', 'call.reject': 'Отклонить', 'call.hangup': 'Завершить',
-  'call.mute': 'Без звука', 'call.camera': 'Камера',
-  'call.group_incoming': 'Приглашение в групповой звонок', 'call.group_voice': 'Групповой голосовой звонок', 'call.group_video': 'Групповой видеозвонок',
-  'call.participants': 'участников', 'call.joining': 'Подключение...', 'call.group_ended': 'Групповой звонок завершён',
-  'call.voice_change': 'Голос', 'call.voice_slow': 'Медл. 0.8x', 'call.voice_normal': 'Обычн.', 'call.voice_fast': 'Быстр. 1.2x',
 
   'common.ok': 'ОК', 'common.cancel': 'Отмена', 'common.save': 'Сохранить', 'common.delete': 'Удалить',
   'common.edit': 'Редактировать', 'common.loading': 'Загрузка...', 'common.error': 'Ошибка',
@@ -100,7 +83,7 @@ export const ru: Record<string, string> = {
   'profile.appearance': 'Оформление',
   'fingerprint.title': 'Отпечаток ключа', 'fingerprint.identity_key': 'Отпечаток ключа идентификации', 'fingerprint.my_key_title': 'Мой ключ идентификации', 'fingerprint.my_key_subtitle': 'Отпечаток моего ключа идентификации', 'fingerprint.my_key_desc': 'Это отпечаток вашего ключа идентификации. Чтобы проверить шифрование с контактом, откройте его профиль и проверьте «код безопасности».', 'fingerprint.my_key_verify_hint': 'Чтобы проверить сквозное шифрование, откройте профиль контакта → нажмите «Проверить шифрование» и сравните код безопасности лично.', 'fingerprint.description': 'Сравните этот отпечаток с контактом лично, чтобы убедиться, что ваша связь не перехватывается третьей стороной.', 'fingerprint.copy': 'Копировать', 'fingerprint.copied': 'Скопировано', 'fingerprint.how_to_verify': 'Как проверить?', 'fingerprint.verify_steps': 'Встретьтесь с контактом лично и сравните отпечатки. Откройте Настройки → Отпечаток ключа и убедитесь, что каждая строка совпадает.',
   'safety.title': 'Шифрование', 'safety.verify_encryption': 'Проверить шифрование', 'safety.description': 'Если вы и ваш контакт видите одинаковый код безопасности, ваше сквозное шифрование защищено и не было перехвачено.', 'safety.how_to_verify': 'Как проверить?', 'safety.verify_steps': 'Встретьтесь с контактом лично (или используйте другой доверенный канал). Откройте профили друг друга, нажмите «Проверить шифрование» и сравните код безопасности строка за строкой. Если они совпадают, шифрование безопасно.',
-  'notification.new_message': 'Новое сообщение', 'notification.incoming_call': 'Входящий голосовой звонок', 'notification.incoming_video_call': 'Входящий видеозвонок', 'notification.image': '[Изображение]', 'notification.voice': '[Голос]', 'notification.file': '[Файл]', 'notification.video': '[Видео]', 'notification.sticker': '[Стикер]',
+  'notification.new_message': 'Новое сообщение', 'notification.image': '[Изображение]', 'notification.voice': '[Голос]', 'notification.file': '[Файл]', 'notification.video': '[Видео]', 'notification.sticker': '[Стикер]',
   'privacy.title': 'Политика конфиденциальности', 'privacy.hero_title': 'Ваша конфиденциальность важна', 'privacy.hero_subtitle': 'Мы обеспечиваем защиту ваших личных данных и безопасность коммуникаций', 'privacy.last_updated': 'Последнее обновление',
 
   // Proxy
@@ -141,15 +124,14 @@ export const ru: Record<string, string> = {
 
   // Delete Account
   'profile.delete_account': 'Удалить аккаунт',
-  'profile.delete_warning': 'Это действие нельзя отменить. Удаление аккаунта навсегда удалит все ваши данные, включая сообщения, контакты и моменты. Эти данные невозможно восстановить.',
+  'profile.delete_warning': 'Это действие нельзя отменить. Удаление аккаунта навсегда удалит все ваши данные, включая сообщения и контакты. Эти данные невозможно восстановить.',
   'profile.delete_confirm': 'Удалить аккаунт',
   'profile.delete_enter_password': 'Введите пароль для подтверждения',
   'profile.delete_need_password': 'Пожалуйста, введите пароль',
-  'chat.ws_disconnected': 'Соединение потеряно, переподключение...', 'group.name_hint': 'Введите название группы', 'profile.push_blocked': 'Уведомления заблокированы. Разрешите их в настройках браузера.', 'profile.push_failed': 'Не удалось включить уведомления. Подробности доступны в консоли.', 'call.connecting': 'Подключение...',
+  'chat.ws_disconnected': 'Соединение потеряно, переподключение...', 'group.name_hint': 'Введите название группы', 'profile.push_blocked': 'Уведомления заблокированы. Разрешите их в настройках браузера.', 'profile.push_failed': 'Не удалось включить уведомления. Подробности доступны в консоли.',
   'terms.title': 'Условия использования', 'terms.agree_prefix': 'Я прочитал(-а) и принимаю', 'terms.agree_link': 'Условия использования', 'terms.must_agree': 'Для продолжения необходимо принять Условия использования', 'terms.hero_title': 'Условия использования', 'terms.hero_subtitle': 'Внимательно прочитайте эти условия перед использованием PaperPhoneLite',
-  'report.title': 'Пожаловаться на контент', 'report.reason': 'Причина жалобы', 'report.reason_offensive': 'Оскорбительный или неприемлемый контент', 'report.reason_spam': 'Спам или реклама', 'report.reason_harassment': 'Преследование или травля', 'report.reason_violence': 'Насилие или угрозы', 'report.reason_misinformation': 'Недостоверная информация', 'report.reason_other': 'Другое', 'report.detail_placeholder': 'Дополнительные сведения (необязательно)', 'report.submit': 'Отправить жалобу', 'report.success': 'Жалоба отправлена. Мы рассмотрим её в течение 24 часов.', 'report.failed': 'Не удалось отправить жалобу. Повторите попытку.', 'report.report_post': 'Пожаловаться на публикацию', 'report.report_message': 'Пожаловаться на сообщение', 'report.report_user': 'Пожаловаться на пользователя',
-  'block.user': 'Заблокировать пользователя', 'block.confirm_title': 'Заблокировать этого пользователя?', 'block.confirm_desc': 'Заблокированные пользователи не смогут отправлять вам сообщения. Их контент будет удалён из вашей ленты. Позже блокировку можно снять.', 'block.success': 'Пользователь заблокирован', 'block.failed': 'Не удалось заблокировать пользователя', 'unblock.user': 'Разблокировать пользователя', 'unblock.success': 'Пользователь разблокирован', 'unblock.failed': 'Не удалось разблокировать пользователя',
-  'meeting.video_title': 'Групповая видеоконференция', 'meeting.voice_title': 'Групповая аудиоконференция', 'meeting.video': 'видеоконференцию', 'meeting.voice': 'аудиоконференцию', 'meeting.invites_you': 'приглашает вас на', 'meeting.reject': 'Отклонить', 'meeting.join': 'Присоединиться', 'meeting.leave': 'Покинуть конференцию', 'meeting.joining': 'Подключение к конференции…', 'meeting.people_unit': 'участников', 'meeting.lecture_mode': 'Режим лекции', 'meeting.discussion_mode': 'Свободное обсуждение', 'meeting.mute': 'Выключить микрофон', 'meeting.unmute': 'Включить микрофон', 'meeting.start_video': 'Включить видео', 'meeting.stop_video': 'Выключить видео', 'meeting.mute_all': 'Выключить микрофоны всем', 'meeting.me': 'Я', 'meeting.more_people': 'Другие участники:', 'meeting.host': 'Ведущий', 'meeting.participants': 'Участники', 'meeting.close': 'Закрыть', 'meeting.connection_failed': 'Не удалось подключиться к серверу конференций',
+  'report.title': 'Пожаловаться на контент', 'report.reason': 'Причина жалобы', 'report.reason_offensive': 'Оскорбительный или неприемлемый контент', 'report.reason_spam': 'Спам или реклама', 'report.reason_harassment': 'Преследование или травля', 'report.reason_violence': 'Насилие или угрозы', 'report.reason_misinformation': 'Недостоверная информация', 'report.reason_other': 'Другое', 'report.detail_placeholder': 'Дополнительные сведения (необязательно)', 'report.submit': 'Отправить жалобу', 'report.success': 'Жалоба отправлена. Мы рассмотрим её в течение 24 часов.', 'report.failed': 'Не удалось отправить жалобу. Повторите попытку.', 'report.report_message': 'Пожаловаться на сообщение', 'report.report_user': 'Пожаловаться на пользователя',
+  'block.user': 'Заблокировать пользователя', 'block.confirm_title': 'Заблокировать этого пользователя?', 'block.confirm_desc': 'Заблокированные пользователи не смогут отправлять вам сообщения. Позже блокировку можно снять.', 'block.success': 'Пользователь заблокирован', 'block.failed': 'Не удалось заблокировать пользователя', 'unblock.user': 'Разблокировать пользователя', 'unblock.success': 'Пользователь разблокирован', 'unblock.failed': 'Не удалось разблокировать пользователя',
   "chat.encryption_send_failed": "Не удалось зашифровать сообщение. Оно не было отправлено.",
   "chat.crypto_downgraded": "постквантовая защита недоступна (понижение уровня)",
   "chat.presentation_title": "Оформление текста и дополнительное шифрование",

@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 import { get, post } from '../api/http'
 import { useStore, Friend, Group, SidebarView } from '../store'
 import { useI18n } from '../hooks/useI18n'
-import { MessageCircle, Users, Compass, User, Search, UserPlus, X } from 'lucide-react'
+import { MessageCircle, Users, User, Search, UserPlus, X } from 'lucide-react'
 
 /* ── Chat List (embedded in sidebar) ─────────────────────────── */
 function ChatList() {
@@ -172,7 +172,6 @@ export default function Sidebar() {
   const navItems: { key: SidebarView; icon: typeof MessageCircle; label: string; badge?: number }[] = [
     { key: 'chats', icon: MessageCircle, label: t('tab.chats'), badge: totalUnread },
     { key: 'contacts', icon: Users, label: t('tab.contacts') },
-    { key: 'discover', icon: Compass, label: t('tab.discover') },
   ]
 
   return (
@@ -195,7 +194,6 @@ export default function Sidebar() {
       {/* Content based on sidebarView */}
       {sidebarView === 'chats' && <ChatList />}
       {sidebarView === 'contacts' && <ContactsInSidebar />}
-      {sidebarView === 'discover' && <DiscoverInSidebar />}
 
       {/* Bottom Navigation */}
       <nav className="sidebar-nav">
@@ -390,32 +388,5 @@ function ContactsInSidebar() {
         )}
       </div>
     </>
-  )
-}
-
-/* ── Placeholder: Discover in sidebar ──────────────────────── */
-function DiscoverInSidebar() {
-  const { t } = useI18n()
-  const setMainView = useStore(s => s.setMainView)
-
-  const items = [
-    { icon: '📸', label: t('discover.moments') || 'Moments', action: () => setMainView('moments') },
-    { icon: '🌐', label: t('discover.timeline') || 'Timeline', action: () => setMainView('timeline') },
-  ]
-
-  return (
-    <div className="sidebar-body">
-      <div className="section-title">{t('tab.discover')}</div>
-      {items.map((item, i) => (
-        <div key={i} className="list-item" onClick={item.action}>
-          <div className="avatar" style={{ background: 'var(--bg-input)', boxShadow: 'none', fontSize: 20 }}>
-            {item.icon}
-          </div>
-          <div className="list-content">
-            <div className="name">{item.label}</div>
-          </div>
-        </div>
-      ))}
-    </div>
   )
 }

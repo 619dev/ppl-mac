@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState, useCallback, ReactNode } from 'react'
 import { useStore } from '../store'
 import { useI18n } from '../hooks/useI18n'
-import { useCallContext } from '../contexts/CallContext'
-import { useGroupCallContext } from '../contexts/GroupCallContext'
 import { get, post, put, uploadFileWithProgress, normalizeFileUrl } from '../api/http'
 import { sendWs, onWs } from '../api/socket'
 import { getKeys } from '../crypto/keystore'
@@ -10,7 +8,7 @@ import { encryptHybrid, decryptHybrid, inspectHybridProtocol } from '../crypto/r
 import { getPresentationSettings, protectPresentationText, unprotectPresentationText } from '../crypto/presentationCrypto'
 import { getMySenderKey, getSenderKey, generateSenderKey, encryptWithSenderKey, decryptWithSenderKey, distributeSenderKey, storeSenderKey, receiveSenderKey, isSenderKeyDistributed, markSenderKeyDistributed, removeSenderKey } from '../crypto/groupCrypto'
 import { Shield } from 'lucide-react'
-import { ChevronLeft, ChevronDown, Lock, Settings, Timer, ImageIcon, Film, Plus, Mic, Download, Paperclip, AlertTriangle, Clock, Package as PackageIcon, FileText, File as FileIcon, Image as LucideImage, Music, Video, Check, CheckCheck, Phone, VideoIcon, SendHorizonal, Smile, WifiOff, X, ZoomIn, ZoomOut } from 'lucide-react'
+import { ChevronLeft, ChevronDown, Lock, Settings, Timer, ImageIcon, Film, Plus, Mic, Download, Paperclip, AlertTriangle, Clock, Package as PackageIcon, FileText, File as FileIcon, Image as LucideImage, Music, Video, Check, CheckCheck, SendHorizonal, Smile, WifiOff, X, ZoomIn, ZoomOut } from 'lucide-react'
 import StickerMedia from '../components/StickerMedia'
 import { decodeMessagePayload, encodeMessagePayload, type ReplyReference } from '../utils/messagePayload'
 import { cacheSticker, cacheStickerPack } from '../utils/stickerCache'
@@ -321,10 +319,6 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
   const friends = useStore(s => s.friends)
   const groups = useStore(s => s.groups)
   const wsConnected = useStore(s => s.wsConnected)
-
-  // ── WebRTC Call (global context) ──
-  const call = useCallContext()
-  const groupCall = useGroupCallContext()
 
   const [input, setInput] = useState('')
   const [typing, setTyping] = useState(false)
@@ -1321,7 +1315,7 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
                     transition: 'all 0.2s ease'
                   }}
                 >
-                  {mode === 'slow' ? '🐢 ' + (t('call.voice_slow') || '0.8x') : mode === 'fast' ? '🐇 ' + (t('call.voice_fast') || '1.2x') : '🔊 ' + (t('call.voice_normal') || '1.0x')}
+                  {mode === 'slow' ? '🐢 0.8x' : mode === 'fast' ? '🐇 1.2x' : '🔊 1.0x'}
                 </button>
               ))}
             </div>
@@ -1347,26 +1341,6 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
           {isGroup && group?.encrypted && <span style={{ fontSize: 14, opacity: 0.7, color: 'var(--accent)' }} title={t('group.encryption_on')}><Shield size={16} /></span>}
         </h1>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 4, alignItems: 'center' }}>
-          {!isGroup && (
-            <>
-              <button className="icon-btn" title={t('call.voice')}
-                onClick={() => call.startCall(id!, false)}
-                style={{ fontSize: 18 }}><Phone size={18} /></button>
-              <button className="icon-btn" title={t('call.video')}
-                onClick={() => call.startCall(id!, true)}
-                style={{ fontSize: 18 }}><VideoIcon size={18} /></button>
-            </>
-          )}
-          {isGroup && (
-            <>
-              <button className="icon-btn" title={t('call.group_voice') || 'Group Voice Call'}
-                onClick={() => groupCall.startGroupCall(id!, false, group?.name)}
-                style={{ fontSize: 18 }}><Phone size={18} /></button>
-              <button className="icon-btn" title={t('call.group_video') || 'Group Video Call'}
-                onClick={() => groupCall.startGroupCall(id!, true, group?.name)}
-                style={{ fontSize: 18 }}><VideoIcon size={18} /></button>
-            </>
-          )}
           <button className="icon-btn" onClick={() => setShowSettings(true)} style={{ fontSize: 18 }} title={t('chat.settings')}><Settings size={18} /></button>
         </div>
       </div>

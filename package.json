@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "vite",
     "dev:electron": "npm run build:electron && concurrently --kill-others \"vite\" \"wait-on tcp:127.0.0.1:5173 && VITE_DEV_SERVER_URL=http://localhost:5173 electron .\"",
-    "build:electron": "tsc -p tsconfig.electron.json && mv dist-electron/main.js dist-electron/main.cjs && mv dist-electron/preload.js dist-electron/preload.cjs",
+    "build:electron": "tsc -p tsconfig.electron.json && mv dist-electron/main.js dist-electron/main.cjs && mv dist-electron/preload.js dist-electron/preload.cjs && cp electron/package.json dist-electron/package.json",
     "build:renderer": "vite build",
     "build": "npm run build:electron && npm run build:renderer",
     "build:mac": "npm run build && electron-builder --mac && npm run verify:mac",
@@ -24,7 +24,6 @@
     "electron-store": "^10.0.0",
     "jsqr": "^1.4.0",
     "libsodium-wrappers-sumo": "^0.7.15",
-    "livekit-client": "^2.20.2",
     "lottie-web": "^5.13.0",
     "lucide-react": "^1.8.0",
     "pako": "^2.1.0",

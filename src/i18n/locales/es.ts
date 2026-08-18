@@ -10,7 +10,7 @@ export const es: Record<string, string> = {
   'auth.server_url_placeholder': 'URL del servidor (https://...)',
   'security.local_keys': 'Claves almacenadas localmente', 'security.e2e': 'Cifrado de extremo a extremo', 'security.forward': 'Secreto hacia adelante', 'security.quantum': 'Resistente a computación cuántica',
 
-  'tab.chats': 'Chats', 'tab.contacts': 'Contactos', 'tab.discover': 'Descubrir', 'tab.profile': 'Perfil',
+  'tab.chats': 'Chats', 'tab.contacts': 'Contactos', 'tab.profile': 'Perfil',
 
   'chats.title': 'Chats', 'chats.search': 'Buscar chats...', 'chats.empty': 'Sin chats',
   'chats.empty_hint': 'Agrega amigos para empezar', 'chats.image': '[Imagen]',
@@ -41,7 +41,6 @@ export const es: Record<string, string> = {
   'group.uploading_avatar': 'Subiendo avatar del grupo...', 'group.disband_confirm': '¿Estás seguro de disolver este grupo? No se puede deshacer.', 'group.leave_confirm': '¿Estás seguro de abandonar este grupo?',
   'group.qr_code': 'Código QR del grupo', 'group.qr_expire_1w': '1 semana', 'group.qr_expire_1m': '1 mes', 'group.qr_expire_3m': '3 meses', 'group.qr_hint': 'Escanea el código QR para unirte al grupo. El enlace expira después del período seleccionado.',
   'group.invite_friends': 'Invitar amigos', 'group.select_friends': 'Seleccionar amigos', 'group.invite_success': 'Invitación enviada', 'group.no_friends_to_invite': 'Todos tus amigos ya están en este grupo',
-  'group.voice_call': 'Llamada de voz grupal', 'group.video_call': 'Videollamada grupal',
   'group.encryption': 'Modo de cifrado', 'group.encryption_on': 'Cifrado de extremo a extremo activado', 'group.encryption_off': 'Sin cifrar',
   'group.encryption_switch_confirm': 'Cambiar el modo de cifrado eliminará todo el historial de chat. ¿Continuar?',
   'group.encryption_bot_warning': 'Una vez activado el cifrado en un grupo, los bots ya no se pueden usar. Desactive el cifrado para volver a usar bots.',
@@ -51,18 +50,9 @@ export const es: Record<string, string> = {
   'group.distributing_keys': 'Distribuyendo claves de cifrado...',
   'group.owner_only_encryption': 'Solo el propietario del grupo puede cambiar el cifrado',
 
-  'discover.title': 'Descubrir', 'discover.moments': 'Momentos', 'discover.timeline': 'Timeline',
-  'discover.scan': 'Escanear QR', 'discover.scan_result': 'Resultado del escaneo', 'discover.invite_expired': 'El enlace de invitación ha caducado o es inválido',
 
-  'moments.title': 'Momentos', 'moments.post': 'Publicar', 'moments.like': 'Me gusta',
-  'moments.comment': 'Comentar', 'moments.write_comment': 'Escribir un comentario...',
-  'moments.new_post': 'Nueva publicación', 'moments.write_something': 'Comparte tus pensamientos...', 'moments.visibility': 'Visibilidad',
-  'moments.public': 'Todos', 'moments.whitelist': 'Solo seleccionados', 'moments.blacklist': 'Todos excepto',
-  'moments.select_scope': 'Seleccionar alcance', 'moments.add_images': 'Añadir imágenes', 'moments.add_video': 'Añadir vídeo', 'moments.empty': 'Sin publicaciones aún', 'moments.text_too_long': 'Texto limitado a 1024 caracteres', 'moments.video_too_long': 'Vídeo limitado a 10 minutos', 'moments.upload_failed': 'Error al subir', 'moments.publish_failed': 'Error al publicar',
 
-  'timeline.title': 'Timeline', 'timeline.post': 'Publicar', 'timeline.anonymous': 'Anónimo',
-  'timeline.new_post': 'Nueva publicación', 'timeline.write_something': 'Comparte tus pensamientos...', 'timeline.empty': 'Sin publicaciones aún', 'timeline.detail': 'Detalle', 'timeline.comments': 'Comentarios', 'timeline.write_comment': 'Escribir un comentario...', 'timeline.add_images': 'Añadir imágenes', 'timeline.add_video': 'Añadir vídeo', 'timeline.posting_anonymous': 'Publicar anónimamente', 'timeline.posting_public': 'Publicar públicamente', 'timeline.anon_desc': 'Tu identidad permanecerá oculta', 'timeline.public_desc': 'Tu nombre y avatar serán visibles', 'timeline.text_too_long': 'Texto limitado a 2048 caracteres', 'timeline.video_too_long': 'Vídeo limitado a 10 minutos', 'timeline.upload_failed': 'Error al subir', 'timeline.publish_failed': 'Error al publicar',
-  'friend.remark': 'Nota de amigo', 'friend.remark_placeholder': 'Establecer nombre', 'friend.no_remark': 'Sin nota', 'friend.original_name': 'Nombre original', 'friend.privacy': 'Privacidad de momentos', 'friend.hide_their_moments': 'Ocultar sus momentos', 'friend.hide_my_moments': 'No mostrar los míos', 'friend.latest_moments': 'Momentos recientes', 'friend.no_moments': 'Sin momentos aún', 'friend.has_video': 'Contiene vídeo',
+  'friend.remark': 'Nota de amigo', 'friend.remark_placeholder': 'Establecer nombre', 'friend.no_remark': 'Sin nota', 'friend.original_name': 'Nombre original',
   'contacts.online': 'En línea', 'contacts.offline': 'Desconectado',
 
   'profile.title': 'Configuración', 'profile.account': 'Cuenta', 'profile.security': 'Seguridad',
@@ -74,13 +64,6 @@ export const es: Record<string, string> = {
   'ntfy.title': 'ntfy Push (Android China)', 'ntfy.description': 'Si tu teléfono Android no es compatible con los servicios de Google (Huawei, etc.), puedes recibir notificaciones push a través de ntfy.', 'ntfy.step1': '1. Instala la app ntfy desde tu tienda de aplicaciones', 'ntfy.step2': '2. En la app ntfy, toca + y suscríbete a este tema:', 'ntfy.step3': '3. Toca el botón de abajo para registrarte', 'ntfy.register': 'Registrar push', 'ntfy.registered': '✅ Registrado', 'ntfy.copy_topic': 'Copiar tema', 'ntfy.copied': 'Copiado', 'ntfy.download_ntfy': 'Descargar ntfy', 'ntfy.register_failed': 'Registro fallido, inténtalo de nuevo',
   'pwa.install_title': 'Añadir a pantalla', 'pwa.install_step1': '1. Toca el botón Compartir ⬆️ en Safari', 'pwa.install_step2': '2. Desplázate y toca "Añadir a pantalla de inicio"', 'pwa.install_step3': '3. Toca "Añadir" en la esquina superior derecha',
 
-  'call.incoming': 'Llamada entrante', 'call.outgoing': 'Llamando...', 'call.connected': 'Conectado',
-  'call.ended': 'Llamada finalizada', 'call.video': 'Videollamada', 'call.voice': 'Llamada de voz',
-  'call.accept': 'Aceptar', 'call.reject': 'Rechazar', 'call.hangup': 'Colgar',
-  'call.mute': 'Silenciar', 'call.camera': 'Cámara',
-  'call.group_incoming': 'Invitación a llamada grupal', 'call.group_voice': 'Llamada de voz grupal', 'call.group_video': 'Videollamada grupal',
-  'call.participants': 'participantes', 'call.joining': 'Uniendo...', 'call.group_ended': 'Llamada grupal finalizada',
-  'call.voice_change': 'Voz', 'call.voice_slow': 'Lento 0.8x', 'call.voice_normal': 'Normal', 'call.voice_fast': 'Rápido 1.2x',
 
   'common.ok': 'Aceptar', 'common.cancel': 'Cancelar', 'common.save': 'Guardar', 'common.delete': 'Eliminar',
   'common.edit': 'Editar', 'common.loading': 'Cargando...', 'common.error': 'Error',
@@ -100,7 +83,7 @@ export const es: Record<string, string> = {
   'profile.appearance': 'Apariencia',
   'fingerprint.title': 'Huella de clave', 'fingerprint.identity_key': 'Huella de clave de identidad', 'fingerprint.my_key_title': 'Mi clave de identidad', 'fingerprint.my_key_subtitle': 'Huella de mi clave de identidad', 'fingerprint.my_key_desc': 'Esta es la huella de su clave de identidad. Para verificar el cifrado con un contacto, abra su perfil y compruebe el «número de seguridad».', 'fingerprint.my_key_verify_hint': 'Para verificar el cifrado de extremo a extremo, abra el perfil de su contacto → toque «Verificar cifrado» y compare el número de seguridad en persona.', 'fingerprint.description': 'Compare esta huella con su contacto en persona para verificar que su comunicación no está siendo interceptada por un tercero.', 'fingerprint.copy': 'Copiar', 'fingerprint.copied': 'Copiado', 'fingerprint.how_to_verify': '¿Cómo verificar?', 'fingerprint.verify_steps': 'Reúnase con su contacto en persona y compare las huellas. Abra Configuración → Huella de clave y verifique que cada línea coincida.',
   'safety.title': 'Cifrado', 'safety.verify_encryption': 'Verificar cifrado', 'safety.description': 'Si usted y su contacto ven el mismo número de seguridad, su comunicación cifrada de extremo a extremo es segura y no ha sido interceptada.', 'safety.how_to_verify': '¿Cómo verificar?', 'safety.verify_steps': 'Reúnase con su contacto en persona (o use otro canal de confianza). Abran mutuamente sus perfiles, toquen «Verificar cifrado» y comparen el número de seguridad línea por línea. Si coinciden, su cifrado es seguro.',
-  'notification.new_message': 'Nuevo mensaje', 'notification.incoming_call': 'Llamada de voz entrante', 'notification.incoming_video_call': 'Videollamada entrante', 'notification.image': '[Imagen]', 'notification.voice': '[Voz]', 'notification.file': '[Archivo]', 'notification.video': '[Video]', 'notification.sticker': '[Sticker]',
+  'notification.new_message': 'Nuevo mensaje', 'notification.image': '[Imagen]', 'notification.voice': '[Voz]', 'notification.file': '[Archivo]', 'notification.video': '[Video]', 'notification.sticker': '[Sticker]',
   'privacy.title': 'Política de privacidad', 'privacy.hero_title': 'Su privacidad es importante', 'privacy.hero_subtitle': 'Nos comprometemos a proteger su información personal y la seguridad de sus comunicaciones', 'privacy.last_updated': 'Última actualización',
 
   // Proxy
@@ -141,15 +124,14 @@ export const es: Record<string, string> = {
 
   // Delete Account
   'profile.delete_account': 'Eliminar cuenta',
-  'profile.delete_warning': 'Esta acción no se puede deshacer. Al eliminar tu cuenta, se borrarán permanentemente todos tus datos, incluyendo mensajes, contactos y momentos. Estos datos no se pueden recuperar.',
+  'profile.delete_warning': 'Esta acción no se puede deshacer. Al eliminar tu cuenta, se borrarán permanentemente todos tus datos, incluyendo mensajes y contactos. Estos datos no se pueden recuperar.',
   'profile.delete_confirm': 'Eliminar cuenta',
   'profile.delete_enter_password': 'Ingresa tu contraseña para confirmar',
   'profile.delete_need_password': 'Por favor ingresa tu contraseña',
-  'chat.ws_disconnected': 'Conexión perdida, reconectando...', 'group.name_hint': 'Ingresa el nombre del grupo', 'profile.push_blocked': 'Las notificaciones están bloqueadas. Actívalas en la configuración del navegador.', 'profile.push_failed': 'No se pudieron activar las notificaciones. Consulta la consola para más detalles.', 'call.connecting': 'Conectando...',
+  'chat.ws_disconnected': 'Conexión perdida, reconectando...', 'group.name_hint': 'Ingresa el nombre del grupo', 'profile.push_blocked': 'Las notificaciones están bloqueadas. Actívalas en la configuración del navegador.', 'profile.push_failed': 'No se pudieron activar las notificaciones. Consulta la consola para más detalles.',
   'terms.title': 'Términos de uso', 'terms.agree_prefix': 'He leído y acepto los', 'terms.agree_link': 'Términos de uso', 'terms.must_agree': 'Debes aceptar los Términos de uso para continuar', 'terms.hero_title': 'Términos de uso', 'terms.hero_subtitle': 'Lee atentamente estos términos antes de usar PaperPhoneLite',
-  'report.title': 'Reportar contenido', 'report.reason': 'Motivo del reporte', 'report.reason_offensive': 'Contenido ofensivo o inapropiado', 'report.reason_spam': 'Spam o publicidad', 'report.reason_harassment': 'Acoso o intimidación', 'report.reason_violence': 'Violencia o amenazas', 'report.reason_misinformation': 'Información falsa', 'report.reason_other': 'Otro', 'report.detail_placeholder': 'Detalles adicionales (opcional)', 'report.submit': 'Enviar reporte', 'report.success': 'Reporte enviado. Lo revisaremos en un plazo de 24 horas.', 'report.failed': 'No se pudo enviar el reporte. Inténtalo de nuevo.', 'report.report_post': 'Reportar publicación', 'report.report_message': 'Reportar mensaje', 'report.report_user': 'Reportar usuario',
-  'block.user': 'Bloquear usuario', 'block.confirm_title': '¿Bloquear a este usuario?', 'block.confirm_desc': 'Los usuarios bloqueados no podrán enviarte mensajes. Su contenido se eliminará de tu feed. Podrás desbloquearlos más tarde.', 'block.success': 'Usuario bloqueado', 'block.failed': 'No se pudo bloquear al usuario', 'unblock.user': 'Desbloquear usuario', 'unblock.success': 'Usuario desbloqueado', 'unblock.failed': 'No se pudo desbloquear al usuario',
-  'meeting.video_title': 'Videoconferencia grupal', 'meeting.voice_title': 'Conferencia de voz grupal', 'meeting.video': 'videoconferencia', 'meeting.voice': 'conferencia de voz', 'meeting.invites_you': 'te invita a una', 'meeting.reject': 'Rechazar', 'meeting.join': 'Unirse', 'meeting.leave': 'Salir de la reunión', 'meeting.joining': 'Entrando a la reunión…', 'meeting.people_unit': 'personas', 'meeting.lecture_mode': 'Modo presentación', 'meeting.discussion_mode': 'Debate libre', 'meeting.mute': 'Silenciar', 'meeting.unmute': 'Activar micrófono', 'meeting.start_video': 'Iniciar vídeo', 'meeting.stop_video': 'Detener vídeo', 'meeting.mute_all': 'Silenciar a todos', 'meeting.me': 'Yo', 'meeting.more_people': 'Más participantes:', 'meeting.host': 'Anfitrión', 'meeting.participants': 'Participantes', 'meeting.close': 'Cerrar', 'meeting.connection_failed': 'No se puede conectar al servidor de reuniones',
+  'report.title': 'Reportar contenido', 'report.reason': 'Motivo del reporte', 'report.reason_offensive': 'Contenido ofensivo o inapropiado', 'report.reason_spam': 'Spam o publicidad', 'report.reason_harassment': 'Acoso o intimidación', 'report.reason_violence': 'Violencia o amenazas', 'report.reason_misinformation': 'Información falsa', 'report.reason_other': 'Otro', 'report.detail_placeholder': 'Detalles adicionales (opcional)', 'report.submit': 'Enviar reporte', 'report.success': 'Reporte enviado. Lo revisaremos en un plazo de 24 horas.', 'report.failed': 'No se pudo enviar el reporte. Inténtalo de nuevo.', 'report.report_message': 'Reportar mensaje', 'report.report_user': 'Reportar usuario',
+  'block.user': 'Bloquear usuario', 'block.confirm_title': '¿Bloquear a este usuario?', 'block.confirm_desc': 'Los usuarios bloqueados no podrán enviarte mensajes. Podrás desbloquearlos más tarde.', 'block.success': 'Usuario bloqueado', 'block.failed': 'No se pudo bloquear al usuario', 'unblock.user': 'Desbloquear usuario', 'unblock.success': 'Usuario desbloqueado', 'unblock.failed': 'No se pudo desbloquear al usuario',
   "chat.encryption_send_failed": "El cifrado falló. El mensaje no se envió.",
   "chat.crypto_downgraded": "protección poscuántica no disponible (modo degradado)",
   "chat.presentation_title": "Aspecto del texto y cifrado adicional",

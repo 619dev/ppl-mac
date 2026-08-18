@@ -162,7 +162,7 @@ export interface ProxyConfig {
   password: string
 }
 
-export type SidebarView = 'chats' | 'contacts' | 'discover'
+export type SidebarView = 'chats' | 'contacts'
 
 interface AppStore {
   // Server URL
@@ -197,12 +197,12 @@ interface AppStore {
   activeChatIsGroup: boolean
   sidebarView: SidebarView
   sidebarWidth: number
-  mainView: 'chat' | 'profile' | 'userProfile' | 'groupInfo' | 'moments' | 'timeline' | 'privacy' | 'terms' | null
+  mainView: 'chat' | 'profile' | 'userProfile' | 'groupInfo' | 'privacy' | 'terms' | null
   mainViewId: string | null
   setActiveChat: (id: string | null, isGroup?: boolean) => void
   setSidebarView: (view: SidebarView) => void
   setSidebarWidth: (w: number) => void
-  setMainView: (view: 'chat' | 'profile' | 'userProfile' | 'groupInfo' | 'moments' | 'timeline' | 'privacy' | 'terms' | null, id?: string | null) => void
+  setMainView: (view: 'chat' | 'profile' | 'userProfile' | 'groupInfo' | 'privacy' | 'terms' | null, id?: string | null) => void
 
   // Friends
   friends: Friend[]

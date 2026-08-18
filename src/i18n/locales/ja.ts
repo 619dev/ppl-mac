@@ -9,7 +9,7 @@ export const ja: Record<string, string> = {
   'auth.server_url_placeholder': 'サーバーURL (https://...)',
   'security.local_keys': '鍵はローカルに保存', 'security.e2e': 'エンドツーエンド暗号化', 'security.forward': '前方秘匿性', 'security.quantum': '耐量子暗号化',
 
-  'tab.chats': 'チャット', 'tab.contacts': '連絡先', 'tab.discover': '発見', 'tab.profile': 'プロフィール',
+  'tab.chats': 'チャット', 'tab.contacts': '連絡先', 'tab.profile': 'プロフィール',
 
   'chats.title': 'チャット', 'chats.search': 'チャットを検索...', 'chats.empty': 'チャットがありません',
   'chats.empty_hint': '友達を追加して会話を始めましょう', 'chats.image': '[画像]', 'chats.file': '[ファイル]',
@@ -39,7 +39,6 @@ export const ja: Record<string, string> = {
   'group.uploading_avatar': 'グループアイコンをアップロード中...', 'group.disband_confirm': 'このグループを解散しますか？元に戻せません。', 'group.leave_confirm': 'このグループを退出しますか？',
   'group.qr_code': 'グループQRコード', 'group.qr_expire_1w': '1週間', 'group.qr_expire_1m': '1ヶ月', 'group.qr_expire_3m': '3ヶ月', 'group.qr_hint': 'QRコードをスキャンしてグループに参加。リンクは選択した期間後に有効期限切れ',
   'group.invite_friends': '友達を招待', 'group.select_friends': '友達を選択', 'group.invite_success': '招待しました', 'group.no_friends_to_invite': '全ての友達が既にグループに参加しています',
-  'group.voice_call': 'グループ音声通話', 'group.video_call': 'グループビデオ通話',
   'group.encryption': '暗号化モード', 'group.encryption_on': 'エンドツーエンド暗号化が有効', 'group.encryption_off': '暗号化なし',
   'group.encryption_switch_confirm': '暗号化モードを切り替えると、すべてのチャット履歴が削除されます。続行しますか？',
   'group.encryption_bot_warning': 'グループで暗号化を有効にすると、ボットは使用できなくなります。ボットを再び使用するには、暗号化を無効にしてください。',
@@ -49,18 +48,9 @@ export const ja: Record<string, string> = {
   'group.distributing_keys': '暗号化キーを配布中...',
   'group.owner_only_encryption': 'グループオーナーのみが暗号化を切り替えられます',
 
-  'discover.title': '発見', 'discover.moments': 'モーメンツ', 'discover.timeline': 'タイムライン',
-  'discover.scan': 'QRスキャン', 'discover.scan_result': 'スキャン結果', 'discover.invite_expired': '招待リンクは期限切れまたは無効です',
 
-  'moments.title': 'モーメンツ', 'moments.post': '投稿', 'moments.like': 'いいね',
-  'moments.comment': 'コメント', 'moments.write_comment': 'コメントを書く...',
-  'moments.new_post': '新しい投稿', 'moments.write_something': '今何を考えていますか...', 'moments.visibility': '公開範囲',
-  'moments.public': '全員に公開', 'moments.whitelist': '選択した人のみ', 'moments.blacklist': '一部を除く全員',
-  'moments.select_scope': '範囲を選択', 'moments.add_images': '画像を追加', 'moments.add_video': '動画を追加', 'moments.empty': 'まだ投稿がありません', 'moments.text_too_long': 'テキストは1024文字までです', 'moments.video_too_long': '動画は10分までです', 'moments.upload_failed': 'アップロード失敗', 'moments.publish_failed': '投稿失敗',
 
-  'timeline.title': 'タイムライン', 'timeline.post': '投稿', 'timeline.anonymous': '匿名',
-  'timeline.new_post': '新しい投稿', 'timeline.write_something': '考えを共有...', 'timeline.empty': 'まだ投稿がありません', 'timeline.detail': '投稿詳細', 'timeline.comments': 'コメント', 'timeline.write_comment': 'コメントを書く...', 'timeline.add_images': '画像を追加', 'timeline.add_video': '動画を追加', 'timeline.posting_anonymous': '匿名で投稿', 'timeline.posting_public': '公開投稿', 'timeline.anon_desc': '他の人にはあなたの身元が見えません', 'timeline.public_desc': 'ニックネームとアバターが表示されます', 'timeline.text_too_long': 'テキストは2048文字までです', 'timeline.video_too_long': '動画は10分までです', 'timeline.upload_failed': 'アップロード失敗', 'timeline.publish_failed': '投稿失敗',
-  'friend.remark': '友達のメモ名', 'friend.remark_placeholder': 'メモ名を設定', 'friend.no_remark': 'メモなし', 'friend.original_name': '元の名前', 'friend.privacy': 'モーメンツ権限', 'friend.hide_their_moments': '相手のモーメンツを非表示', 'friend.hide_my_moments': '自分のモーメンツを非表示', 'friend.latest_moments': '最新モーメンツ', 'friend.no_moments': 'まだモーメンツがありません', 'friend.has_video': '動画あり',
+  'friend.remark': '友達のメモ名', 'friend.remark_placeholder': 'メモ名を設定', 'friend.no_remark': 'メモなし', 'friend.original_name': '元の名前',
   'contacts.online': 'オンライン', 'contacts.offline': 'オフライン',
 
   'profile.title': '設定', 'profile.account': 'アカウント', 'profile.security': 'セキュリティ',
@@ -71,13 +61,6 @@ export const ja: Record<string, string> = {
   'ntfy.title': 'ntfy プッシュ（中国Android）', 'ntfy.description': 'お使いのAndroid端末がGoogleサービスに対応していない場合（Huaweiなど）、ntfyでプッシュ通知を受信できます。', 'ntfy.step1': '1. アプリストアからntfyアプリをインストール', 'ntfy.step2': '2. ntfyアプリで＋をタップし、以下のトピックを購読：', 'ntfy.step3': '3. 下のボタンをタップして登録', 'ntfy.register': 'プッシュ登録', 'ntfy.registered': '✅ 登録済み', 'ntfy.copy_topic': 'トピックをコピー', 'ntfy.copied': 'コピーしました', 'ntfy.download_ntfy': 'ntfyアプリをダウンロード', 'ntfy.register_failed': '登録に失敗しました。もう一度お試しください',
   'pwa.install_title': 'ホーム画面に追加', 'pwa.install_step1': '1. Safariの共有ボタン ⬆️ をタップ', 'pwa.install_step2': '2.「ホーム画面に追加」をタップ', 'pwa.install_step3': '3. 右上の「追加」をタップ',
 
-  'call.incoming': '着信', 'call.outgoing': '発信中...', 'call.connected': '通話中',
-  'call.ended': '通話終了', 'call.video': 'ビデオ通話', 'call.voice': '音声通話',
-  'call.accept': '応答', 'call.reject': '拒否', 'call.hangup': '終了',
-  'call.mute': 'ミュート', 'call.camera': 'カメラ',
-  'call.group_incoming': 'グループ通話の招待', 'call.group_voice': 'グループ音声通話', 'call.group_video': 'グループビデオ通話',
-  'call.participants': '人の参加者', 'call.joining': '参加中...', 'call.group_ended': 'グループ通話が終了しました',
-  'call.voice_change': 'ボイスチェンジ', 'call.voice_slow': '低速 0.8x', 'call.voice_normal': '通常', 'call.voice_fast': '高速 1.2x',
 
   'common.ok': 'OK', 'common.cancel': 'キャンセル', 'common.save': '保存', 'common.delete': '削除',
   'common.edit': '編集', 'common.loading': '読み込み中...', 'common.error': 'エラー',
@@ -97,7 +80,7 @@ export const ja: Record<string, string> = {
   'profile.appearance': '外観',
   'fingerprint.title': '鍵の指紋', 'fingerprint.identity_key': '身元鍵の指紋', 'fingerprint.my_key_title': '自分の身元鍵', 'fingerprint.my_key_subtitle': '自分の身元鍵の指紋', 'fingerprint.my_key_desc': 'これはあなたの身元鍵の指紋です。連絡先との暗号化を確認するには、相手のプロフィールで「安全番号」を確認してください。', 'fingerprint.my_key_verify_hint': 'エンドツーエンド暗号化を確認するには、連絡先のプロフィール → 「暗号化を確認」をタップし、安全番号を直接比較してください。', 'fingerprint.description': 'この指紋を連絡先と直接比較して、通信が第三者に傍受されていないことを確認してください。', 'fingerprint.copy': 'コピー', 'fingerprint.copied': 'コピーしました', 'fingerprint.how_to_verify': '確認方法', 'fingerprint.verify_steps': '連絡先と直接会って指紋を比較してください。お互いに「設定 → 鍵の指紋」を開き、すべての行が一致することを確認します。',
   'safety.title': '暗号化の確認', 'safety.verify_encryption': '暗号化を確認', 'safety.description': 'あなたと連絡先で同じ安全番号が表示されていれば、エンドツーエンド暗号化は安全で、第三者に傍受されていません。', 'safety.how_to_verify': '確認方法', 'safety.verify_steps': '連絡先と直接会って（または信頼できる別のチャネルで）、お互いのプロフィールを開き、「暗号化を確認」をタップして、安全番号を1行ずつ比較してください。一致していれば暗号化は安全です。',
-  'notification.new_message': '新着メッセージ', 'notification.incoming_call': '音声着信', 'notification.incoming_video_call': 'ビデオ着信', 'notification.image': '[画像]', 'notification.voice': '[音声]', 'notification.file': '[ファイル]', 'notification.video': '[動画]', 'notification.sticker': '[スタンプ]',
+  'notification.new_message': '新着メッセージ', 'notification.image': '[画像]', 'notification.voice': '[音声]', 'notification.file': '[ファイル]', 'notification.video': '[動画]', 'notification.sticker': '[スタンプ]',
   'privacy.title': 'プライバシーポリシー', 'privacy.hero_title': 'あなたのプライバシーを大切に', 'privacy.hero_subtitle': '個人情報と通信の安全を守ることに尽力しています', 'privacy.last_updated': '最終更新',
 
   // Proxy
@@ -138,16 +121,15 @@ export const ja: Record<string, string> = {
 
   // Delete Account
   'profile.delete_account': 'アカウントを削除',
-  'profile.delete_warning': 'この操作は取り消せません。アカウントを削除すると、メッセージ、連絡先、モーメンツを含むすべてのデータが永久に削除され、復元できません。',
+  'profile.delete_warning': 'この操作は取り消せません。アカウントを削除すると、メッセージや連絡先を含むすべてのデータが永久に削除され、復元できません。',
   'profile.delete_confirm': 'アカウントを削除',
   'profile.delete_enter_password': 'パスワードを入力して確認',
   'profile.delete_need_password': 'パスワードを入力してください',
   'chat.ws_disconnected': '接続が切断されました。再接続中...', 'group.name_hint': 'グループ名を入力',
-  'profile.push_blocked': '通知がブロックされています。ブラウザの設定で有効にしてください。', 'profile.push_failed': '通知を有効にできませんでした。詳細はコンソールを確認してください。', 'call.connecting': '接続中...',
+  'profile.push_blocked': '通知がブロックされています。ブラウザの設定で有効にしてください。', 'profile.push_failed': '通知を有効にできませんでした。詳細はコンソールを確認してください。',
   'terms.title': '利用規約', 'terms.agree_prefix': '以下を読み、同意します：', 'terms.agree_link': '利用規約', 'terms.must_agree': '続行するには利用規約への同意が必要です', 'terms.hero_title': '利用規約', 'terms.hero_subtitle': 'PaperPhoneLiteを利用する前に、この規約をよくお読みください',
-  'report.title': 'コンテンツを通報', 'report.reason': '通報理由', 'report.reason_offensive': '攻撃的または不適切なコンテンツ', 'report.reason_spam': 'スパムまたは広告', 'report.reason_harassment': '嫌がらせまたはいじめ', 'report.reason_violence': '暴力または脅迫', 'report.reason_misinformation': '誤情報', 'report.reason_other': 'その他', 'report.detail_placeholder': '追加詳細（任意）', 'report.submit': '通報を送信', 'report.success': '通報を送信しました。24時間以内に確認します。', 'report.failed': '通報の送信に失敗しました。もう一度お試しください。', 'report.report_post': '投稿を通報', 'report.report_message': 'メッセージを通報', 'report.report_user': 'ユーザーを通報',
-  'block.user': 'ユーザーをブロック', 'block.confirm_title': 'このユーザーをブロックしますか？', 'block.confirm_desc': 'ブロックしたユーザーはあなたにメッセージを送信できず、そのコンテンツはフィードから削除されます。後で解除できます。', 'block.success': 'ユーザーをブロックしました', 'block.failed': 'ユーザーのブロックに失敗しました', 'unblock.user': 'ブロックを解除', 'unblock.success': 'ブロックを解除しました', 'unblock.failed': 'ブロック解除に失敗しました',
-  'meeting.video_title': 'グループビデオ会議', 'meeting.voice_title': 'グループ音声会議', 'meeting.video': 'ビデオ会議', 'meeting.voice': '音声会議', 'meeting.invites_you': 'があなたを招待しています：', 'meeting.reject': '拒否', 'meeting.join': '参加', 'meeting.leave': '会議を退出', 'meeting.joining': '会議に参加中…', 'meeting.people_unit': '人', 'meeting.lecture_mode': '講義モード', 'meeting.discussion_mode': '自由討論', 'meeting.mute': 'ミュート', 'meeting.unmute': 'ミュート解除', 'meeting.start_video': 'ビデオを開始', 'meeting.stop_video': 'ビデオを停止', 'meeting.mute_all': '全員をミュート', 'meeting.me': '自分', 'meeting.more_people': 'その他の参加者：', 'meeting.host': 'ホスト', 'meeting.participants': '参加者', 'meeting.close': '閉じる', 'meeting.connection_failed': '会議サーバーに接続できません',
+  'report.title': 'コンテンツを通報', 'report.reason': '通報理由', 'report.reason_offensive': '攻撃的または不適切なコンテンツ', 'report.reason_spam': 'スパムまたは広告', 'report.reason_harassment': '嫌がらせまたはいじめ', 'report.reason_violence': '暴力または脅迫', 'report.reason_misinformation': '誤情報', 'report.reason_other': 'その他', 'report.detail_placeholder': '追加詳細（任意）', 'report.submit': '通報を送信', 'report.success': '通報を送信しました。24時間以内に確認します。', 'report.failed': '通報の送信に失敗しました。もう一度お試しください。', 'report.report_message': 'メッセージを通報', 'report.report_user': 'ユーザーを通報',
+  'block.user': 'ユーザーをブロック', 'block.confirm_title': 'このユーザーをブロックしますか？', 'block.confirm_desc': 'ブロックしたユーザーはあなたにメッセージを送信できず、後で解除できます。', 'block.success': 'ユーザーをブロックしました', 'block.failed': 'ユーザーのブロックに失敗しました', 'unblock.user': 'ブロックを解除', 'unblock.success': 'ブロックを解除しました', 'unblock.failed': 'ブロック解除に失敗しました',
   "chat.encryption_send_failed": "暗号化に失敗したため、メッセージは送信されませんでした。",
   "chat.crypto_downgraded": "耐量子保護を利用できません（ダウングレード）",
   "chat.presentation_title": "文字表現と追加暗号化",

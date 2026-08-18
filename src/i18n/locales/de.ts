@@ -10,7 +10,7 @@ export const de: Record<string, string> = {
   'auth.server_url_placeholder': 'Server-URL (https://...)',
   'security.local_keys': 'Schlüssel lokal gespeichert', 'security.e2e': 'Ende-zu-Ende-Verschlüsselung', 'security.forward': 'Forward Secrecy', 'security.quantum': 'Quantensicher',
 
-  'tab.chats': 'Chats', 'tab.contacts': 'Kontakte', 'tab.discover': 'Entdecken', 'tab.profile': 'Profil',
+  'tab.chats': 'Chats', 'tab.contacts': 'Kontakte', 'tab.profile': 'Profil',
 
   'chats.title': 'Chats', 'chats.search': 'Chats suchen...', 'chats.empty': 'Keine Chats',
   'chats.empty_hint': 'Freunde hinzufügen um zu chatten', 'chats.image': '[Bild]',
@@ -41,7 +41,6 @@ export const de: Record<string, string> = {
   'group.uploading_avatar': 'Gruppenbild wird hochgeladen...', 'group.disband_confirm': 'Sind Sie sicher, dass Sie diese Gruppe auflösen möchten? Dies kann nicht rückgängig gemacht werden.', 'group.leave_confirm': 'Möchten Sie diese Gruppe wirklich verlassen?',
   'group.qr_code': 'Gruppen-QR-Code', 'group.qr_expire_1w': '1 Woche', 'group.qr_expire_1m': '1 Monat', 'group.qr_expire_3m': '3 Monate', 'group.qr_hint': 'QR-Code scannen, um der Gruppe beizutreten. Der Link verfällt nach dem gewählten Zeitraum.',
   'group.invite_friends': 'Freunde einladen', 'group.select_friends': 'Freunde auswählen', 'group.invite_success': 'Erfolgreich eingeladen', 'group.no_friends_to_invite': 'Alle Freunde sind bereits in dieser Gruppe',
-  'group.voice_call': 'Gruppen-Sprachanruf', 'group.video_call': 'Gruppen-Videoanruf',
   'group.encryption': 'Verschlüsselungsmodus', 'group.encryption_on': 'Ende-zu-Ende-Verschlüsselung aktiviert', 'group.encryption_off': 'Unverschlüsselt',
   'group.encryption_switch_confirm': 'Das Umschalten des Verschlüsselungsmodus löscht den gesamten Chatverlauf. Fortfahren?',
   'group.encryption_bot_warning': 'Sobald die Verschlüsselung in einer Gruppe aktiviert ist, können Bots nicht mehr verwendet werden. Deaktivieren Sie die Verschlüsselung, um Bots wieder zu nutzen.',
@@ -51,18 +50,9 @@ export const de: Record<string, string> = {
   'group.distributing_keys': 'Verschlüsselungsschlüssel werden verteilt...',
   'group.owner_only_encryption': 'Nur der Gruppenbesitzer kann die Verschlüsselung umschalten',
 
-  'discover.title': 'Entdecken', 'discover.moments': 'Momente', 'discover.timeline': 'Timeline',
-  'discover.scan': 'QR scannen', 'discover.scan_result': 'Scan-Ergebnis', 'discover.invite_expired': 'Einladungslink ist abgelaufen oder ungültig',
 
-  'moments.title': 'Momente', 'moments.post': 'Posten', 'moments.like': 'Gefällt mir',
-  'moments.comment': 'Kommentar', 'moments.write_comment': 'Kommentar schreiben...',
-  'moments.new_post': 'Neuer Beitrag', 'moments.write_something': 'Teile deine Gedanken...', 'moments.visibility': 'Sichtbarkeit',
-  'moments.public': 'Alle', 'moments.whitelist': 'Nur ausgewählte', 'moments.blacklist': 'Alle außer',
-  'moments.select_scope': 'Bereich wählen', 'moments.add_images': 'Bilder hinzufügen', 'moments.add_video': 'Video hinzufügen', 'moments.empty': 'Noch keine Momente', 'moments.text_too_long': 'Text auf 1024 Zeichen begrenzt', 'moments.video_too_long': 'Video auf 10 Minuten begrenzt', 'moments.upload_failed': 'Upload fehlgeschlagen', 'moments.publish_failed': 'Veröffentlichung fehlgeschlagen',
 
-  'timeline.title': 'Timeline', 'timeline.post': 'Posten', 'timeline.anonymous': 'Anonym',
-  'timeline.new_post': 'Neuer Beitrag', 'timeline.write_something': 'Teile deine Gedanken...', 'timeline.empty': 'Noch keine Beiträge', 'timeline.detail': 'Beitragsdetails', 'timeline.comments': 'Kommentare', 'timeline.write_comment': 'Kommentar schreiben...', 'timeline.add_images': 'Bilder hinzufügen', 'timeline.add_video': 'Video hinzufügen', 'timeline.posting_anonymous': 'Anonym posten', 'timeline.posting_public': 'Öffentlich posten', 'timeline.anon_desc': 'Andere sehen Ihre Identität nicht', 'timeline.public_desc': 'Nickname und Avatar werden angezeigt', 'timeline.text_too_long': 'Text auf 2048 Zeichen begrenzt', 'timeline.video_too_long': 'Video auf 10 Minuten begrenzt', 'timeline.upload_failed': 'Upload fehlgeschlagen', 'timeline.publish_failed': 'Veröffentlichung fehlgeschlagen',
-  'friend.remark': 'Freund-Notiz', 'friend.remark_placeholder': 'Spitzname setzen', 'friend.no_remark': 'Keine Notiz', 'friend.original_name': 'Originalname', 'friend.privacy': 'Momente-Privatsphäre', 'friend.hide_their_moments': 'Momente ausblenden', 'friend.hide_my_moments': 'Meine Momente verbergen', 'friend.latest_moments': 'Neueste Momente', 'friend.no_moments': 'Noch keine Momente', 'friend.has_video': 'Enthält Video',
+  'friend.remark': 'Freund-Notiz', 'friend.remark_placeholder': 'Spitzname setzen', 'friend.no_remark': 'Keine Notiz', 'friend.original_name': 'Originalname',
   'contacts.online': 'Online', 'contacts.offline': 'Offline',
 
   'profile.title': 'Einstellungen', 'profile.account': 'Konto', 'profile.security': 'Sicherheit',
@@ -74,13 +64,6 @@ export const de: Record<string, string> = {
   'ntfy.title': 'ntfy Push (China-Android)', 'ntfy.description': 'Wenn Ihr Android-Gerät keine Google-Dienste unterstützt (Huawei usw.), können Sie Benachrichtigungen über ntfy empfangen.', 'ntfy.step1': '1. Installieren Sie die ntfy-App aus Ihrem App Store', 'ntfy.step2': '2. Tippen Sie in der ntfy-App auf + und abonnieren Sie dieses Thema:', 'ntfy.step3': '3. Tippen Sie auf die Schaltfläche unten, um sich zu registrieren', 'ntfy.register': 'Push registrieren', 'ntfy.registered': '✅ Registriert', 'ntfy.copy_topic': 'Thema kopieren', 'ntfy.copied': 'Kopiert', 'ntfy.download_ntfy': 'ntfy-App herunterladen', 'ntfy.register_failed': 'Registrierung fehlgeschlagen, bitte erneut versuchen',
   'pwa.install_title': 'Zum Startbildschirm', 'pwa.install_step1': '1. Tippen Sie auf die Teilen-Taste ⬆️ in Safari', 'pwa.install_step2': '2. Scrollen und „Zum Home-Bildschirm" tippen', 'pwa.install_step3': '3. Oben rechts „Hinzufügen" tippen',
 
-  'call.incoming': 'Eingehender Anruf', 'call.outgoing': 'Anrufen...', 'call.connected': 'Verbunden',
-  'call.ended': 'Anruf beendet', 'call.video': 'Videoanruf', 'call.voice': 'Sprachanruf',
-  'call.accept': 'Annehmen', 'call.reject': 'Ablehnen', 'call.hangup': 'Auflegen',
-  'call.mute': 'Stumm', 'call.camera': 'Kamera',
-  'call.group_incoming': 'Gruppenanruf-Einladung', 'call.group_voice': 'Gruppen-Sprachanruf', 'call.group_video': 'Gruppen-Videoanruf',
-  'call.participants': 'Teilnehmer', 'call.joining': 'Beitreten...', 'call.group_ended': 'Gruppenanruf beendet',
-  'call.voice_change': 'Stimme', 'call.voice_slow': 'Langsam 0.8x', 'call.voice_normal': 'Normal', 'call.voice_fast': 'Schnell 1.2x',
 
   'common.ok': 'OK', 'common.cancel': 'Abbrechen', 'common.save': 'Speichern', 'common.delete': 'Löschen',
   'common.edit': 'Bearbeiten', 'common.loading': 'Laden...', 'common.error': 'Fehler',
@@ -100,7 +83,7 @@ export const de: Record<string, string> = {
   'profile.appearance': 'Aussehen',
   'fingerprint.title': 'Schlüssel-Fingerabdruck', 'fingerprint.identity_key': 'Identitätsschlüssel-Fingerabdruck', 'fingerprint.my_key_title': 'Mein Identitätsschlüssel', 'fingerprint.my_key_subtitle': 'Fingerabdruck meines Identitätsschlüssels', 'fingerprint.my_key_desc': 'Dies ist der Fingerabdruck Ihres Identitätsschlüssels. Um die Verschlüsselung mit einem Kontakt zu überprüfen, öffnen Sie dessen Profil und prüfen Sie die „Sicherheitsnummer".', 'fingerprint.my_key_verify_hint': 'Um die Ende-zu-Ende-Verschlüsselung zu überprüfen, öffnen Sie das Profil Ihres Kontakts → tippen Sie auf „Verschlüsselung überprüfen" und vergleichen Sie die Sicherheitsnummer persönlich.', 'fingerprint.description': 'Vergleichen Sie diesen Fingerabdruck persönlich mit Ihrem Kontakt, um sicherzustellen, dass Ihre Kommunikation nicht abgefangen wird.', 'fingerprint.copy': 'Kopieren', 'fingerprint.copied': 'Kopiert', 'fingerprint.how_to_verify': 'Wie verifizieren?', 'fingerprint.verify_steps': 'Treffen Sie Ihren Kontakt persönlich und vergleichen Sie die Fingerabdrücke. Öffnen Sie Einstellungen → Schlüssel-Fingerabdruck und prüfen Sie, ob jede Zeile übereinstimmt.',
   'safety.title': 'Verschlüsselung', 'safety.verify_encryption': 'Verschlüsselung überprüfen', 'safety.description': 'Wenn Sie und Ihr Kontakt dieselbe Sicherheitsnummer sehen, ist Ihre Ende-zu-Ende-verschlüsselte Kommunikation sicher und wurde nicht abgefangen.', 'safety.how_to_verify': 'Wie verifizieren?', 'safety.verify_steps': 'Treffen Sie Ihren Kontakt persönlich (oder nutzen Sie einen anderen vertrauenswürdigen Kanal). Öffnen Sie gegenseitig Ihre Profile, tippen Sie auf „Verschlüsselung überprüfen" und vergleichen Sie die Sicherheitsnummer Zeile für Zeile. Stimmen sie überein, ist Ihre Verschlüsselung sicher.',
-  'notification.new_message': 'Neue Nachricht', 'notification.incoming_call': 'Eingehender Sprachanruf', 'notification.incoming_video_call': 'Eingehender Videoanruf', 'notification.image': '[Bild]', 'notification.voice': '[Sprache]', 'notification.file': '[Datei]', 'notification.video': '[Video]', 'notification.sticker': '[Sticker]',
+  'notification.new_message': 'Neue Nachricht', 'notification.image': '[Bild]', 'notification.voice': '[Sprache]', 'notification.file': '[Datei]', 'notification.video': '[Video]', 'notification.sticker': '[Sticker]',
   'privacy.title': 'Datenschutzrichtlinie', 'privacy.hero_title': 'Ihre Privatsphäre ist uns wichtig', 'privacy.hero_subtitle': 'Wir setzen uns für den Schutz Ihrer persönlichen Daten und Kommunikationssicherheit ein', 'privacy.last_updated': 'Zuletzt aktualisiert',
 
   // Proxy
@@ -141,15 +124,14 @@ export const de: Record<string, string> = {
 
   // Delete Account
   'profile.delete_account': 'Konto löschen',
-  'profile.delete_warning': 'Diese Aktion kann nicht rückgängig gemacht werden. Durch das Löschen Ihres Kontos werden alle Ihre Daten dauerhaft gelöscht, einschließlich Nachrichten, Kontakte und Momente. Diese Daten können nicht wiederhergestellt werden.',
+  'profile.delete_warning': 'Diese Aktion kann nicht rückgängig gemacht werden. Durch das Löschen Ihres Kontos werden alle Ihre Daten dauerhaft gelöscht, einschließlich Nachrichten und Kontakte. Diese Daten können nicht wiederhergestellt werden.',
   'profile.delete_confirm': 'Konto löschen',
   'profile.delete_enter_password': 'Passwort zur Bestätigung eingeben',
   'profile.delete_need_password': 'Bitte geben Sie Ihr Passwort ein',
-  'chat.ws_disconnected': 'Verbindung unterbrochen, Wiederverbindung...', 'group.name_hint': 'Gruppennamen eingeben', 'profile.push_blocked': 'Benachrichtigungen sind blockiert. Bitte aktivieren Sie sie in den Browsereinstellungen.', 'profile.push_failed': 'Benachrichtigungen konnten nicht aktiviert werden. Details finden Sie in der Konsole.', 'call.connecting': 'Verbindung wird hergestellt...',
+  'chat.ws_disconnected': 'Verbindung unterbrochen, Wiederverbindung...', 'group.name_hint': 'Gruppennamen eingeben', 'profile.push_blocked': 'Benachrichtigungen sind blockiert. Bitte aktivieren Sie sie in den Browsereinstellungen.', 'profile.push_failed': 'Benachrichtigungen konnten nicht aktiviert werden. Details finden Sie in der Konsole.',
   'terms.title': 'Nutzungsbedingungen', 'terms.agree_prefix': 'Ich habe die folgenden Bedingungen gelesen und stimme ihnen zu:', 'terms.agree_link': 'Nutzungsbedingungen', 'terms.must_agree': 'Sie müssen den Nutzungsbedingungen zustimmen, um fortzufahren', 'terms.hero_title': 'Nutzungsbedingungen', 'terms.hero_subtitle': 'Bitte lesen Sie diese Bedingungen sorgfältig, bevor Sie PaperPhoneLite verwenden',
-  'report.title': 'Inhalt melden', 'report.reason': 'Grund der Meldung', 'report.reason_offensive': 'Anstößiger oder unangemessener Inhalt', 'report.reason_spam': 'Spam oder Werbung', 'report.reason_harassment': 'Belästigung oder Mobbing', 'report.reason_violence': 'Gewalt oder Drohungen', 'report.reason_misinformation': 'Falschinformationen', 'report.reason_other': 'Sonstiges', 'report.detail_placeholder': 'Weitere Details (optional)', 'report.submit': 'Meldung absenden', 'report.success': 'Meldung übermittelt. Wir prüfen sie innerhalb von 24 Stunden.', 'report.failed': 'Meldung konnte nicht gesendet werden. Bitte versuchen Sie es erneut.', 'report.report_post': 'Beitrag melden', 'report.report_message': 'Nachricht melden', 'report.report_user': 'Benutzer melden',
-  'block.user': 'Benutzer blockieren', 'block.confirm_title': 'Diesen Benutzer blockieren?', 'block.confirm_desc': 'Blockierte Benutzer können Ihnen keine Nachrichten senden. Ihre Inhalte werden aus Ihrem Feed entfernt. Sie können die Blockierung später aufheben.', 'block.success': 'Benutzer erfolgreich blockiert', 'block.failed': 'Benutzer konnte nicht blockiert werden', 'unblock.user': 'Benutzer entsperren', 'unblock.success': 'Benutzer entsperrt', 'unblock.failed': 'Benutzer konnte nicht entsperrt werden',
-  'meeting.video_title': 'Gruppen-Videokonferenz', 'meeting.voice_title': 'Gruppen-Audiokonferenz', 'meeting.video': 'Videokonferenz', 'meeting.voice': 'Audiokonferenz', 'meeting.invites_you': 'lädt Sie ein zu einer', 'meeting.reject': 'Ablehnen', 'meeting.join': 'Beitreten', 'meeting.leave': 'Konferenz verlassen', 'meeting.joining': 'Konferenz wird betreten…', 'meeting.people_unit': 'Personen', 'meeting.lecture_mode': 'Vortragsmodus', 'meeting.discussion_mode': 'Freie Diskussion', 'meeting.mute': 'Stummschalten', 'meeting.unmute': 'Stummschaltung aufheben', 'meeting.start_video': 'Video starten', 'meeting.stop_video': 'Video beenden', 'meeting.mute_all': 'Alle stummschalten', 'meeting.me': 'Ich', 'meeting.more_people': 'Weitere Teilnehmer:', 'meeting.host': 'Moderator', 'meeting.participants': 'Teilnehmer', 'meeting.close': 'Schließen', 'meeting.connection_failed': 'Verbindung zum Konferenzserver nicht möglich',
+  'report.title': 'Inhalt melden', 'report.reason': 'Grund der Meldung', 'report.reason_offensive': 'Anstößiger oder unangemessener Inhalt', 'report.reason_spam': 'Spam oder Werbung', 'report.reason_harassment': 'Belästigung oder Mobbing', 'report.reason_violence': 'Gewalt oder Drohungen', 'report.reason_misinformation': 'Falschinformationen', 'report.reason_other': 'Sonstiges', 'report.detail_placeholder': 'Weitere Details (optional)', 'report.submit': 'Meldung absenden', 'report.success': 'Meldung übermittelt. Wir prüfen sie innerhalb von 24 Stunden.', 'report.failed': 'Meldung konnte nicht gesendet werden. Bitte versuchen Sie es erneut.', 'report.report_message': 'Nachricht melden', 'report.report_user': 'Benutzer melden',
+  'block.user': 'Benutzer blockieren', 'block.confirm_title': 'Diesen Benutzer blockieren?', 'block.confirm_desc': 'Blockierte Benutzer können Ihnen keine Nachrichten senden. Sie können die Blockierung später aufheben.', 'block.success': 'Benutzer erfolgreich blockiert', 'block.failed': 'Benutzer konnte nicht blockiert werden', 'unblock.user': 'Benutzer entsperren', 'unblock.success': 'Benutzer entsperrt', 'unblock.failed': 'Benutzer konnte nicht entsperrt werden',
   "chat.encryption_send_failed": "Die Verschlüsselung ist fehlgeschlagen. Die Nachricht wurde nicht gesendet.",
   "chat.crypto_downgraded": "Post-Quanten-Schutz nicht verfügbar (herabgestuft)",
   "chat.presentation_title": "Textdarstellung und Zusatzverschlüsselung",

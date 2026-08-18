@@ -30,12 +30,8 @@ PaperPhoneLite Desktop 是 [PaperPhoneLite](https://github.com/619dev/PaperPhone
 
 ### 💬 即时通讯
 - 私聊 & 群聊，支持文字、图片、视频、文件、语音消息
-- 一对一视频/语音通话
-- 基于 LiveKit SFU 的群组视频会议，支持最高 100 人
-- 视频网格、参会者列表、发言状态及摄像头/静音状态显示
-- 主席全员静音，以及讲课模式与自由讨论模式
-- 朋友圈（Moments）动态发布与浏览
 - 联系人管理、扫码添加好友
+- Lite 版不包含私聊/群聊音视频通话、朋友圈、时间线及“发现”页面
 
 ### 🔐 端对端加密
 - **E2EE（端对端加密）**：所有消息在发送前加密，服务器无法读取
@@ -92,23 +88,6 @@ macOS 客户端内嵌 Tor Project 官方 Tor 与 lyrebird 运行时，同时支�
 
 WebTunnel 获取失败时会尝试上次成功缓存的 bridge；用户也可在登录页查看实时状态并手动重试。
 
-## 🎥 视频会议
-
-1. 进入群聊，点击语音会议或视频会议按钮。
-2. 首次使用时，按 macOS 提示授予麦克风和摄像头权限。
-3. 群主作为会议主席，可以执行全员静音，并在讲课模式与自由讨论模式之间切换。
-4. 讲课模式下，普通参会者默认保持静音；切回自由讨论模式后可自行解除静音。
-
-群组会议及一对一通话均使用 LiveKit SFU。Mac 客户端必须连接到包含 `/api/calls/meeting-token` 和 `/api/calls/direct-token` 接口的新版 PaperPhoneLite 服务端。服务端生产环境需配置：
-
-```text
-LIVEKIT_URL=wss://meeting.example.com
-LIVEKIT_API_KEY=<API key>
-LIVEKIT_API_SECRET=<至少 32 字节的 secret>
-```
-
-LiveKit 与 PaperPhoneLite 服务端必须使用相同的 key 和 secret。生产环境还需开放 TCP 7881 和 UDP 7882；复杂网络环境建议配置 TURN/TLS。
-
 ### 从源码构建
 
 #### 环境要求
@@ -161,9 +140,9 @@ npm run build:mac
 │          Preload (contextBridge)         │
 ├─────────────────────────────────────────┤
 │          Renderer (React 19 + Vite)      │
-│  ┌──────┐ ┌───────┐ ┌──────┐ ┌──────┐ │
-│  │Login │ │ Chats │ │Calls │ │Moments│ │
-│  └──────┘ └───────┘ └──────┘ └──────┘ │
+│       ┌──────┐       ┌──────────┐       │
+│       │Login │       │  Chats   │       │
+│       └──────┘       └──────────┘       │
 │  ┌─────────────────────────────────┐   │
 │  │  Crypto (libsodium + Kyber)     │   │
 │  │  Double Ratchet + E2EE          │   │
@@ -179,7 +158,6 @@ npm run build:mac
 | 前端框架 | React 19 + TypeScript 5.7 |
 | 构建工具 | Vite 6 |
 | 状态管理 | Zustand 5 |
-| 视频会议 | LiveKit Client 2.20（SFU） |
 | 加密 | libsodium-wrappers-sumo + crystals-kyber-js |
 | 打包 | electron-builder |
 | 持久化 | electron-store |
@@ -193,7 +171,6 @@ npm run build:mac
 ├── src/
 │   ├── api/             # HTTP、WebSocket、代理桥接
 │   ├── components/      # UI 组件
-│   ├── contexts/        # React Context（通话等）
 │   ├── crypto/          # E2EE 加密模块
 │   ├── hooks/           # 自定义 Hooks
 │   ├── i18n/            # 国际化
