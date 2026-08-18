@@ -1,0 +1,2 @@
+# Preserve Tor Project runtime files byte-for-byte. Some upstream metadata uses CRLF.
+resources/tor/** -diff -text

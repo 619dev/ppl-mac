@@ -1,0 +1,60 @@
+appId: com.paperphone.plus.desktop
+productName: PaperPhoneLite
+directories:
+  buildResources: build
+  output: release/${version}
+
+files:
+  - dist-electron/**/*
+  - dist/**/*
+
+extraResources:
+  - from: resources/tor
+    to: tor
+
+# Disable auto-update publish (no update server configured)
+publish: null
+
+# macOS
+mac:
+  category: public.app-category.social-networking
+  icon: build/icon.icns
+  # A distributable DMG must never be produced without a valid Developer ID
+  # signature. electron-builder will auto-discover a valid identity from the
+  # keychain, or use CSC_LINK/CSC_KEY_PASSWORD in CI.
+  forceCodeSigning: true
+  target:
+    - target: dmg
+      arch:
+        - universal
+    - target: zip
+      arch:
+        - universal
+  darkModeSupport: true
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+  binaries:
+    - Contents/Resources/tor/darwin-arm64/tor/tor
+    - Contents/Resources/tor/darwin-arm64/tor/libevent-2.1.7.dylib
+    - Contents/Resources/tor/darwin-arm64/tor/pluggable_transports/conjure-client
+    - Contents/Resources/tor/darwin-arm64/tor/pluggable_transports/lyrebird
+    - Contents/Resources/tor/darwin-x64/tor/tor
+    - Contents/Resources/tor/darwin-x64/tor/libevent-2.1.7.dylib
+    - Contents/Resources/tor/darwin-x64/tor/pluggable_transports/conjure-client
+    - Contents/Resources/tor/darwin-x64/tor/pluggable_transports/lyrebird
+  notarize: true
+  extendInfo:
+    NSCameraUsageDescription: PaperPhoneLite 需要访问摄像头以进行视频会议。
+    NSMicrophoneUsageDescription: PaperPhoneLite 需要访问麦克风以进行语音和视频会议。
+
+dmg:
+  artifactName: ${productName}-${version}-macOS.${ext}
+  contents:
+    - x: 130
+      y: 220
+    - x: 410
+      y: 220
+      type: link
+      path: /Applications

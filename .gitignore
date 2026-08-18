@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+dist-electron/
+release/
+
+# Icon intermediate files
+build/icon.iconset/
+
+# TypeScript cache
+tsconfig.tsbuildinfo
+
+# Environment
+.env
+.env.local
+*.local
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+.certs/
