@@ -1,5 +1,17 @@
 # Changelog / 更新日志
 
+## 3.0.13
+
+- Synchronized the shared chat reliability updates from PaperPhoneLite iOS 3.0.13.
+- Prevented rapid duplicate message sends, file uploads, and attachment saves with synchronous operation guards.
+- File messages now show an in-progress clock and disable the active download button while the authenticated attachment is being prepared.
+- Updated the macOS application version to `3.0.13`.
+
+- 同步 PaperPhoneLite iOS 3.0.13 的聊天可靠性更新。
+- 使用同步操作锁防止快速重复发送消息、上传文件和保存附件。
+- 鉴权附件正在准备时，文件消息显示处理中图标并禁用当前下载按钮。
+- macOS 应用版本更新为 `3.0.13`。
+
 ## 3.0.12
 
 - Added authenticated same-origin attachment downloads with one automatic access-token refresh and retry.
