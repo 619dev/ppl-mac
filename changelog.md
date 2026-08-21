@@ -1,5 +1,15 @@
 # Changelog / 更新日志
 
+## 3.0.12
+
+- Added authenticated same-origin attachment downloads with one automatic access-token refresh and retry.
+- File messages now download through the configured PaperPhoneLite server instead of opening onion URLs in the system browser.
+- Added localized download-failure messages and updated the macOS application version to `3.0.12`.
+
+- 新增附件鉴权下载，访问令牌过期时会自动刷新一次并重试，且仅允许当前服务器同源的 `/api/files/` 地址。
+- 文件消息改为通过当前 PaperPhoneLite 服务器下载，不再将 onion 地址交给系统浏览器。
+- 补充多语言下载失败提示，macOS 应用版本更新为 `3.0.12`。
+
 ## 3.0.8
 
 - Embedded the official Tor Project macOS Tor runtime for Apple Silicon and Intel.

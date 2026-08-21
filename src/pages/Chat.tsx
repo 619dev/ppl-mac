@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback, ReactNode } from 'react'
 import { useStore } from '../store'
 import { useI18n } from '../hooks/useI18n'
-import { get, post, put, uploadFileWithProgress, normalizeFileUrl } from '../api/http'
+import { get, post, put, uploadFileWithProgress, normalizeFileUrl, downloadFileFromServer } from '../api/http'
 import { sendWs, onWs } from '../api/socket'
 import { getKeys } from '../crypto/keystore'
 import { encryptHybrid, decryptHybrid, inspectHybridProtocol } from '../crypto/ratchet'
@@ -1151,6 +1151,25 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
     } catch { return null }
   }
 
+  const saveAttachment = async (url: string, requestedName?: string) => {
+    try {
+      const blob = await downloadFileFromServer(url)
+      const fileName = (requestedName || 'attachment').replace(/[\\/:*?"<>|]/g, '_')
+      const objectUrl = URL.createObjectURL(blob)
+      const anchor = document.createElement('a')
+      anchor.href = objectUrl
+      anchor.download = fileName
+      anchor.style.display = 'none'
+      document.body.appendChild(anchor)
+      anchor.click()
+      anchor.remove()
+      window.setTimeout(() => URL.revokeObjectURL(objectUrl), 60_000)
+    } catch (error) {
+      console.error('[Chat] attachment download failed:', error)
+      alert(t('chat.download_failed'))
+    }
+  }
+
   // ── Render message bubble content ──
   const renderBubble = (msg: any, displayText: string, isEncFailed: boolean) => {
     if (isEncFailed) {
@@ -1197,10 +1216,11 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
       if (meta) {
         const icon = getFileIcon(meta.fileType || '')
         return (
-          <a href={normalizeFileUrl(meta.url)} target="_blank" rel="noopener noreferrer"
+          <button type="button" onClick={() => void saveAttachment(meta.url, meta.fileName)}
             style={{
               display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', color: 'inherit',
               padding: 8, borderRadius: 8, background: 'rgba(0,0,0,0.05)', minWidth: 180,
+              border: 'none', width: '100%', cursor: 'pointer', textAlign: 'left',
             }}>
             <span style={{ fontSize: 28 }}>{icon}</span>
             <div style={{ flex: 1, minWidth: 0 }}>
@@ -1210,10 +1230,10 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
               {meta.fileSize && <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{formatFileSize(meta.fileSize)}</div>}
             </div>
             <span style={{ fontSize: 18, color: 'var(--accent)' }}><Download size={18} /></span>
-          </a>
+          </button>
         )
       }
-      return <a href={normalizeFileUrl(displayText)} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: 4 }}><Paperclip size={14} /> {t('chat.file')}</a>
+      return <button type="button" onClick={() => void saveAttachment(displayText)} style={{ color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: 4, border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}><Paperclip size={14} /> {t('chat.file')}</button>
     }
     return displayText
   }
