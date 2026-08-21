@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-3.0.13-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-3.0.17-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -77,8 +77,8 @@ PaperPhoneLite Desktop 是 [PaperPhoneLite](https://github.com/619dev/PaperPhone
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhoneLite-3.0.13-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
-| `PaperPhoneLite-3.0.13-universal-mac.zip` | ZIP 压缩包 |
+| `PaperPhoneLite-3.0.17-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
+| `PaperPhoneLite-3.0.17-universal-mac.zip` | ZIP 压缩包 |
 
 当前安装包同时支持 Intel 和 Apple Silicon Mac，并已使用 Apple Developer ID 证书签名；当前构建尚未装订 Apple 公证票据。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
 

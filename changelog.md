@@ -1,5 +1,15 @@
 # Changelog / 更新日志
 
+## 3.0.17
+
+- Fixed end-to-end message decryption behavior when text appearance is unlocked so messages sent/received after unlock display plaintext instead of appearance-ciphertext.
+- Ensured text-appearance unprotect runs on all desktop message decryption paths (live, history, and retry).
+- Updated all macOS release artifact filenames and footer version displays to `3.0.17`.
+
+- 修复文本外观已解锁状态下的解密问题：解锁后发送/接收消息可正常显示明文，不再停留在外观密文。
+- 确保 macOS 桌面端在实时、历史与重试消息解密流程中都继续执行文本外观反解码。
+- 将 macOS 发布包文件名和页面底部版本显示统一更新为 `3.0.17`。
+
 ## 3.0.16
 
 - Synchronized the shared encryption and recovery fixes from PaperPhoneLite iOS 3.0.16.

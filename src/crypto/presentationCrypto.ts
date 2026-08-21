@@ -9,8 +9,8 @@ const CODEC_MARKERS: Record<PresentationCodecId, string> = {
   buddha: '佛', chinese: '文', yijing: '☷', hangul: '한',
   egyptian: '𓀀', cuneiform: '𒀀', values: '和', alphanumeric: 'A',
 }
-const AAD = new TextEncoder().encode('PaperPhonePlus-presentation-v1')
-const VERIFY_TEXT = 'PaperPhonePlus-presentation-password-check-v1'
+const AAD = new TextEncoder().encode('PaperPhoneLite-presentation-v1')
+const VERIFY_TEXT = 'PaperPhoneLite-presentation-password-check-v1'
 const iterations = 210_000
 let password: string | null = null
 let backgroundAt: number | null = null
