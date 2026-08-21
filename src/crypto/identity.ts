@@ -24,6 +24,40 @@ async function generateIdentityKeys(): Promise<KeyBundle> {
 }
 
 const pendingIdentityLoads = new Map<string, Promise<KeyBundle>>()
+const pendingIdentitySyncs = new Map<string, Promise<boolean>>()
+
+async function publishIdentityKeys(keys: KeyBundle): Promise<void> {
+  await put('/api/users/keys', {
+    ik_pub: keys.ik_pub,
+    spk_pub: keys.spk_pub,
+    spk_sig: keys.spk_sig,
+    kem_pub: keys.sign_pub,
+    prekeys: keys.opks.map(key => ({ key_id: key.key_id, opk_pub: key.pub })),
+  })
+  await post('/api/users/reset-sender-keys', {})
+  clearAllSenderKeys()
+}
+
+/** Reconcile the server public identity with this device's private key. */
+export async function syncIdentityKeysWithServer(accountId: string): Promise<boolean> {
+  const pending = pendingIdentitySyncs.get(accountId)
+  if (pending) return pending
+  const sync = (async () => {
+    const keys = getKeys() || await loadFromIndexedDB(accountId)
+    if (!keys) return false
+    const me = await get('/api/users/me')
+    if (me?.ik_pub === keys.ik_pub) return false
+    await publishIdentityKeys(keys)
+    console.log('[Identity] Server public identity reconciled with local private key')
+    return true
+  })()
+  pendingIdentitySyncs.set(accountId, sync)
+  try {
+    return await sync
+  } finally {
+    if (pendingIdentitySyncs.get(accountId) === sync) pendingIdentitySyncs.delete(accountId)
+  }
+}
 
 /** Restores identity keys, or provisions a replacement identity on a new install. */
 export async function ensureIdentityKeys(accountId: string): Promise<KeyBundle> {
@@ -41,54 +75,15 @@ export async function ensureIdentityKeys(accountId: string): Promise<KeyBundle> 
 
 async function ensureIdentityKeysOnce(accountId: string): Promise<KeyBundle> {
   const existing = getKeys() || await loadFromIndexedDB(accountId)
-  if (existing) {
-    await synchronizeIdentityPublicKeys(existing)
-    return existing
-  }
+  if (existing) return existing
 
   const keys = await generateIdentityKeys()
   await setKeys(keys, accountId)
   try {
-    await put('/api/users/keys', {
-      ik_pub: keys.ik_pub,
-      spk_pub: keys.spk_pub,
-      spk_sig: keys.spk_sig,
-      kem_pub: keys.sign_pub,
-      prekeys: keys.opks.map(key => ({ key_id: key.key_id, opk_pub: key.pub })),
-    })
-    await post('/api/users/reset-sender-keys', {})
-    clearAllSenderKeys()
+    await publishIdentityKeys(keys)
     console.log('[Identity] New identity keys generated, sender keys reset')
   } catch (error) {
     console.warn('[Identity] Identity created locally; server sync will be retried after login:', error)
   }
   return keys
-}
-
-/**
- * The private identity key is device-local, so the matching public key stored
- * by the server must follow it. A previous install/device can otherwise leave
- * the server advertising a stale ik_pub, making every new incoming message
- * impossible to decrypt on this device.
- */
-async function synchronizeIdentityPublicKeys(keys: KeyBundle): Promise<void> {
-  try {
-    const me = await get('/api/users/me')
-    if (me?.ik_pub === keys.ik_pub) return
-
-    console.warn('[Identity] Server identity key is stale; publishing the local public key')
-    await put('/api/users/keys', {
-      ik_pub: keys.ik_pub,
-      spk_pub: keys.spk_pub,
-      spk_sig: keys.spk_sig,
-      kem_pub: keys.sign_pub,
-      prekeys: keys.opks.map(key => ({ key_id: key.key_id, opk_pub: key.pub })),
-    })
-    await post('/api/users/reset-sender-keys', {})
-    clearAllSenderKeys()
-  } catch (error) {
-    // Restoring the local private key must not make an offline startup fail.
-    // The next authenticated startup will retry the consistency check.
-    console.warn('[Identity] Public-key consistency check will be retried:', error)
-  }
 }

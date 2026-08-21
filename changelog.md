@@ -1,5 +1,21 @@
 # Changelog / 更新日志
 
+## 3.0.16
+
+- Synchronized the shared encryption and recovery fixes from PaperPhoneLite iOS 3.0.16.
+- Aligned the private-message v2 hybrid KDF context with Android and iOS for cross-platform decryption.
+- Applied text-appearance decryption after private-chat and Sender Key decryption for live, history, and retried messages.
+- Restored the text-appearance password prompt for persisted sessions without persisting the password.
+- Reconciles the server identity public key with the macOS Keychain-protected private key after startup and network recovery.
+- Updated the macOS application version to `3.0.16`.
+
+- 同步 PaperPhoneLite iOS 3.0.16 的共享加密与网络恢复修复。
+- 对齐 Android、iOS 的私聊 v2 混合加密 KDF 上下文，恢复跨平台消息解密。
+- 实时消息、历史消息和重试消息在私聊 E2EE／群聊 Sender Key 解密后继续解密文本外观层。
+- 已登录会话启动时恢复文本外观密码提示，且仍不持久保存密码。
+- 启动及网络恢复后，自动校准服务器身份公钥与 macOS 钥匙串保护的本地私钥。
+- macOS 应用版本更新为 `3.0.16`。
+
 ## 3.0.13
 
 - Synchronized the shared chat reliability updates from PaperPhoneLite iOS 3.0.13.
