@@ -2,7 +2,7 @@
   "name": "paperphone-lite-desktop",
   "private": true,
   "license": "AGPL-3.0-only",
-  "version": "3.0.17",
+  "version": "3.0.21",
   "repository": {
     "type": "git",
     "url": "https://github.com/619dev/PaperPhoneLite"

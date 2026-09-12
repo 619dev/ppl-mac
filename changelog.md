@@ -1,5 +1,19 @@
 # Changelog / 更新日志
 
+## 3.0.21
+
+- Synchronized the managed file-storage changes from PaperPhoneLite iOS 3.0.21 while preserving the macOS desktop adaptations.
+- Normalized nested `avatar` and `from_avatar` fields in API responses so relative friend, group, and group-message avatar paths resolve against the configured server.
+- User and group avatars now use permanent storage, while ordinary chat attachments remain temporary.
+- Added a rendering-side normalization safeguard for group-message sender avatars.
+- Updated the macOS application version to `3.0.21`.
+
+- 同步 PaperPhoneLite iOS 3.0.21 的托管文件存储更新，同时保留 macOS 桌面端适配。
+- 递归规范化 API 响应中的 `avatar` 与 `from_avatar` 字段，使好友头像、群头像和群聊成员头像的相对路径始终基于当前配置的服务器解析。
+- 用户头像和群头像改用永久存储，普通聊天附件继续使用临时存储。
+- 群聊消息发送者头像在渲染时增加路径规范化兜底。
+- macOS 应用版本更新为 `3.0.21`。
+
 ## 3.0.17
 
 - Fixed end-to-end message decryption behavior when text appearance is unlocked so messages sent/received after unlock display plaintext instead of appearance-ciphertext.
