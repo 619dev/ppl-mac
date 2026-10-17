@@ -1,3 +1,4 @@
+import { securityApiException } from '../i18n/security'
 import { endSession, isExplicitLogoutSignal } from '../utils/session'
 import { useStore } from '../store'
 
@@ -69,7 +70,7 @@ export async function api<T = any>(
   }
 
   if (!res.ok) {
-    throw new Error(data.error || `HTTP ${res.status}`)
+    throw securityApiException(data.error || `HTTP ${res.status}`)
   }
 
   return data as T

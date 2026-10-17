@@ -2,7 +2,7 @@
   "name": "paperphone-lite-desktop",
   "private": true,
   "license": "AGPL-3.0-only",
-  "version": "3.0.21",
+  "version": "3.1.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/619dev/PaperPhoneLite"
@@ -17,7 +17,10 @@
     "build": "npm run build:electron && npm run build:renderer",
     "build:mac": "npm run build && electron-builder --mac && npm run verify:mac",
     "verify:mac": "node scripts/verify-mac-build.cjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:security": "node tests/authenticatedMessaging.test.cjs && node tests/signedGroups.test.cjs && node tests/sync.test.cjs && node tests/nativeCache.test.cjs",
+    "test:i18n": "node tests/securityI18n.test.cjs",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "crystals-kyber-js": "^2.7.0",

@@ -5,8 +5,8 @@ const path = require('node:path')
 const projectDir = path.resolve(__dirname, '..')
 const { version } = require(path.join(projectDir, 'package.json'))
 const releaseDir = path.join(projectDir, 'release', version)
-const appPath = path.join(releaseDir, 'mac-universal', 'PaperPhoneLite.app')
-const dmgPath = path.join(releaseDir, `PaperPhoneLite-${version}-macOS.dmg`)
+const appPath = path.join(releaseDir, 'mac-arm64', 'PaperPhoneLite.app')
+const dmgPath = path.join(releaseDir, `PaperPhoneLite-${version}-macOS-arm64.dmg`)
 
 function run(command, args) {
   console.log(`> ${command} ${args.join(' ')}`)
@@ -38,6 +38,9 @@ if (!fs.existsSync(dmgPath)) {
 }
 
 try {
+  const architecture = run('lipo', ['-archs', path.join(appPath, 'Contents/MacOS/PaperPhoneLite')]).trim()
+  if (architecture !== 'arm64') fail(`expected arm64 executable, got ${architecture}`)
+  if (fs.existsSync(path.join(appPath, 'Contents/Resources/tor/darwin-x64'))) fail('Intel Tor runtime must not be bundled')
   run('codesign', ['--verify', '--deep', '--strict', '--verbose=4', appPath])
 } catch (error) {
   fail('the app bundle has an invalid or incomplete code signature', error)

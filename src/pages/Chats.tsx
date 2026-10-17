@@ -1,3 +1,4 @@
+import IdentityBadge from '../components/IdentityBadge'
 import { useEffect, useState } from 'react'
 import { get } from '../api/http'
 import { useStore, Friend, Group } from '../store'
@@ -64,6 +65,7 @@ export default function Chats() {
   const getPreview = (msg?: any) => {
     if (!msg) return ''
     switch (msg.msg_type) {
+      case 'identity_verification': return t('verify.message')
       case 'image': return t('chats.image')
       case 'file': return t('chats.file')
       case 'voice': return t('chats.voice')
@@ -111,7 +113,7 @@ export default function Chats() {
                 {chat.isOnline && <span className="online-dot" />}
               </div>
               <div className="list-content">
-                <div className="name">{chat.name}</div>
+                <div className="name">{chat.name}{!chat.isGroup && <IdentityBadge id={chat.id} ik={friends.find(f => f.id === chat.id)?.ik_pub} sign={friends.find(f => f.id === chat.id)?.kem_pub} />}</div>
                 <div className="preview">{getPreview(chat.lastMsg)}</div>
               </div>
               <div className="list-meta">

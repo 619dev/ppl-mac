@@ -9,8 +9,8 @@ files:
   - dist/**/*
 
 extraResources:
-  - from: resources/tor
-    to: tor
+  - from: resources/tor/darwin-arm64
+    to: tor/darwin-arm64
 
 # Disable auto-update publish (no update server configured)
 publish: null
@@ -19,7 +19,6 @@ publish: null
 mac:
   category: public.app-category.social-networking
   icon: build/icon.icns
-  x64ArchFiles: Contents/Resources/tor/**
   # A distributable DMG must never be produced without a valid Developer ID
   # signature. electron-builder will auto-discover a valid identity from the
   # keychain, or use CSC_LINK/CSC_KEY_PASSWORD in CI.
@@ -27,10 +26,11 @@ mac:
   target:
     - target: dmg
       arch:
-        - universal
+        - arm64
     - target: zip
       arch:
-        - universal
+        - arm64
+  artifactName: ${productName}-${version}-${arch}-mac.${ext}
   darkModeSupport: true
   hardenedRuntime: true
   gatekeeperAssess: false
@@ -41,16 +41,12 @@ mac:
     - Contents/Resources/tor/darwin-arm64/tor/libevent-2.1.7.dylib
     - Contents/Resources/tor/darwin-arm64/tor/pluggable_transports/conjure-client
     - Contents/Resources/tor/darwin-arm64/tor/pluggable_transports/lyrebird
-    - Contents/Resources/tor/darwin-x64/tor/tor
-    - Contents/Resources/tor/darwin-x64/tor/libevent-2.1.7.dylib
-    - Contents/Resources/tor/darwin-x64/tor/pluggable_transports/conjure-client
-    - Contents/Resources/tor/darwin-x64/tor/pluggable_transports/lyrebird
   notarize: true
   extendInfo:
     NSMicrophoneUsageDescription: PaperPhoneLite 需要访问麦克风以录制语音消息。
 
 dmg:
-  artifactName: ${productName}-${version}-macOS.${ext}
+  artifactName: ${productName}-${version}-macOS-${arch}.${ext}
   contents:
     - x: 130
       y: 220

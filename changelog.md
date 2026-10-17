@@ -1,5 +1,20 @@
 # Changelog / 更新日志
 
+## 3.1.1 — 2026-10-17
+
+- Package only Apple Silicon (arm64), including only the arm64 Tor runtime; update artifact names and architecture verification.
+- 仅打包 Apple Silicon（arm64），包内只保留 arm64 Tor；同步调整产物名称及架构验证。
+
+- Ported shared iOS changes through `c9b22d4` (upstream security baseline `9bf6aaf`): signed private/group messaging, mutual identity verification, key-change notices, trusted-member checks, key rotation and multi-epoch history recovery.
+- Preserved Mac Electron navigation, Tor/WebTunnel, Keychain storage, encrypted caches, notifications and authenticated downloads; removed the Profile proxy entry and subpage.
+- Serialized encrypted cache persistence and await durable writes before sync cursor advancement; discard persisted signature verdicts and isolate account changes.
+- Verified typecheck, security/localization suites, macOS async-cache regressions, and Electron/renderer production build; Developer ID signature is verified separately; no notarization ticket is included and live interoperability remains unverified.
+- Added security/localization regression suites and updated all maintained guides, in-app privacy/terms, version metadata and Profile footer.
+- 同步 iOS 至 `c9b22d4` 的共享更新：私聊/群聊签名、双向身份验证、身份变化提示、可信群成员校验、密钥轮换及跨密钥时期历史恢复。
+- 保留 Mac 桌面导航、Tor/WebTunnel、钥匙串、加密缓存、桌面通知和鉴权下载；移除个人信息页代理入口及子页面。
+- 加密缓存串行落盘后再推进同步游标，清除持久签名校验结果并隔离账号切换。
+- 引入安全与八语言回归测试，更新维护中的说明文档、应用内隐私/条款及版本至 3.1.1。发布仅提供 arm64 Developer ID 签名包，不附 Apple 公证票据；真实服务联调待完成。
+
 ## 3.0.21
 
 - Synchronized the managed file-storage changes from PaperPhoneLite iOS 3.0.21 while preserving the macOS desktop adaptations.

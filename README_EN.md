@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-3.0.21-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-3.1.1-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -15,6 +15,20 @@
 </div>
 
 ---
+
+## 3.1.1 security and compatibility (2026-10-17)
+
+Shared changes were ported from the local iOS repository through `c9b22d4`, including upstream security baseline `9bf6aaf` (3.1.0). Mac retains Electron navigation, embedded Tor/WebTunnel, Keychain-protected keys, encrypted IndexedDB message caches, desktop notifications, and attachment downloads. iOS Bark, APNs, Share Extension, and Capacitor UI are not desktop features.
+
+- Open a contact profile, agree a strong text-appearance password offline, enable and unlock message privacy on both devices, and complete mutual verification and signed receipts. Compare safety numbers through an independent trusted channel. A key change invalidates prior trust and requires verification again; a matching number alone is not an absolute security guarantee.
+- Signed groups verify member identities and key distributions, rotate sender keys with membership changes, and retain historical key epochs for offline recovery. Untrusted identities and invalid signatures block the protected operation rather than silently downgrading it.
+- Use a server compatible with the PaperPhoneLite 3.1.0 signed-message/group APIs and matching clients. Older unsigned clients are not guaranteed to interoperate. Transport metadata remains visible to the server.
+- Signed private messages use X25519, XSalsa20-Poly1305, and Ed25519. Existing hybrid crypto helpers do not mean signed sends use ML-KEM, and the implementation must not be described as Double Ratchet.
+- Message sync paginates until complete and advances its account cursor only after the encrypted cache write completes. Display plaintext and cached signature verdicts are excluded from persistence; signatures are rechecked after restoration.
+
+Development requires Node.js 22+ and npm. From this macOS repository run `npm ci`, `npm run typecheck`, `npm run test:security`, `npm run test:i18n`, and `npm run build`. Use `npm run dev:electron` for the native bridge; browser-only preview cannot access Keychain. `npm run build:mac` additionally requires signing/notarization credentials and packages arm64 DMG/ZIP artifacts under `release/3.1.1/`.
+
+Validation scope: automated crypto/sync/localization tests use network and storage adapters. Live cross-device/server tests, Keychain/Tor runtime checks, and signed/notarized installer verification remain separate release checks. The 3.1.1 release provides arm64 DMG/ZIP artifacts; see the Release notes for signing and notarization status. See [test notes](tests/README.md).
 
 ## 📖 Introduction
 
@@ -35,19 +49,18 @@ The complete release history has moved to [changelog.md](changelog.md).
 
 ### 🔐 End-to-End Encryption
 - **E2EE**: All messages encrypted before sending; the server cannot read them
-- **Forward Secrecy**: Based on the Double Ratchet algorithm, each message uses a unique key
-- **Post-Quantum Encryption**: Integrated CRYSTALS-Kyber for resistance against quantum computing attacks
+- **Message authentication**: Ed25519 signatures bind private messages to their sender, recipient, type, and encrypted payload.
+- **Actual sending path**: X25519 + XSalsa20-Poly1305 + Ed25519; ML-KEM is not enabled in signed sends. This is not a Double Ratchet implementation.
 - **Crypto Library**: libsodium (X25519, XSalsa20-Poly1305, Ed25519)
 
-### 🌐 Network Proxy
-- Supports **SOCKS5**, **HTTP**, and **HTTPS** proxy protocols
-- System-level transparent proxy — all HTTP and WebSocket traffic automatically routed through proxy
-- Multiple proxy profile management with one-click switching
-- Proxy latency testing
-- Persistent configuration, auto-restored on restart
+### 🌐 Tor networking
+- Embedded Tor and WebTunnel for Apple Silicon only
+- Tor starts automatically; login waits for complete bootstrap
+- Electron HTTP and WebSocket traffic uses the local Tor SOCKS listener
+- The Profile proxy entry and subpage have been removed; embedded Tor manages networking
 
 ### 🖥️ Desktop Features
-- macOS Universal Binary (Intel + Apple Silicon)
+- macOS arm64 (Apple Silicon only)
 - Telegram-style desktop layout (left sidebar + right main panel)
 - Draggable sidebar width (280px–480px)
 - Window position & size persistence
@@ -56,7 +69,7 @@ The complete release history has moved to [changelog.md](changelog.md).
 
 ## 🔐 Extra-encrypted text appearance: design and security boundary
 
-This feature is **extra insurance on top of the existing end-to-end encryption (E2EE)**. It does not replace E2EE with a visual encoding, and it never bypasses or weakens the original encryption. Private chats remain protected by the existing X25519 / ML-KEM-768 key agreement and message-encryption path; group chats continue to use the Sender Key protocol. Identity private keys and group Sender Keys remain protected by macOS secure storage.
+This feature is **extra insurance on top of the existing end-to-end encryption (E2EE)**. It does not replace E2EE with a visual encoding, and it never bypasses or weakens the original encryption. Private chats remain protected by the X25519 key agreement, XSalsa20-Poly1305 encryption, and Ed25519 message signatures; group chats continue to use the Sender Key protocol. Identity private keys and group Sender Keys remain protected by macOS secure storage.
 
 When enabled, every message is processed in this order:
 
@@ -73,18 +86,18 @@ The app does not persist the extra password. While unlocked it exists only in th
 
 ### Download from Releases
 
-Go to the [Releases](../../releases) page and download the installer:
+Published installers are available on the [Releases](../../releases) page. The following are the expected filenames when packaging 3.1.1 locally; updating source does not publish these artifacts:
 
 | File | Description |
 |------|-------------|
-| `PaperPhoneLite-3.0.21-macOS.dmg` | Recommended Universal DMG installer |
-| `PaperPhoneLite-3.0.21-universal-mac.zip` | ZIP archive |
+| `PaperPhoneLite-3.1.1-macOS-arm64.dmg` | Recommended arm64 DMG installer |
+| `PaperPhoneLite-3.1.1-arm64-mac.zip` | ZIP archive |
 
-The installer supports both Intel and Apple Silicon Macs and is signed with an Apple Developer ID certificate. This build does not yet have an Apple notarization ticket stapled to it. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
+The 3.1.1 packaging configuration targets Apple Silicon (arm64) only, requires Developer ID signing, and enables notarization. A source build alone does not prove that a release has been signed or notarized. Validate the produced artifacts with `npm run verify:mac`.
 
 ## 🧅 Embedded Tor and WebTunnel
 
-The macOS client embeds the official Tor Project Tor and lyrebird runtimes for both Apple Silicon and Intel. It starts Tor automatically and switches Electron networking to the local SOCKS5 listener. If direct bootstrap has not completed within 20 seconds, it fetches and validates a WebTunnel bridge from Tor Project Moat, caches a valid bridge, and restarts Tor. Authentication remains disabled until Tor reaches 100% bootstrap, with no clearnet fallback for `.onion` requests.
+The macOS client embeds the official Tor Project Tor and lyrebird runtimes for Apple Silicon in the 3.1.1 release. It starts Tor automatically and switches Electron networking to the local SOCKS5 listener. If direct bootstrap has not completed within 20 seconds, it fetches and validates a WebTunnel bridge from Tor Project Moat, caches a valid bridge, and restarts Tor. Authentication remains disabled until Tor reaches 100% bootstrap, with no clearnet fallback for `.onion` requests.
 
 If Moat is temporarily unavailable, the client tries the last successfully cached bridge. The login screen displays live bootstrap status and provides manual retry.
 
@@ -92,19 +105,18 @@ If Moat is temporarily unavailable, the client tries the last successfully cache
 
 #### Prerequisites
 
-- Node.js >= 18
+- Node.js >= 22
 - npm >= 9
 - macOS system
 
 #### Steps
 
 ```bash
-# Clone the new shared upstream; its frontend lives in client/
-git clone https://github.com/619dev/PaperPhoneLite.git
-cd PaperPhoneLite/client
+# Use this macOS repository (the shared upstream client has no Electron packaging)
+cd /path/to/ppl-mac
 
 # Install dependencies
-npm install
+npm ci
 
 # Development mode (Vite HMR + Electron)
 npm run dev:electron
@@ -116,15 +128,9 @@ npm run build
 npm run build:mac
 ```
 
-## 🔧 Proxy Configuration
+## 🔧 Network operation
 
-1. Open the app and go to the login page
-2. Tap the proxy settings icon
-3. Add a proxy node (SOCKS5 / HTTP / HTTPS)
-4. Enter host, port, username (optional), and password (optional)
-5. Activate the proxy and test the connection
-
-The proxy is implemented via Electron's `session.setProxy()` API, transparently covering all network requests including WebSocket connections.
+Start the desktop app and wait for Tor bootstrap to reach 100%. If direct bootstrap takes longer than 20 seconds, the embedded runtime tries a validated WebTunnel bridge from Moat or its last valid cached bridge. The login screen offers retry. The Mac Profile proxy entry and subpage have been removed, matching iOS 3.1.1.
 
 ## 🏗️ Architecture
 
@@ -144,8 +150,8 @@ The proxy is implemented via Electron's `session.setProxy()` API, transparently 
 │       │Login │       │  Chats   │       │
 │       └──────┘       └──────────┘       │
 │  ┌─────────────────────────────────┐   │
-│  │  Crypto (libsodium + Kyber)     │   │
-│  │  Double Ratchet + E2EE          │   │
+│  │  Crypto (libsodium signatures)     │   │
+│  │  Signed private/group E2EE          │   │
 │  └─────────────────────────────────┘   │
 └─────────────────────────────────────────┘
 ```
@@ -192,3 +198,5 @@ The proxy is implemented via Electron's `session.setProxy()` API, transparently 
 ## 📄 License
 
 This project is built upon [PaperPhoneLite](https://github.com/619dev/PaperPhoneLite) and is licensed under the [AGPL-3.0](LICENSE).
+
+3.1.1 release validation: Apple Silicon (arm64) only, Developer ID signed, without an Apple notarization ticket. The strict `npm run verify:mac` still requires notarization and fails at the ticket check for this release. Security/localization/type checks and production builds passed; live interoperability remains unverified.

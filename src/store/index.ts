@@ -14,22 +14,31 @@ function storageSafeMessages(messages: Record<string, ChatMessage[]>): Record<st
   for (const [chatId, msgs] of Object.entries(messages)) {
     // Defense in depth: display plaintext is memory-only even though the entire
     // resulting blob is also authenticated and encrypted by the native layer.
-    result[chatId] = msgs.slice(-2000).map(({ decrypted: _plaintext, ...stored }) => stored)
+    result[chatId] = msgs.slice(-2000).map(({ decrypted: _plaintext, signature_valid: _signature, ...stored }) => stored)
   }
   return result
 }
 
 let _saveMsgTimer: ReturnType<typeof setTimeout> | null = null
+let messagePersistence: Promise<void> = Promise.resolve()
+function queueMessageCache(messages: Record<string, ChatMessage[]>): Promise<void> {
+  const account = useStore.getState().user?.id
+  if (!account || !hasNativeSecureStorage()) return Promise.reject(new Error('Secure cache unavailable'))
+  const snapshot = JSON.stringify({ _v: MSG_CACHE_VERSION, messages: storageSafeMessages(messages) })
+  messagePersistence = messagePersistence.catch(() => {}).then(async () => {
+    const ciphertext = await sealForAccount(account, 'message-cache', snapshot)
+    await writeSecureCache(messageCacheKey(account), ciphertext)
+  })
+  return messagePersistence
+}
 function persistMessages(messages: Record<string, ChatMessage[]>) {
   if (_saveMsgTimer) clearTimeout(_saveMsgTimer)
+  const owner = useStore.getState().user?.id
   _saveMsgTimer = setTimeout(() => {
-    const account = (() => { try { return JSON.parse(localStorage.getItem('user') || 'null')?.id as string | undefined } catch { return undefined } })()
-    if (!account || !hasNativeSecureStorage()) return
-    const safe = storageSafeMessages(messages)
-    void sealForAccount(account, 'message-cache', JSON.stringify({ _v: MSG_CACHE_VERSION, messages: safe }))
-      .then(ciphertext => writeSecureCache(messageCacheKey(account), ciphertext))
-      .catch(err => console.warn('[Store] Encrypted message cache write failed:', err))
-  }, 500) // debounce 500ms
+    _saveMsgTimer = null
+    if (useStore.getState().user?.id !== owner) return
+    void queueMessageCache(messages).catch(err => console.warn('[Store] Encrypted message cache write failed:', err))
+  }, 500)
 }
 
 export async function hydrateEncryptedMessageCache(account: string): Promise<void> {
@@ -66,23 +75,45 @@ export async function hydrateEncryptedMessageCache(account: string): Promise<voi
     localStorage.removeItem(LEGACY_MSG_CACHE_KEY)
     // Previous versions cached attachment bodies as unencrypted Web Cache data.
     if ('caches' in window) await caches.delete(MEDIA_CACHE_NAME)
-    useStore.setState({ messages })
+    if (useStore.getState().user?.id === account) useStore.setState({ messages: storageSafeMessages(messages) })
   } catch (err) {
     // Corrupt/tampered cache must never fall back to plaintext.
     console.warn('[Store] Encrypted message cache hydration failed; cache discarded:', err)
     await deleteSecureCache(messageCacheKey(account))
     localStorage.removeItem(messageCacheKey(account))
     localStorage.removeItem(LEGACY_MSG_CACHE_KEY)
-    useStore.setState({ messages: {} })
+    if (useStore.getState().user?.id === account) useStore.setState({ messages: {} })
   }
 }
 
 export function clearEncryptedMessageCache(account?: string): void {
   if (account) {
     localStorage.removeItem(messageCacheKey(account))
-    void deleteSecureCache(messageCacheKey(account))
+    messagePersistence = messagePersistence.catch(() => {}).then(() => deleteSecureCache(messageCacheKey(account)))
   }
   localStorage.removeItem(LEGACY_MSG_CACHE_KEY)
+}
+
+/** Sync advances its durable cursor only after the ciphertext cache is saved. */
+export async function flushMessageCache(): Promise<void> {
+  if (_saveMsgTimer) clearTimeout(_saveMsgTimer)
+  _saveMsgTimer = null
+  await queueMessageCache(useStore.getState().messages)
+}
+
+/** Apply freshly fetched identity keys to existing contacts without discarding
+ * remarks or cached presence, so every conversation sees the same key change. */
+export function refreshFriendIdentityKeys(peers: Array<{ id: string; ik_pub?: string; kem_pub?: string }>): void {
+  const state = useStore.getState()
+  const identities = new Map(peers.map(peer => [peer.id, peer]))
+  let changed = false
+  const friends = state.friends.map(friend => {
+    const peer = identities.get(friend.id)
+    if (!peer || (peer.ik_pub === friend.ik_pub && peer.kem_pub === friend.kem_pub)) return friend
+    changed = true
+    return { ...friend, ik_pub: peer.ik_pub, kem_pub: peer.kem_pub }
+  })
+  if (changed) state.setFriends(friends)
 }
 
 export interface User {
@@ -127,6 +158,8 @@ export interface ChatMessage {
   offline?: boolean
   decrypted?: string
   client_msg_id?: string
+  decryption_pending?: boolean
+  signature_valid?: boolean
   delivery_status?: 'queued' | 'sent' | 'failed'
   server_seq?: number
 }
@@ -404,7 +437,10 @@ export const useStore = create<AppStore>((set, get) => ({
       // Offline messages are replayed after every reconnect. Keep insertion
       // and its return value atomic so callers do not count a replay as new.
       if (msg.id && existing.some(m => m.id === msg.id)) {
-        return s
+        if (!msg.signature_valid) return s
+        const updated = { ...s.messages, [chatId]: existing.map(m => m.id === msg.id ? { ...m, ...msg } : m) }
+        persistMessages(updated)
+        return { messages: updated }
       }
       const optimisticIndex = msg.client_msg_id
         ? existing.findIndex(m => m.client_msg_id === msg.client_msg_id)

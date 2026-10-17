@@ -180,7 +180,7 @@ export class EmbeddedTorManager {
         headers: {
           'content-type': 'application/vnd.api+json',
           accept: 'application/json',
-          'user-agent': 'PaperPhoneLite/3.0.13 (macOS)',
+          'user-agent': 'PaperPhoneLite/3.1.1 (macOS)',
         },
         body: JSON.stringify({ country: 'cn', transports: ['webtunnel'] }),
         signal: controller.signal,

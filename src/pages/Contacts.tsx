@@ -1,3 +1,5 @@
+import { securityText } from '../i18n/security'
+import IdentityBadge from '../components/IdentityBadge'
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { get, post, del, put } from '../api/http'
 import { useStore, Friend, Group } from '../store'
@@ -71,6 +73,7 @@ export default function Contacts() {
   // Listen for real-time friend events via WebSocket
   useEffect(() => {
     const unsub1 = onWs('friend_accepted', () => {
+      alert(securityText('verify.new_contact') + '\n' + securityText('verify.notice'))
       // Someone accepted our request — refresh friends list
       get<Friend[]>('/api/friends').then(setFriends).catch(() => {})
     })
@@ -149,6 +152,8 @@ export default function Contacts() {
       // Refresh friends list to show the newly added friend
       const updated = await get<Friend[]>('/api/friends')
       setFriends(updated)
+      alert(t('verify.setup_notice') + '\n' + t('verify.notice'))
+      useStore.getState().setMainView('userProfile', friendId)
     } catch (err: any) {
       alert(err.message || t('common.error'))
     }
@@ -244,7 +249,7 @@ export default function Contacts() {
                   {f.avatar ? <img src={f.avatar} alt="" /> : f.nickname[0]?.toUpperCase()}
                 </div>
                 <div className="list-content">
-                  <div className="name">{f.nickname}</div>
+                  <div className="name">{f.nickname}<IdentityBadge id={f.id} ik={f.ik_pub} sign={f.kem_pub} /></div>
                   <div className="preview">@{f.username}</div>
                 </div>
                 <span style={{
@@ -292,7 +297,7 @@ export default function Contacts() {
                 {f.is_online && <span className="online-dot" />}
               </div>
               <div className="list-content">
-                <div className="name">{f.nickname}</div>
+                <div className="name">{f.nickname}<IdentityBadge id={f.id} ik={f.ik_pub} sign={f.kem_pub} /></div>
                 <div className="preview">@{f.username}</div>
               </div>
               <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', maxWidth: 100 }}>
@@ -447,7 +452,7 @@ export default function Contacts() {
                     {f.is_online && <span className="online-dot" />}
                   </div>
                   <div className="list-content">
-                    <div className="name">{f.nickname}</div>
+                    <div className="name">{f.nickname}<IdentityBadge id={f.id} ik={f.ik_pub} sign={f.kem_pub} /></div>
                     <div className="preview" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                       <span>@{f.username}</span>
                       {(ftm[f.id] || []).map(tg => (
@@ -481,7 +486,7 @@ export default function Contacts() {
                           {f.is_online && <span className="online-dot" />}
                         </div>
                         <div className="list-content">
-                          <div className="name">{f.nickname}</div>
+                          <div className="name">{f.nickname}<IdentityBadge id={f.id} ik={f.ik_pub} sign={f.kem_pub} /></div>
                           <div className="preview">@{f.username}</div>
                         </div>
                       </div>
@@ -505,7 +510,7 @@ export default function Contacts() {
                           {f.is_online && <span className="online-dot" />}
                         </div>
                         <div className="list-content">
-                          <div className="name">{f.nickname}</div>
+                          <div className="name">{f.nickname}<IdentityBadge id={f.id} ik={f.ik_pub} sign={f.kem_pub} /></div>
                           <div className="preview">@{f.username}</div>
                         </div>
                       </div>
@@ -587,7 +592,7 @@ export default function Contacts() {
                         </div>
                         <div className="avatar avatar-sm">{f.avatar ? <img src={f.avatar} alt="" /> : f.nickname?.[0]}</div>
                         <div className="list-content">
-                          <div className="name" style={{ fontSize: 14 }}>{f.nickname}</div>
+                          <div className="name" style={{ fontSize: 14 }}>{f.nickname}<IdentityBadge id={f.id} ik={f.ik_pub} sign={f.kem_pub} /></div>
                         </div>
                       </div>
                     ))}

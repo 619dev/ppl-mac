@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-3.0.21-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-3.1.1-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -16,6 +16,34 @@
 </div>
 
 ---
+
+## 3.1.1 安全更新与兼容性（2026-10-17）
+
+本次吸收本地 iOS 仓库至 `c9b22d4` 的共享改动，安全基线为上游 `9bf6aaf`（3.1.0）。保留 Electron 桌面导航、内嵌 Tor/WebTunnel、钥匙串密钥保护、IndexedDB 加密消息缓存、桌面通知和附件下载。Bark、APNs、分享扩展及 iOS 原生界面不属于 Mac 功能。
+
+- 在联系人资料中，使用线下约定的强文本外观密码，双方启用并解锁消息隐私后完成身份验证及签名回执。通过独立可信渠道核对安全号码；身份密钥变化后需重新验证，号码一致本身并非绝对安全保证。
+- 签名群聊验证成员身份及密钥分发，随成员变化轮换发送密钥，保留历史密钥时期以恢复离线消息。身份不可信或签名无效时阻止相关操作，不静默降级。
+- 服务端需兼容 PaperPhoneLite 3.1.0 的签名消息、群组及密钥接口，通信端也应匹配；不保证旧版未签名客户端互通。服务器仍可见投递元数据。
+- 私聊实际发送使用 X25519、XSalsa20-Poly1305 和 Ed25519；签名发送未启用 ML-KEM，不能宣称为 Double Ratchet。
+- 离线同步持续分页，等待加密缓存写入完成后才推进账号游标；显示明文与签名校验结果不落盘，恢复后重新验签。
+
+开发环境要求 Node.js 22+ 和 npm。在本 Mac 仓库执行 `npm ci`、`npm run typecheck`、`npm run test:security`、`npm run test:i18n`、`npm run build`。原生开发使用 `npm run dev:electron`；仅浏览器预览无法访问钥匙串。`npm run build:mac` 还需要签名、公证凭据，arm64 DMG/ZIP 输出至 `release/3.1.1/`。
+
+验证范围：密码学、同步及翻译自动测试使用网络和存储适配器；跨设备/真实服务器联调、钥匙串和 Tor 运行验证、签名公证安装包验证仍需单独完成。3.1.1 发布产物仅提供 arm64 DMG/ZIP；签名与公证状态以 Release 说明为准。参见[测试说明](tests/README.md)。
+
+## 3.1.1 security and compatibility (2026-10-17)
+
+Shared changes were ported from the local iOS repository through `c9b22d4`, including upstream security baseline `9bf6aaf` (3.1.0). Mac retains Electron navigation, embedded Tor/WebTunnel, Keychain-protected keys, encrypted IndexedDB message caches, desktop notifications, and attachment downloads. iOS Bark, APNs, Share Extension, and Capacitor UI are not desktop features.
+
+- Open a contact profile, agree a strong text-appearance password offline, enable and unlock message privacy on both devices, and complete mutual verification and signed receipts. Compare safety numbers through an independent trusted channel. A key change invalidates prior trust and requires verification again; a matching number alone is not an absolute security guarantee.
+- Signed groups verify member identities and key distributions, rotate sender keys with membership changes, and retain historical key epochs for offline recovery. Untrusted identities and invalid signatures block the protected operation rather than silently downgrading it.
+- Use a server compatible with the PaperPhoneLite 3.1.0 signed-message/group APIs and matching clients. Older unsigned clients are not guaranteed to interoperate. Transport metadata remains visible to the server.
+- Signed private messages use X25519, XSalsa20-Poly1305, and Ed25519. Existing hybrid crypto helpers do not mean signed sends use ML-KEM, and the implementation must not be described as Double Ratchet.
+- Message sync paginates until complete and advances its account cursor only after the encrypted cache write completes. Display plaintext and cached signature verdicts are excluded from persistence; signatures are rechecked after restoration.
+
+Development requires Node.js 22+ and npm. From this macOS repository run `npm ci`, `npm run typecheck`, `npm run test:security`, `npm run test:i18n`, and `npm run build`. Use `npm run dev:electron` for the native bridge; browser-only preview cannot access Keychain. `npm run build:mac` additionally requires signing/notarization credentials and packages arm64 DMG/ZIP artifacts under `release/3.1.1/`.
+
+Validation scope: automated crypto/sync/localization tests use network and storage adapters. Live cross-device/server tests, Keychain/Tor runtime checks, and signed/notarized installer verification remain separate release checks. The 3.1.1 release provides arm64 DMG/ZIP artifacts; see the Release notes for signing and notarization status. See [test notes](tests/README.md).
 
 ## 📖 Documentation / 文档
 
@@ -30,7 +58,7 @@
 
 ## 🔐 Extra-encrypted text appearance: design and security boundary
 
-This feature is **extra insurance on top of the existing end-to-end encryption (E2EE)**. It does not replace E2EE with a visual encoding, and it never bypasses or weakens the original encryption. Private chats remain protected by the existing X25519 / ML-KEM-768 key agreement and message-encryption path; group chats continue to use the Sender Key protocol. Identity private keys and group Sender Keys remain protected by macOS secure storage.
+This feature is **extra insurance on top of the existing end-to-end encryption (E2EE)**. It does not replace E2EE with a visual encoding, and it never bypasses or weakens the original encryption. Private chats remain protected by the X25519 key agreement, XSalsa20-Poly1305 encryption, and Ed25519 message signatures; group chats continue to use the Sender Key protocol. Identity private keys and group Sender Keys remain protected by macOS secure storage.
 
 When enabled, every message is processed in this order:
 
@@ -45,7 +73,7 @@ The app does not persist the extra password. While unlocked it exists only in th
 
 ## 🔐 额外加密文本外观：工作原理与安全边界
 
-这项功能是**建立在原有端到端加密（E2EE）之上的额外保险**，不是用文本外观代替 E2EE，也不会绕过或降低原有加密。私聊仍由 X25519 / ML-KEM-768 密钥协商及原有消息加密链路保护；群聊仍使用 Sender Key 协议。身份私钥和群聊 Sender Key 继续由 macOS 系统安全存储保护。
+这项功能是**建立在原有端到端加密（E2EE）之上的额外保险**，不是用文本外观代替 E2EE，也不会绕过或降低原有加密。私聊仍由 X25519 密钥协商、XSalsa20-Poly1305 加密和 Ed25519 消息签名保护；群聊仍使用 Sender Key 协议。身份私钥和群聊 Sender Key 继续由 macOS 系统安全存储保护。
 
 启用后，每条消息按以下顺序处理：
 
@@ -63,3 +91,5 @@ The app does not persist the extra password. While unlocked it exists only in th
 This project is built upon [PaperPhoneLite](https://github.com/619dev/PaperPhoneLite) and is licensed under the [AGPL-3.0](LICENSE).
 
 本项目基于 [PaperPhoneLite](https://github.com/619dev/PaperPhoneLite) 开发，采用 [AGPL-3.0](LICENSE) 许可证发布。
+
+3.1.1 发布验证：仅 Apple Silicon（arm64）；Developer ID 签名，不附 Apple 公证票据。严格的 `npm run verify:mac` 仍要求公证，因此当前发布会在票据检查处失败。安全/翻译/类型及生产构建检查通过，真实服务联调待完成。
