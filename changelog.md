@@ -1,5 +1,21 @@
 # Changelog / 更新日志
 
+## 3.1.5 — 2026-11-14
+
+本版同步上游 PaperPhoneLite 3.1.5 客户端（`d0b21db`、`2823996`）。
+
+- 好友关系变更后在线刷新好友列表和请求，重连时同步好友列表。升级到对应的 3.1.5 服务端后，服务端启动时会补齐历史单向好友关系。
+- 新群消息使用 Ed25519 签名和 Sender Key 加密，按成员变化轮换密钥。群密钥分发和签名验证使用服务端公布的身份公钥，无需逐个完成私聊的线下验证。建议群成员一并升级。
+- 新消息的额外文本外观加密仅用于私聊。使用过该功能的历史群消息仍可用原密码解密。私聊继续支持线下约定密码的双向身份验证及安全号码核对。
+- 应用和个人信息页底部统一显示 3.1.5。更新中英文文档与应用内说明，发布 Apple Silicon（arm64）DMG。
+
+This release ports the upstream PaperPhoneLite 3.1.5 client changes (`d0b21db`, `2823996`).
+
+- Refresh the friend list and requests after friendship changes, and refresh the list on reconnect. The corresponding 3.1.5 server repairs historical one-sided friendships at startup.
+- New group messages use Ed25519 signatures and Sender Key encryption, with key rotation on membership changes. Group key distribution and signature verification use server-published identity keys and work without private offline verification of every member. Group members should upgrade together.
+- The extra text-appearance encryption layer applies to new private messages. Older group messages protected by that layer remain readable with their original password. Private chats still support mutual offline-password verification and safety-number checks.
+- Updated the app version, Profile footer, documentation, and in-app notices. Published an Apple Silicon (arm64) DMG.
+
 ## 3.1.1 — 2026-10-17
 
 - Package only Apple Silicon (arm64), including only the arm64 Tor runtime; update artifact names and architecture verification.

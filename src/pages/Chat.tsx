@@ -9,7 +9,7 @@ import { get, post, put, uploadFileWithProgress, normalizeFileUrl, downloadFileF
 import { sendWs, onWs } from '../api/socket'
 import { getKeys } from '../crypto/keystore'
 import { inspectHybridProtocol } from '../crypto/ratchet'
-import { getPresentationSettings, isPresentationUnlocked, protectPresentationText, unprotectPresentationText } from '../crypto/presentationCrypto'
+import { isPresentationUnlocked, protectPresentationText, unprotectPresentationText } from '../crypto/presentationCrypto'
 import { encryptGroupMessage, decryptGroupMessage, fetchGroupKeys, MissingGroupKey } from '../crypto/signedGroups'
 import { Shield } from 'lucide-react'
 import { ChevronLeft, ChevronDown, Lock, Settings, Timer, ImageIcon, Film, Plus, Mic, Download, Paperclip, AlertTriangle, Clock, Package as PackageIcon, FileText, File as FileIcon, Image as LucideImage, Music, Video, Check, CheckCheck, SendHorizonal, Smile, WifiOff, X, ZoomIn, ZoomOut } from 'lucide-react'
@@ -665,12 +665,10 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
     const clientMsgId = crypto.randomUUID()
     setSending(true)
     try {
-      const wireContent = await protectPresentationText(displayWireContent)
+      const wireContent = isGroup ? displayWireContent : await protectPresentationText(displayWireContent)
       if (msgType === 'text') setInput('')
 
       // Prepare pending message metadata for ack handler (real-time display)
-      // For encrypted groups, do NOT put plaintext in ciphertext field.
-      // The real ciphertext is on the server; ciphertext here is only for display fallback.
       const pendingMsg: any = {
         id: clientMsgId,
         client_msg_id: clientMsgId,
@@ -679,7 +677,7 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
         from: user.id,
         msg_type: msgType,
         decrypted: isPresentationUnlocked() ? displayWireContent : wireContent,
-        ciphertext: (isGroup && !group?.encrypted) ? wireContent : '',
+        ciphertext: '',
       }
       if (isGroup) {
         pendingMsg.group_id = id

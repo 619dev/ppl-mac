@@ -3,7 +3,7 @@ import { startIdentityVerification, refreshContactVerification, refreshIdentityT
 import IdentityBadge from '../components/IdentityBadge'
 import { useEffect, useRef, useState } from 'react'
 import { get, post, put, del } from '../api/http'
-import { useStore, refreshFriendIdentityKeys } from '../store'
+import { useStore, refreshFriendIdentityKeys, type Friend } from '../store'
 import { useI18n } from '../hooks/useI18n'
 import { deriveSafetyNumber } from '../crypto/safetyNumber'
 import { Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Fingerprint, MessageCircle, Pencil, ShieldCheck, Flag, Ban } from 'lucide-react'
@@ -19,6 +19,7 @@ export default function UserProfile({ userId }: { userId: string }) {
 
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [updatingFriendship, setUpdatingFriendship] = useState(false)
   const [verificationStatus, setVerificationStatus] = useState<IdentityStatus | 'refreshing' | 'error'>('refreshing')
   const [verificationRefreshing, setVerificationRefreshing] = useState(true)
   const refreshProfile = useRef<() => void>(() => {})
@@ -129,7 +130,7 @@ export default function UserProfile({ userId }: { userId: string }) {
 
   // Update remark from friend data
   useEffect(() => {
-    if (friend?.remark) setRemark(friend.remark)
+    setRemark(friend?.remark || '')
   }, [friend?.remark])
 
   const saveRemark = async () => {
@@ -142,6 +143,28 @@ export default function UserProfile({ userId }: { userId: string }) {
       const f = await get('/api/friends')
       useStore.getState().setFriends(f)
     } catch {}
+  }
+
+  const changeFriendship = async () => {
+    if (!id || updatingFriendship) return
+    if (friend && !confirm(t('contacts.remove_friend_confirm'))) return
+    const token = useStore.getState().token
+    setUpdatingFriendship(true)
+    try {
+      if (friend) {
+        await del(`/api/friends/${id}`)
+        setRemark('')
+      } else {
+        const result = await post<{ already_friends?: boolean }>('/api/friends/request', { friend_id: id })
+        if (!result.already_friends) alert(t('contacts.request_sent'))
+      }
+      const updated = await get<Friend[]>('/api/friends')
+      if (useStore.getState().token === token) useStore.getState().setFriends(updated)
+    } catch (error) {
+      alert((error as Error).message)
+    } finally {
+      setUpdatingFriendship(false)
+    }
   }
 
   if (loading) return <div className="page"><div className="loading-spinner" /></div>
@@ -238,6 +261,14 @@ export default function UserProfile({ userId }: { userId: string }) {
             </button>
           </div>
         </div>
+
+        {id && id !== me?.id && (friend || !isBlocked) && (
+          <div style={{ padding: '8px 16px' }}>
+            <button className="btn btn-secondary btn-full" disabled={updatingFriendship} onClick={changeFriendship}>
+              {t(friend ? 'contacts.remove_friend' : 'contacts.add')}
+            </button>
+          </div>
+        )}
 
         {/* Remark */}
         <div className="section-title" style={{ padding: '16px 16px 6px' }}>

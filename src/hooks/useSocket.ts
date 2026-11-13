@@ -1,7 +1,7 @@
 import { securityText, securityErrorText } from '../i18n/security'
 import { t as translate, type LangCode } from '../i18n'
 import { useEffect } from 'react'
-import { useStore } from '../store'
+import { useStore, type Friend } from '../store'
 import { connectWs, disconnectWs, forceReconnect, onWs } from '../api/socket'
 import { syncMessages } from '../api/sync'
 import { endSession } from '../utils/session'
@@ -15,7 +15,7 @@ import { get } from '../api/http'
 import { decodeMessagePayload } from '../utils/messagePayload'
 import { unprotectPresentationText } from '../crypto/presentationCrypto'
 
-/** Retry cached ciphertexts after historical epoch keys or identity pins arrive. */
+/** Retry cached ciphertexts after historical epoch keys arrive. */
 async function retryDecryptGroupMessages(groupId: string) {
   const owner = useStore.getState().user?.id
   const messages = useStore.getState().messages[groupId] || []
@@ -77,12 +77,16 @@ export function useSocket() {
     // Transient network and authentication failures continue to reconnect.
     const logoutSignals = ['logout', 'force_logout', 'session_revoked', 'session_terminated']
     const unsubLogoutSignals = logoutSignals.map(type => onWs(type, () => endSession(type)))
+    const refreshFriends = async () => {
+      const friends = await get<Friend[]>('/api/friends')
+      if (useStore.getState().token === token) useStore.getState().setFriends(friends)
+    }
+    const unsubFriendship = onWs('friendship_changed', () => refreshFriends().catch(() => {}))
     const unsubAuthOk = onWs('auth_ok', async () => {
+      await refreshFriends().catch(() => {})
       await recoverGroups().catch(error => console.warn('[Group] Recovery failed:', error))
       await syncMessages().catch(error => console.warn('[Sync] catch-up failed:', error))
     })
-    const onIdentityChanged = () => { void recoverGroups().catch(() => {}) }
-    window.addEventListener('paperphone:identity-changed', onIdentityChanged)
 
     // Listen for incoming messages and route to store
     const unsubMsg = onWs('message', async (data) => {
@@ -311,9 +315,9 @@ export function useSocket() {
       unsubRemoved()
       unsubAdded()
       unsubFailed()
-      window.removeEventListener('paperphone:identity-changed', onIdentityChanged)
       unsubLogoutSignals.forEach(unsubscribe => unsubscribe())
       unsubAuthOk()
+      unsubFriendship()
       window.removeEventListener('online', recover)
       window.removeEventListener('pageshow', recover)
       window.removeEventListener('paperphone:network-changed', recover)
