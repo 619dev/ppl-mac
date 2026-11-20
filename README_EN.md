@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-3.1.5-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-3.1.7-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -16,17 +16,16 @@
 
 ---
 
-## 3.1.5 changes and compatibility (2026-11-14)
+## 3.1.7 changes and compatibility (2026-11-20)
 
-This release ports the upstream PaperPhoneLite 3.1.5 client changes (`d0b21db`, `2823996`).
+This release ports the shared PaperPhoneLite 3.1.7 client (`cb0fe15`). macOS Lite includes private chat, groups, and contacts. Moments, Timeline, and Discover remain absent.
 
-- Refresh the friend list and requests after friendship changes, and refresh the list on reconnect. The corresponding 3.1.5 server repairs historical one-sided friendships at startup.
-- New group messages use Ed25519 signatures and Sender Key encryption, with key rotation on membership changes. Group key distribution and signature verification use server-published identity keys and work without private offline verification of every member. Group members should upgrade together.
-- The extra text-appearance encryption layer applies to new private messages. Older group messages protected by that layer remain readable with their original password. Private chats still support mutual offline-password verification and safety-number checks.
+- Under Profile → Account deletion, select 3, 6, 12, 24, or 36 months without signing in before the server deletes the account. The default is 12 months. A successful sign-in restarts the countdown. Background token refresh leaves it running. The same screen supports immediate deletion with password confirmation.
+- Users who enabled two-factor authentication can reset their password from the sign-in screen using their username and a six-digit authenticator code. A successful reset revokes existing device sessions.
+- The account-scoped cache reuses local images, avatars, audio, video, and attachments and revalidates them after reconnecting. Profile → Clear cache removes local cached data.
+- Automatic account deletion and password recovery require a PaperPhoneLite 3.1.7 server. Back up MySQL before upgrading. The first cleanup runs at server startup.
 
-Development requires Node.js 22+ and npm. From this macOS repository run `npm ci`, `npm run typecheck`, `npm run test:security`, `npm run test:i18n`, and `npm run build`. Use `npm run dev:electron` for the native bridge; browser-only preview cannot access Keychain. `npm run build:mac` additionally requires signing/notarization credentials and packages arm64 DMG/ZIP artifacts under `release/3.1.5/`.
-
-Validation scope: automated crypto/sync/localization tests use network and storage adapters. Live cross-device/server tests, Keychain/Tor runtime checks, and signed/notarized installer verification remain separate release checks. The 3.1.5 release provides an arm64 DMG; see the Release notes for signing and notarization status. See [test notes](tests/README.md).
+Development uses Node.js 22+ and npm. Run `npm ci`, `npm run typecheck`, `npm run test:security`, `npm run test:i18n`, and `npm run build`. Use `npm run dev:electron` for native development. Run `npm run build:mac` to package Apple Silicon DMG and ZIP files under `release/3.1.7/`. See [test notes](tests/README.md).
 
 ## 📖 Introduction
 
@@ -84,17 +83,18 @@ The app does not persist the extra password. While unlocked it exists only in th
 
 ### Download from Releases
 
-Published installers are available on the [Releases](../../releases) page. The following are the expected filenames when packaging 3.1.5 locally; updating source does not publish these artifacts:
+Published installers are available on the [Releases](../../releases) page. The following are the expected filenames when packaging 3.1.7 locally; updating source does not publish these artifacts:
 
 | File | Description |
 |------|-------------|
-| `PaperPhoneLite-3.1.5-macOS-arm64.dmg` | Recommended arm64 DMG installer |
+| `PaperPhoneLite-3.1.7-macOS-arm64.dmg` | Recommended arm64 DMG installer |
+| `PaperPhoneLite-3.1.7-arm64-mac.zip` | Apple Silicon ZIP |
 
-The 3.1.5 packaging configuration targets Apple Silicon (arm64) only, requires Developer ID signing, and enables notarization. A source build alone does not prove that a release has been signed or notarized. Validate the produced artifacts with `npm run verify:mac`.
+The 3.1.7 packaging configuration targets Apple Silicon (arm64) only, requires Developer ID signing, and enables notarization. A source build alone does not prove that a release has been signed or notarized. Validate the produced artifacts with `npm run verify:mac`.
 
 ## 🧅 Embedded Tor and WebTunnel
 
-The macOS client embeds the official Tor Project Tor and lyrebird runtimes for Apple Silicon in the 3.1.5 release. It starts Tor automatically and switches Electron networking to the local SOCKS5 listener. If direct bootstrap has not completed within 20 seconds, it fetches and validates a WebTunnel bridge from Tor Project Moat, caches a valid bridge, and restarts Tor. Authentication remains disabled until Tor reaches 100% bootstrap, with no clearnet fallback for `.onion` requests.
+The macOS client embeds the official Tor Project Tor and lyrebird runtimes for Apple Silicon in the 3.1.7 release. It starts Tor automatically and switches Electron networking to the local SOCKS5 listener. If direct bootstrap has not completed within 20 seconds, it fetches and validates a WebTunnel bridge from Tor Project Moat, caches a valid bridge, and restarts Tor. Authentication remains disabled until Tor reaches 100% bootstrap, with no clearnet fallback for `.onion` requests.
 
 If Moat is temporarily unavailable, the client tries the last successfully cached bridge. The login screen displays live bootstrap status and provides manual retry.
 

@@ -1,5 +1,5 @@
+import { cachedMediaBlob, clearMediaCache } from './mediaCache'
 const DATA_PREFIX = 'pp_offline_data:'
-export const MEDIA_CACHE_NAME = 'paperphone-media-v2'
 const STICKER_CACHE_NAME = 'paperphone-stickers-v1'
 
 function accountId(): string {
@@ -35,7 +35,7 @@ export function writeOfflineData<T>(key: string, value: T): void {
 function collectMediaUrls(value: unknown, urls: Set<string>, depth = 0): void {
   if (depth > 8 || value == null) return
   if (typeof value === 'string') {
-    if (/^(https?:|blob:)/i.test(value) || value.startsWith('/uploads/') || value.startsWith('/media/')) {
+    if (/^(https?:|blob:)/i.test(value) || value.startsWith('/uploads/') || value.startsWith('/media/') || value.startsWith('/api/files/')) {
       urls.add(value)
     }
     return
@@ -50,21 +50,12 @@ function collectMediaUrls(value: unknown, urls: Set<string>, depth = 0): void {
 }
 
 export async function cacheMediaIn(value: unknown): Promise<void> {
-  if (!('caches' in window)) return
+  if (window.location.protocol !== 'file:' && typeof caches === 'undefined') return
   const urls = new Set<string>()
   collectMediaUrls(value, urls)
   if (urls.size === 0) return
 
-  const base = localStorage.getItem('serverUrl') || import.meta.env.VITE_API_URL || location.origin
-  const cache = await caches.open(MEDIA_CACHE_NAME)
-  await Promise.allSettled(Array.from(urls).map(async rawUrl => {
-    if (rawUrl.startsWith('blob:')) return
-    const url = rawUrl.startsWith('/') ? `${base}${rawUrl}` : rawUrl
-    const request = new Request(url, { credentials: 'omit' })
-    if (await cache.match(request)) return
-    const response = await fetch(request)
-    if (response.ok) await cache.put(request, response)
-  }))
+  await Promise.allSettled(Array.from(urls).filter(url => !url.startsWith('blob:')).map(url => cachedMediaBlob(url)))
 }
 
 export async function clearOfflineCache(): Promise<void> {
@@ -73,8 +64,9 @@ export async function clearOfflineCache(): Promise<void> {
     .filter(key => key.startsWith(prefix) || key === 'pp_msg_cache')
     .forEach(key => localStorage.removeItem(key))
 
+  await clearMediaCache()
   if ('caches' in window) {
     const names = await caches.keys()
-    await Promise.all(names.filter(name => name === MEDIA_CACHE_NAME || name === STICKER_CACHE_NAME).map(name => caches.delete(name)))
+    await Promise.all(names.filter(name => name === 'paperphone-media-v2' || name === STICKER_CACHE_NAME).map(name => caches.delete(name)))
   }
 }

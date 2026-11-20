@@ -1,3 +1,4 @@
+import { CachedImage } from './CachedMedia'
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { get, post } from '../api/http'
 import { useStore, Friend, Group, SidebarView } from '../store'
@@ -89,7 +90,7 @@ function ChatList() {
               onClick={() => setActiveChat(chat.id, chat.isGroup)}
             >
               <div className="avatar" style={{ position: 'relative' }}>
-                {chat.avatar ? <img src={chat.avatar} alt="" /> : (chat.isGroup ? <Users size={20} /> : chat.name[0]?.toUpperCase())}
+                {chat.avatar ? <CachedImage src={chat.avatar} alt="" /> : (chat.isGroup ? <Users size={20} /> : chat.name[0]?.toUpperCase())}
                 {chat.isOnline && <span className="online-dot" />}
               </div>
               <div className="list-content">
@@ -184,7 +185,7 @@ export default function Sidebar() {
           title={user?.nickname || user?.username || ''}
         >
           {user?.avatar
-            ? <img src={user.avatar} alt="" />
+            ? <CachedImage src={user.avatar} alt="" />
             : (user?.nickname || user?.username || 'U')[0]?.toUpperCase()
           }
         </div>
@@ -333,7 +334,7 @@ function ContactsInSidebar() {
             return (
               <div className="sidebar-search-result" key={user.id}>
                 <div className="avatar avatar-sm">
-                  {user.avatar ? <img src={user.avatar} alt="" /> : (user.nickname || user.username)?.[0]?.toUpperCase()}
+                  {user.avatar ? <CachedImage src={user.avatar} alt="" /> : (user.nickname || user.username)?.[0]?.toUpperCase()}
                 </div>
                 <div className="list-content">
                   <div className="name">{user.nickname || user.username}</div>
@@ -356,7 +357,7 @@ function ContactsInSidebar() {
             onClick={() => setActiveChat(f.id, false)}
           >
             <div className="avatar" style={{ position: 'relative' }}>
-              {f.avatar ? <img src={f.avatar} alt="" /> : (f.nickname || f.username)[0]?.toUpperCase()}
+              {f.avatar ? <CachedImage src={f.avatar} alt="" /> : (f.nickname || f.username)[0]?.toUpperCase()}
               {f.is_online && <span className="online-dot" />}
             </div>
             <div className="list-content">
@@ -373,7 +374,7 @@ function ContactsInSidebar() {
             onClick={() => setActiveChat(group.id, true)}
           >
             <div className="avatar">
-              {group.avatar ? <img src={group.avatar} alt="" /> : <Users size={20} />}
+              {group.avatar ? <CachedImage src={group.avatar} alt="" /> : <Users size={20} />}
             </div>
             <div className="list-content">
               <div className="name">{group.name}</div>

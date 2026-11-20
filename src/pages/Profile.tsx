@@ -1,5 +1,6 @@
+import { CachedImage } from '../components/CachedMedia'
 import { useState, useRef, useEffect } from 'react'
-import { useStore } from '../store'
+import { clearEncryptedMessageCache, useStore } from '../store'
 import { useI18n } from '../hooks/useI18n'
 import { clearKeys, getKeys, lockKeysInMemory } from '../crypto/keystore'
 import { clearAllSenderKeys } from '../crypto/groupCrypto'
@@ -14,8 +15,9 @@ import { clearOfflineCache } from '../utils/offlineCache'
 import { PRESENTATION_CODECS, type PresentationCodecId } from '../crypto/presentationCodec'
 import { disablePresentationCrypto, enablePresentationCrypto, getPresentationSettings, isPresentationUnlocked, lockPresentationCrypto, unlockPresentationCrypto, updatePresentationSettings } from '../crypto/presentationCrypto'
 
-type SubView = null | 'password' | 'avatar' | '2fa' | 'sessions' | 'language' | 'fingerprint' | 'myqr' | 'message-privacy'
-const APP_VERSION = '3.1.5'
+import { version as APP_VERSION } from '../../package.json'
+
+type SubView = null | 'password' | 'avatar' | '2fa' | 'sessions' | 'language' | 'fingerprint' | 'myqr' | 'message-privacy' | 'account-deletion'
 
 export default function Profile() {
   const { t } = useI18n()
@@ -117,36 +119,11 @@ export default function Profile() {
     setClearingCache(true)
     try {
       await clearOfflineCache()
+      await clearEncryptedMessageCache(user?.id)
       useStore.getState().clearCachedContent()
       alert(t('profile.cache_cleared'))
     } finally {
       setClearingCache(false)
-    }
-  }
-
-  // Delete account state
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
-  const [deletePassword, setDeletePassword] = useState('')
-  const [deleteLoading, setDeleteLoading] = useState(false)
-  const [deleteError, setDeleteError] = useState('')
-
-  const handleDeleteAccount = async () => {
-    if (!deletePassword) {
-      setDeleteError(t('profile.delete_need_password'))
-      return
-    }
-    setDeleteLoading(true)
-    setDeleteError('')
-    try {
-      await post('/api/users/delete', { password: deletePassword })
-      disconnectWs()
-      clearKeys()
-      logoutOneSignal()
-      logout()
-    } catch (err: any) {
-      setDeleteError(err.message || t('common.error'))
-    } finally {
-      setDeleteLoading(false)
     }
   }
 
@@ -159,6 +136,8 @@ export default function Profile() {
   if (subView === 'myqr') return <MyQRCode onBack={() => setSubView(null)} t={t} user={user} />
   if (subView === 'message-privacy') return <MessagePrivacySettings onBack={() => setSubView(null)} t={t} />
 
+  if (subView === 'account-deletion') return <AccountDeletionSettings onBack={() => setSubView(null)} t={t} />
+
   return (
     <div className="page" id="profile-page">
       <div className="page-header">
@@ -168,7 +147,7 @@ export default function Profile() {
         {/* User card */}
         <div className="list-item" style={{ padding: '20px 16px' }}>
           <div className="avatar avatar-lg">
-            {user?.avatar ? <img src={user.avatar} alt="" /> : user?.nickname?.[0]?.toUpperCase()}
+            {user?.avatar ? <CachedImage src={user.avatar} alt="" /> : user?.nickname?.[0]?.toUpperCase()}
           </div>
           <div className="list-content">
             <div className="name" style={{ fontSize: 18 }}>{user?.nickname}</div>
@@ -206,6 +185,11 @@ export default function Profile() {
         </div>
         <div className="settings-item" onClick={() => setSubView('message-privacy')}>
           <span className="label"><Shield size={16} /> {t('profile.message_privacy')}</span>
+          <span className="arrow"><ChevronRight size={14} /></span>
+        </div>
+
+        <div className="settings-item" onClick={() => setSubView('account-deletion')}>
+          <span className="label"><Trash2 size={16} /> {t('profile.account_deletion')}</span>
           <span className="arrow"><ChevronRight size={14} /></span>
         </div>
 
@@ -346,6 +330,129 @@ export default function Profile() {
           <button className="btn btn-danger btn-full" id="logout-btn" onClick={handleLogout}>
             {t('profile.logout')}
           </button>
+        </div>
+
+        <div style={{
+          padding: '0 16px max(24px, env(safe-area-inset-bottom))',
+          textAlign: 'center', color: 'var(--text-muted)',
+          fontSize: 12, opacity: 0.65,
+        }}>
+          PaperPhoneLite v{APP_VERSION}
+        </div>
+
+      </div>
+    </div>
+  )
+}
+
+function AccountDeletionSettings({ onBack, t }: { onBack: () => void; t: (k: string) => string }) {
+  const logout = useStore(s => s.logout)
+  const [savedMonths, setSavedMonths] = useState<number | null>(null)
+  const [months, setMonths] = useState<number | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [loadAttempt, setLoadAttempt] = useState(0)
+
+  useEffect(() => {
+    let active = true
+    get<{ inactivity_months: number }>('/api/users/account-deletion')
+      .then(settings => {
+        if (!active) return
+        setSavedMonths(settings.inactivity_months)
+        setMonths(settings.inactivity_months)
+      })
+      .catch(() => { if (active) setError(t('common.error')) })
+    return () => { active = false }
+  }, [loadAttempt, t])
+
+  const saveInactivityPeriod = async () => {
+    setLoading(true)
+    setError('')
+    try {
+      const settings = await put<{ inactivity_months: number }>('/api/users/account-deletion', { inactivity_months: months })
+      setSavedMonths(settings.inactivity_months)
+    } catch {
+      setError(t('common.error'))
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [deletePassword, setDeletePassword] = useState('')
+  const [deleteLoading, setDeleteLoading] = useState(false)
+  const [deleteError, setDeleteError] = useState('')
+
+  const closeDeleteConfirm = () => {
+    setShowDeleteConfirm(false)
+    setDeletePassword('')
+    setDeleteError('')
+  }
+
+  const handleDeleteAccount = async () => {
+    if (!deletePassword) {
+      setDeleteError(t('profile.delete_need_password'))
+      return
+    }
+    setDeleteLoading(true)
+    setDeleteError('')
+    try {
+      await post('/api/users/delete', { password: deletePassword })
+      disconnectWs()
+      clearKeys()
+      logoutOneSignal()
+      logout()
+    } catch (error) {
+      setDeleteError(t(error instanceof Error && error.message === 'Invalid password'
+        ? 'profile.delete_invalid_password'
+        : 'common.error'))
+    } finally {
+      setDeleteLoading(false)
+    }
+  }
+
+  return (
+    <div className="page">
+      <div className="page-header">
+        <button className="back-btn" onClick={onBack}><ChevronLeft size={20} /></button>
+        <h1>{t('profile.account_deletion')}</h1>
+      </div>
+      <div className="page-body">
+        <div className="section-title">{t('profile.inactivity_deletion')}</div>
+        <p style={{ padding: '0 16px', color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.6 }}>
+          {t('profile.inactivity_desc')}
+        </p>
+        {months === null ? (
+          <div style={{ padding: '12px 16px' }}>
+            {error ? (
+              <>
+                <div className="error-msg" role="alert">{error}</div>
+                <button className="btn" onClick={() => { setError(''); setLoadAttempt(attempt => attempt + 1) }}>
+                  {t('common.retry')}
+                </button>
+              </>
+            ) : <div role="status">{t('common.loading')}</div>}
+          </div>
+        ) : (
+          <div style={{ padding: '12px 16px', display: 'grid', gap: 12 }}>
+            <label htmlFor="account-inactivity-months">{t('profile.inactivity_period')}</label>
+            <select
+              id="account-inactivity-months" className="input" value={months} disabled={loading}
+              onChange={event => { setMonths(Number(event.target.value)); setError('') }}
+            >
+              {[3, 6, 12, 24, 36].map(period => (
+                <option key={period} value={period}>{t(`profile.inactivity_${period}`)}</option>
+              ))}
+            </select>
+            {error && <div className="error-msg" role="alert">{error}</div>}
+            <button className="btn btn-primary btn-full" onClick={saveInactivityPeriod} disabled={loading || months === savedMonths}>
+              {loading ? t('common.loading') : t('common.save')}
+            </button>
+          </div>
+        )}
+
+        <div className="divider" />
+        <div style={{ padding: '12px 16px' }}>
           <button
             className="btn btn-full" id="delete-account-btn"
             onClick={() => setShowDeleteConfirm(true)}
@@ -360,14 +467,6 @@ export default function Profile() {
           </button>
         </div>
 
-        <div style={{
-          padding: '0 16px max(24px, env(safe-area-inset-bottom))',
-          textAlign: 'center', color: 'var(--text-muted)',
-          fontSize: 12, opacity: 0.65,
-        }}>
-          PaperPhoneLite v{APP_VERSION}
-        </div>
-
         {/* Delete Account Confirmation Modal */}
         {showDeleteConfirm && (
           <div style={{
@@ -375,7 +474,7 @@ export default function Profile() {
             background: 'rgba(0,0,0,0.5)', zIndex: 9999,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             padding: 24,
-          }} onClick={() => setShowDeleteConfirm(false)}>
+          }} onClick={() => { if (!deleteLoading) closeDeleteConfirm() }}>
             <div style={{
               background: 'var(--bg-primary)', borderRadius: 16, padding: 24,
               maxWidth: 360, width: '100%',
@@ -402,7 +501,8 @@ export default function Profile() {
               <div style={{ display: 'flex', gap: 12 }}>
                 <button
                   className="btn btn-full"
-                  onClick={() => { setShowDeleteConfirm(false); setDeletePassword(''); setDeleteError('') }}
+                  onClick={closeDeleteConfirm}
+                  disabled={deleteLoading}
                   style={{ flex: 1 }}
                 >
                   {t('common.cancel')}
@@ -625,7 +725,7 @@ function ChangeAvatar({ onBack, t, user, setAuth }: { onBack: () => void; t: (k:
       </div>
       <div className="page-body" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 32, gap: 20 }}>
         <div className="avatar" style={{ width: 120, height: 120, fontSize: 48, borderRadius: 60 }}>
-          {preview ? <img src={preview} alt="" style={{ width: '100%', height: '100%', borderRadius: 60, objectFit: 'cover' }} /> : user?.nickname?.[0]?.toUpperCase()}
+          {preview ? <CachedImage src={preview} alt="" style={{ width: '100%', height: '100%', borderRadius: 60, objectFit: 'cover' }} /> : user?.nickname?.[0]?.toUpperCase()}
         </div>
         <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleFile} />
         <button className="btn btn-primary" onClick={() => fileRef.current?.click()} disabled={uploading}>
@@ -1077,7 +1177,7 @@ function MyQRCode({ onBack, t, user }: { onBack: () => void; t: (k: string) => s
         padding: 32, gap: 20,
       }}>
         <div className="avatar" style={{ width: 80, height: 80, fontSize: 36, borderRadius: 40 }}>
-          {user?.avatar ? <img src={user.avatar} alt="" style={{ width: '100%', height: '100%', borderRadius: 40, objectFit: 'cover' }} /> : user?.nickname?.[0]?.toUpperCase()}
+          {user?.avatar ? <CachedImage src={user.avatar} alt="" style={{ width: '100%', height: '100%', borderRadius: 40, objectFit: 'cover' }} /> : user?.nickname?.[0]?.toUpperCase()}
         </div>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 20, fontWeight: 700 }}>{user?.nickname}</div>

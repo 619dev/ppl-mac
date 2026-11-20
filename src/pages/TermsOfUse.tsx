@@ -17,7 +17,7 @@ export default function TermsOfUse({ onBack }: { onBack?: () => void }) {
           <Shield size={36} /><h2>PaperPhoneLite</h2>
           <p>{zh ? '轻量级、Tor-only 的端到端加密通讯工具' : 'Lightweight, Tor-only, end-to-end encrypted messaging'}</p>
         </div>
-        <div className="privacy-updated">{zh ? '生效及更新日期：2026年11月14日' : 'Effective and updated: November 14, 2026'}</div>
+        <div className="privacy-updated">{zh ? '生效及更新日期：2026年11月20日' : 'Effective and updated: November 20, 2026'}</div>
 
         <Section icon={<FileText size={20} />} title={zh ? '1. 条款适用与接受' : '1. Acceptance and Scope'}>
           <p>{zh
@@ -45,8 +45,8 @@ export default function TermsOfUse({ onBack }: { onBack?: () => void }) {
 
         <Section icon={<Database size={20} />} title={zh ? '5. 数据、附件与删除' : '5. Data, Attachments, and Deletion'}>
           <p>{zh
-            ? '账号和路由所需元数据、加密消息、服务器端附件，以及用户启用的 ntfy 订阅会保存在所选服务器。项目不创建或保存 APNs 设备令牌。文件不使用 Cloudflare R2，而保存在服务器持久卷并由服务器传输。定时删除、退出登录、清理本地缓存或删除账号的效果受离线设备、备份、收件人副本和服务器运营方式限制，不构成对所有副本即时、不可恢复删除的保证。上传内容前请确认您拥有必要权利。'
-            : 'The selected server stores account and routing metadata, encrypted messages, server-side attachments, and user-enabled ntfy subscriptions. The project does not create or retain APNs device tokens. Files do not use Cloudflare R2; they remain on the server volume and are transferred by the server. Expiry, logout, cache clearing, or account deletion may be limited by offline devices, backups, recipient copies, and operator practices and does not guarantee immediate, irrecoverable deletion of every copy. Upload only content you have the right to use.'}</p>
+            ? '账号和路由所需元数据、加密消息、服务器端附件，以及用户启用的 ntfy 订阅会保存在所选服务器。项目不创建或保存 APNs 设备令牌。文件不使用 Cloudflare R2，而保存在服务器持久卷并由服务器传输。定时删除、退出登录、清理本地缓存或删除账号的效果受离线设备、备份、收件人副本和服务器运营方式限制，不构成对所有副本即时、不可恢复删除的保证。账号连续未登录达到所设期限后会自动删除，默认 12 个月。已启用双重验证的用户可用认证器验证码重置密码，重置后旧设备会话失效。上传内容前请确认您拥有必要权利。'
+            : 'The selected server stores account and routing metadata, encrypted messages, server-side attachments, and user-enabled ntfy subscriptions. The project does not create or retain APNs device tokens. Files do not use Cloudflare R2; they remain on the server volume and are transferred by the server. Expiry, logout, cache clearing, or account deletion may be limited by offline devices, backups, recipient copies, and operator practices and does not guarantee immediate, irrecoverable deletion of every copy. Accounts are automatically deleted after the selected period without signing in, which defaults to 12 months. Users with two-factor authentication enabled can reset their password with an authenticator code. A reset revokes existing device sessions. Upload only content you have the right to use.'}</p>
         </Section>
 
         <Section icon={<Shield size={20} />} title={zh ? '6. 开源、自托管与第三方服务' : '6. Open Source, Self-hosting, and Third Parties'}>

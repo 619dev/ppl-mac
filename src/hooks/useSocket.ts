@@ -75,7 +75,7 @@ export function useSocket() {
 
     // Only explicit server-side termination events end the local session.
     // Transient network and authentication failures continue to reconnect.
-    const logoutSignals = ['logout', 'force_logout', 'session_revoked', 'session_terminated']
+    const logoutSignals = ['logout', 'force_logout', 'session_revoked', 'session_terminated', 'account_deleted']
     const unsubLogoutSignals = logoutSignals.map(type => onWs(type, () => endSession(type)))
     const refreshFriends = async () => {
       const friends = await get<Friend[]>('/api/friends')

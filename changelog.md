@@ -1,5 +1,12 @@
 # Changelog / 更新日志
 
+## 3.1.7 — 2026-11-20
+
+- 同步公用客户端 `cb0fe15`。账号删除设置支持 3、6、12、24 或 36 个月未登录自动删除，默认 12 个月。已启用两步验证的用户可用六位验证码重置密码。
+- 本地媒体缓存按账号隔离，支持离线读取及重连验证。个人信息页底部显示 3.1.7。更新中英文文档及应用内隐私声明和使用条款，仅打包 Apple Silicon。
+- Ports shared client `cb0fe15` with inactivity-based account deletion and authenticator-based password reset. These features require the 3.1.7 server.
+- Reuses account-scoped media offline and revalidates after reconnecting. Updates the Profile footer, documentation and in-app notices. Packages target Apple Silicon.
+
 ## 3.1.5 — 2026-11-14
 
 本版同步上游 PaperPhoneLite 3.1.5 客户端（`d0b21db`、`2823996`）。
