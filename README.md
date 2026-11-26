@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-3.1.7-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-3.1.8-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -17,27 +17,27 @@
 
 ---
 
-## 3.1.7 更新与兼容性（2026-11-20）
+## 3.1.8 更新与兼容性（2026-11-26）
 
-同步上游 PaperPhoneLite 3.1.7 公用客户端（`cb0fe15`）。macOS Lite 保留私聊、群聊和联系人，仍无朋友圈、时间线或「发现」页面。
+同步上游 PaperPhoneLite 3.1.8 公用客户端（`db9fb80`）。聊天控件、验证标记、群消息状态、二维码和设置采用 Lucide 图标。聊天继续支持表情、最近使用的表情和贴纸。macOS Lite 保留私聊、群聊和联系人，仍无朋友圈、时间线或「发现」页面。
 
 - 「个人信息 → 账号删除」可设置连续未登录 3、6、12、24 或 36 个月后由服务器自动删除账号，默认 12 个月。每次成功登录重新计时，后台刷新令牌不会延期。该页面也可输入密码立即删除账号。
 - 已启用两步验证的账号可以在登录页使用用户名和六位认证器验证码重置密码。重置成功后，服务器撤销旧设备会话。
 - 图片、头像、语音、视频和附件缓存按账号隔离。重复打开可复用本地媒体，重连后重新验证；「个人信息 → 清除缓存」可移除本地缓存。
 - 自动删除和密码重置需要 PaperPhoneLite 3.1.7 服务端。升级服务端前备份 MySQL，首次清理会在启动时执行。
 
-开发环境需要 Node.js 22+ 和 npm。运行 `npm ci`、`npm run typecheck`、`npm run test:security`、`npm run test:i18n` 和 `npm run build`。原生开发使用 `npm run dev:electron`。执行 `npm run build:mac` 生成 Apple Silicon 的 DMG 和 ZIP，输出位于 `release/3.1.7/`。参见 [测试说明](tests/README.md)。
+开发环境需要 Node.js 22+ 和 npm。运行 `npm ci`、`npm run typecheck`、`npm run test:security`、`npm run test:i18n` 和 `npm run build`。原生开发使用 `npm run dev:electron`。执行 `npm run build:mac` 生成 Apple Silicon 的 DMG 和 ZIP，输出位于 `release/3.1.8/`。参见 [测试说明](tests/README.md)。
 
-## 3.1.7 changes and compatibility (2026-11-20)
+## 3.1.8 changes and compatibility (2026-11-26)
 
-This release ports the shared PaperPhoneLite 3.1.7 client (`cb0fe15`). macOS Lite includes private chat, groups, and contacts. Moments, Timeline, and Discover remain absent.
+This release ports the shared PaperPhoneLite 3.1.8 client (`db9fb80`). Chat controls, verification badges, group-message status, QR scanning, and settings use Lucide icons. Chat retains emoji, recent emoji, and stickers. macOS Lite includes private chat, groups, and contacts. Moments, Timeline, and Discover remain absent.
 
 - Under Profile → Account deletion, select 3, 6, 12, 24, or 36 months without signing in before the server deletes the account. The default is 12 months. A successful sign-in restarts the countdown. Background token refresh leaves it running. The same screen supports immediate deletion with password confirmation.
 - Users who enabled two-factor authentication can reset their password from the sign-in screen using their username and a six-digit authenticator code. A successful reset revokes existing device sessions.
 - The account-scoped cache reuses local images, avatars, audio, video, and attachments and revalidates them after reconnecting. Profile → Clear cache removes local cached data.
 - Automatic account deletion and password recovery require a PaperPhoneLite 3.1.7 server. Back up MySQL before upgrading. The first cleanup runs at server startup.
 
-Development uses Node.js 22+ and npm. Run `npm ci`, `npm run typecheck`, `npm run test:security`, `npm run test:i18n`, and `npm run build`. Use `npm run dev:electron` for native development. Run `npm run build:mac` to package Apple Silicon DMG and ZIP files under `release/3.1.7/`. See [test notes](tests/README.md).
+Development uses Node.js 22+ and npm. Run `npm ci`, `npm run typecheck`, `npm run test:security`, `npm run test:i18n`, and `npm run build`. Use `npm run dev:electron` for native development. Run `npm run build:mac` to package Apple Silicon DMG and ZIP files under `release/3.1.8/`. See [test notes](tests/README.md).
 
 ## 📖 Documentation / 文档
 

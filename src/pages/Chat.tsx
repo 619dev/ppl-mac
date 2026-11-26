@@ -12,8 +12,7 @@ import { getKeys } from '../crypto/keystore'
 import { inspectHybridProtocol } from '../crypto/ratchet'
 import { isPresentationUnlocked, protectPresentationText, unprotectPresentationText } from '../crypto/presentationCrypto'
 import { encryptGroupMessage, decryptGroupMessage, fetchGroupKeys, MissingGroupKey } from '../crypto/signedGroups'
-import { Shield } from 'lucide-react'
-import { ChevronLeft, ChevronDown, Lock, Settings, Timer, ImageIcon, Film, Plus, Mic, Download, Paperclip, AlertTriangle, Clock, Package as PackageIcon, FileText, File as FileIcon, Image as LucideImage, Music, Video, Check, CheckCheck, SendHorizonal, Smile, WifiOff, X, ZoomIn, ZoomOut } from 'lucide-react'
+import { ChevronLeft, ChevronDown, Lock, Settings, Timer, ImageIcon, Film, Plus, Mic, Download, Paperclip, AlertTriangle, Clock, Package as PackageIcon, FileText, File as FileIcon, Image as LucideImage, Music, Video, Check, CheckCheck, SendHorizonal, Smile, WifiOff, X, ZoomIn, ZoomOut, Shield, Sticker, Hand, Heart, PartyPopper, Cat, Sandwich, Rocket, Lightbulb, Turtle, Rabbit, Volume2, ArrowDown } from 'lucide-react'
 import StickerMedia from '../components/StickerMedia'
 import { decodeMessagePayload, encodeMessagePayload, type ReplyReference } from '../utils/messagePayload'
 import { cacheSticker, cacheStickerPack } from '../utils/stickerCache'
@@ -31,14 +30,14 @@ const AUTO_DELETE_OPTIONS = [
 
 // Emoji data
 const EMOJI_CATEGORIES = [
-  { icon: '😊', label: 'Smileys', emojis: ['😀','😃','😄','😁','😆','😅','🤣','😂','🙂','😉','😊','😇','🥰','😍','🤩','😘','😗','☺️','😚','😙','🥲','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🫡','🤫','🤔','🫠','🤐','🤨','😐','😑','😶','🫥','😏','😒','🙄','😬','🤥','😌','😔','😪','🤤','😴','😷','🤒','🤕','🤢','🤮','🥴','😵','🤯','🥶','🥵','😱','😨','😰','😥','😢','😭','😤','😠','😡','🤬','😈','👿','💀','☠️','💩','🤡','👹','👺','👻','👽','👾','🤖'] },
-  { icon: '👋', label: 'Gestures', emojis: ['👋','🤚','🖐️','✋','🖖','🫱','🫲','🫳','🫴','👌','🤌','🤏','✌️','🤞','🫰','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','🫵','👍','👎','✊','👊','🤛','🤜','👏','🙌','🫶','👐','🤲','🤝','🙏','💪','🦵','🦶','👂','🦻','👃','🧠','🦷','🦴','👀','👁️','👅','👄'] },
-  { icon: '❤️', label: 'Hearts', emojis: ['❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❤️‍🔥','❤️‍🩹','❣️','💕','💞','💓','💗','💖','💘','💝','💟','♥️','🫀','💋','💌','💐','🌹','🥀','🌷','🌸','🌺','🌻','🌼','💎','✨','🌟','⭐','🔥','💫','⚡','☀️','🌈'] },
-  { icon: '🎉', label: 'Celebrate', emojis: ['🎉','🎊','🎈','🎁','🎀','🎗️','🏆','🏅','🥇','🥈','🥉','⚽','🏀','🏈','⚾','🎾','🏐','🏉','🎱','🏓','🏸','🥊','🎿','🏂','🏋️','🤸','⛹️','🤾','🚴','🏊','🤽','🧗','🏄','🎮','🎯','🎲','🎰','🎵','🎶','🎤','🎸','🎹','🎺','🎻','🥁','📷','🎬','🎨'] },
-  { icon: '🐱', label: 'Animals', emojis: ['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐻‍❄️','🐨','🐯','🦁','🐮','🐷','🐸','🐵','🙈','🙉','🙊','🐒','🐔','🐧','🐦','🐤','🦄','🐴','🫏','🐝','🪱','🐛','🦋','🐌','🐞','🐜','🪲','🪳','🐢','🐍','🦎','🐙','🦑','🦐','🦞','🦀','🐡','🐠','🐟','🐬','🐳','🐋','🦈','🐊'] },
-  { icon: '🍔', label: 'Food', emojis: ['🍏','🍎','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🫐','🍈','🍒','🍑','🥭','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥬','🥒','🌶️','🫑','🌽','🥕','🫒','🧄','🧅','🥔','🍠','🥐','🍞','🥖','🥨','🧀','🥚','🍳','🧈','🥞','🧇','🥓','🥩','🍗','🍖','🌭','🍔','🍟','🍕','🌮','🌯','🫔','🥙','🧆','🥗','🍝','🍜','🍲','🍛','🍣','🍱','🥟','🍤','🍙','🍚','🍘','🍥','🥮','🍢','🧁','🎂','🍰','🍩','🍪','🍫','🍬','🍭','🍮','🍯','🍼','🥤','☕','🍵','🧃','🍶','🍺','🍷','🥂','🍹'] },
-  { icon: '🚀', label: 'Travel', emojis: ['🚗','🚕','🚙','🚌','🚎','🏎️','🚓','🚑','🚒','🚐','🛻','🚚','🚛','🚜','🏍️','🛵','🚲','🛴','🛹','🛼','🚁','🛸','🚀','✈️','🛩️','🛰️','🚢','⛵','🛥️','🚤','⛴️','🏠','🏡','🏢','🏬','🏭','🏗️','🗼','🗽','⛪','🕌','🕍','⛩️','🕋','⛲','⛺','🌁','🌃','🌆','🌇','🌉','🌌','🎠','🎡','🎢','🏖️','🏝️','🏰','🗻','🌋'] },
-  { icon: '💡', label: 'Objects', emojis: ['💡','🔦','🕯️','📱','💻','⌨️','🖥️','🖨️','🖱️','🖲️','💾','💿','📀','📷','📹','🎥','📞','☎️','📺','📻','🎙️','⏰','⌚','📡','🔋','🪫','🔌','💰','💸','💳','💎','⚖️','🔧','🪛','🔨','⛏️','🪚','🔩','⚙️','🧲','🔬','🔭','📡','💉','💊','🩹','🩺','🚪','🪞','🛏️','🪑','🚽','🧹','🧺','🧼','📦','📮','📬','📨','📩','📝','📁','📂','📅','📆','📎','📌','📍','✂️','🔒','🔓','🗝️','🔑'] },
+  { icon: Smile, label: 'Smileys', emojis: ['😀','😃','😄','😁','😆','😅','🤣','😂','🙂','😉','😊','😇','🥰','😍','🤩','😘','😗','☺️','😚','😙','🥲','😋','😛','😜','🤪','😝','🤑','🤗','🤭','🫡','🤫','🤔','🫠','🤐','🤨','😐','😑','😶','🫥','😏','😒','🙄','😬','🤥','😌','😔','😪','🤤','😴','😷','🤒','🤕','🤢','🤮','🥴','😵','🤯','🥶','🥵','😱','😨','😰','😥','😢','😭','😤','😠','😡','🤬','😈','👿','💀','☠️','💩','🤡','👹','👺','👻','👽','👾','🤖'] },
+  { icon: Hand, label: 'Gestures', emojis: ['👋','🤚','🖐️','✋','🖖','🫱','🫲','🫳','🫴','👌','🤌','🤏','✌️','🤞','🫰','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','🫵','👍','👎','✊','👊','🤛','🤜','👏','🙌','🫶','👐','🤲','🤝','🙏','💪','🦵','🦶','👂','🦻','👃','🧠','🦷','🦴','👀','👁️','👅','👄'] },
+  { icon: Heart, label: 'Hearts', emojis: ['❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❤️‍🔥','❤️‍🩹','❣️','💕','💞','💓','💗','💖','💘','💝','💟','♥️','🫀','💋','💌','💐','🌹','🥀','🌷','🌸','🌺','🌻','🌼','💎','✨','🌟','⭐','🔥','💫','⚡','☀️','🌈'] },
+  { icon: PartyPopper, label: 'Celebrate', emojis: ['🎉','🎊','🎈','🎁','🎀','🎗️','🏆','🏅','🥇','🥈','🥉','⚽','🏀','🏈','⚾','🎾','🏐','🏉','🎱','🏓','🏸','🥊','🎿','🏂','🏋️','🤸','⛹️','🤾','🚴','🏊','🤽','🧗','🏄','🎮','🎯','🎲','🎰','🎵','🎶','🎤','🎸','🎹','🎺','🎻','🥁','📷','🎬','🎨'] },
+  { icon: Cat, label: 'Animals', emojis: ['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐻‍❄️','🐨','🐯','🦁','🐮','🐷','🐸','🐵','🙈','🙉','🙊','🐒','🐔','🐧','🐦','🐤','🦄','🐴','🫏','🐝','🪱','🐛','🦋','🐌','🐞','🐜','🪲','🪳','🐢','🐍','🦎','🐙','🦑','🦐','🦞','🦀','🐡','🐠','🐟','🐬','🐳','🐋','🦈','🐊'] },
+  { icon: Sandwich, label: 'Food', emojis: ['🍏','🍎','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🫐','🍈','🍒','🍑','🥭','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥬','🥒','🌶️','🫑','🌽','🥕','🫒','🧄','🧅','🥔','🍠','🥐','🍞','🥖','🥨','🧀','🥚','🍳','🧈','🥞','🧇','🥓','🥩','🍗','🍖','🌭','🍔','🍟','🍕','🌮','🌯','🫔','🥙','🧆','🥗','🍝','🍜','🍲','🍛','🍣','🍱','🥟','🍤','🍙','🍚','🍘','🍥','🥮','🍢','🧁','🎂','🍰','🍩','🍪','🍫','🍬','🍭','🍮','🍯','🍼','🥤','☕','🍵','🧃','🍶','🍺','🍷','🥂','🍹'] },
+  { icon: Rocket, label: 'Travel', emojis: ['🚗','🚕','🚙','🚌','🚎','🏎️','🚓','🚑','🚒','🚐','🛻','🚚','🚛','🚜','🏍️','🛵','🚲','🛴','🛹','🛼','🚁','🛸','🚀','✈️','🛩️','🛰️','🚢','⛵','🛥️','🚤','⛴️','🏠','🏡','🏢','🏬','🏭','🏗️','🗼','🗽','⛪','🕌','🕍','⛩️','🕋','⛲','⛺','🌁','🌃','🌆','🌇','🌉','🌌','🎠','🎡','🎢','🏖️','🏝️','🏰','🗻','🌋'] },
+  { icon: Lightbulb, label: 'Objects', emojis: ['💡','🔦','🕯️','📱','💻','⌨️','🖥️','🖨️','🖱️','🖲️','💾','💿','📀','📷','📹','🎥','📞','☎️','📺','📻','🎙️','⏰','⌚','📡','🔋','🪫','🔌','💰','💸','💳','💎','⚖️','🔧','🪛','🔨','⛏️','🪚','🔩','⚙️','🧲','🔬','🔭','📡','💉','💊','🩹','🩺','🚪','🪞','🛏️','🪑','🚽','🧹','🧺','🧼','📦','📮','📬','📨','📩','📝','📁','📂','📅','📆','📎','📌','📍','✂️','🔒','🔓','🗝️','🔑'] },
 ]
 
 const RECENT_EMOJI_KEY = 'pp_recent_emoji'
@@ -589,7 +588,7 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
       } else {
         serverMessages = await Promise.all(filtered.map(async msg => {
           try { return { ...msg, group_id: id, ...await decryptGroupMessage({ ...msg, group_id: id }, true) } }
-          catch (error) { return { ...msg, group_id: id, signature_valid: false, decrypted: error instanceof MissingGroupKey ? '🔒' : `⚠️ ${securityErrorText(error)}` } }
+          catch (error) { return { ...msg, group_id: id, signature_valid: false, decryption_pending: error instanceof MissingGroupKey, decrypted: error instanceof MissingGroupKey ? error.message : securityErrorText(error) } }
         }))
       }
 
@@ -1056,7 +1055,11 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
   // ── Render message bubble content ──
   const renderBubble = (msg: any, displayText: string, isEncFailed: boolean) => {
     if (isGroup && (!msg.signature_valid || msg.decryption_pending)) {
-      return <span style={{ color: 'var(--text-muted)' }}>{msg.decrypted || t('grouptrust.verifying')}</span>
+      // Cached group errors from older clients can still carry a status glyph.
+      const legacyPending = msg.decrypted === '🔒'
+      const status = legacyPending ? '' : msg.decrypted?.replace(/^⚠️ /, '')
+      const StatusIcon = msg.decryption_pending || !status ? Lock : AlertTriangle
+      return <span style={{ color: 'var(--text-muted)' }}><StatusIcon size={14} style={{ verticalAlign: 'middle' }} /> {status || t('grouptrust.verifying')}</span>
     }
     if (isEncFailed) {
       return <span style={{ fontStyle: 'italic', color: 'var(--text-muted)' }}><Lock size={16} /> {t('chat.decrypt_failed')}</span>
@@ -1210,6 +1213,7 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
                   onClick={() => setRecordVoiceMode(mode)}
                   style={{
                     padding: '6px 12px',
+                    display: 'inline-flex', alignItems: 'center', gap: 4,
                     borderRadius: 16,
                     border: 'none',
                     background: recordVoiceMode === mode ? 'linear-gradient(135deg, #667eea, #764ba2)' : 'rgba(128,128,128,0.2)',
@@ -1221,7 +1225,8 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
                     transition: 'all 0.2s ease'
                   }}
                 >
-                  {mode === 'slow' ? '🐢 0.8x' : mode === 'fast' ? '🐇 1.2x' : '🔊 1.0x'}
+                  {mode === 'slow' ? <Turtle size={14} /> : mode === 'fast' ? <Rabbit size={14} /> : <Volume2 size={14} />}
+                  {mode === 'slow' ? '0.8x' : mode === 'fast' ? '1.2x' : '1.0x'}
                 </button>
               ))}
             </div>
@@ -1321,7 +1326,7 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
               )}
               <div>
                 {isGroup && (
-                  <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 2 }}>{msg.from_nickname || (isMe ? user?.nickname : msg.from)}{msg.signature_valid && <span style={{ color: '#22c55e', marginLeft: 4 }} title={t('grouptrust.signature_title', { id: msg.from })}>✅</span>}</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 2 }}>{msg.from_nickname || (isMe ? user?.nickname : msg.from)}{msg.signature_valid && <span style={{ color: '#22c55e', marginLeft: 4 }} title={t('grouptrust.signature_title', { id: msg.from })}><Check size={14} style={{ verticalAlign: 'middle' }} /></span>}</div>
                 )}
                 <div className="msg-bubble" style={isSticker && !payload.reply ? { background: 'transparent', boxShadow: 'none', padding: 0 } : undefined}>
                   {payload.reply && (
@@ -1356,7 +1361,7 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
                       title={protocolLabel}
                       style={{ marginLeft: 5, color: protocol?.downgraded ? '#d97706' : 'var(--accent)', fontWeight: 600 }}
                     >
-                      {protocol?.downgraded ? 'X25519 ↓' : protocol ? 'PQ v2' : `SK v${msg.sender_key_version}`}
+                      {protocol?.downgraded ? <>X25519 <ArrowDown size={12} style={{ verticalAlign: 'middle' }} /></> : protocol ? 'PQ v2' : `SK v${msg.sender_key_version}`}
                     </span>
                   )}
                   {isMe && msg.delivery_status === 'queued' && (
@@ -1407,9 +1412,9 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
             {emojiTab === 'emoji' ? (
               <>
                 <div style={{ display: 'flex', gap: 2, padding: '6px 8px', overflowX: 'auto', borderBottom: '1px solid var(--border)', flexShrink: 0 }}>
-                  <button onClick={() => setEmojiCat(-1)} style={{ width: 32, height: 32, border: 'none', borderRadius: 8, background: emojiCat === -1 ? 'var(--accent)' : 'transparent', cursor: 'pointer', fontSize: 16, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: emojiCat === -1 ? '#fff' : 'var(--text-secondary)' }}><Clock size={16} /></button>
+                  <button aria-label={t('chat.recent_emoji')} aria-pressed={emojiCat === -1} onClick={() => setEmojiCat(-1)} style={{ width: 32, height: 32, border: 'none', borderRadius: 8, background: emojiCat === -1 ? 'var(--accent)' : 'transparent', cursor: 'pointer', fontSize: 16, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: emojiCat === -1 ? '#fff' : 'var(--text-secondary)' }}><Clock size={16} /></button>
                   {EMOJI_CATEGORIES.map((cat, i) => (
-                    <button key={i} onClick={() => setEmojiCat(i)} style={{ width: 32, height: 32, border: 'none', borderRadius: 8, background: emojiCat === i ? 'var(--accent)' : 'transparent', cursor: 'pointer', fontSize: 16, flexShrink: 0 }}>{cat.icon}</button>
+                    <button key={cat.label} aria-label={cat.label} aria-pressed={emojiCat === i} onClick={() => setEmojiCat(i)} style={{ width: 32, height: 32, border: 'none', borderRadius: 8, background: emojiCat === i ? 'var(--accent)' : 'transparent', cursor: 'pointer', flexShrink: 0, display: 'grid', placeItems: 'center', color: emojiCat === i ? '#fff' : 'var(--text-secondary)' }}><cat.icon size={16} /></button>
                   ))}
                 </div>
                 <div style={{ flex: 1, overflowY: 'auto', padding: 8, display: 'flex', flexWrap: 'wrap', alignContent: 'flex-start', gap: 2 }}>
@@ -1454,12 +1459,12 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
                     return stickers.map((sticker: any, i: number) => {
                       const sType = sticker.type || (sticker.is_video ? 'video' : sticker.is_animated ? 'animated' : 'static')
                       return (
-                        <div key={sticker.file_id || i} onClick={() => sendSticker(sticker)} title={sticker.emoji || 'sticker'}
+                        <div key={sticker.file_id || i} onClick={() => sendSticker(sticker)} title={t('chat.stickers')}
                           style={{ width: 72, height: 72, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 8, transition: 'background .15s' }}
                           onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-card)')}
                           onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
                           <StickerMedia fileId={sticker.file_id} fallbackUrl={sticker.url}
-                            type={sType} width={64} height={64} alt={sticker.emoji || ''} hoverPlay />
+                            type={sType} width={64} height={64} alt={t('chat.stickers')} hoverPlay />
                         </div>
                       )
                     })
@@ -1482,7 +1487,7 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
               cursor: 'pointer', fontSize: 13, fontWeight: emojiTab === 'sticker' ? 600 : 400,
               color: emojiTab === 'sticker' ? 'var(--accent)' : 'var(--text-primary)',
               borderBottom: emojiTab === 'sticker' ? '2px solid var(--accent)' : '2px solid transparent',
-            }}>Stickers</button>
+            }}><Sticker size={14} /> {t('chat.stickers')}</button>
           </div>
         </div>
       )}
@@ -1611,7 +1616,7 @@ export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boo
           }}
           onFocus={() => { setShowEmojiPanel(false); setShowAttachPanel(false) }}
         />
-        <button className="icon-btn" title="Emoji"
+        <button className="icon-btn" title="Emoji" aria-label="Emoji" aria-expanded={showEmojiPanel}
           onClick={() => { setShowEmojiPanel(!showEmojiPanel); setShowAttachPanel(false) }}
           style={{ color: showEmojiPanel ? 'var(--accent)' : undefined }}><Smile size={22} /></button>
         {input.trim() ? (

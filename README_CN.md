@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-3.1.7-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-3.1.8-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -16,16 +16,16 @@
 
 ---
 
-## 3.1.7 更新与兼容性（2026-11-20）
+## 3.1.8 更新与兼容性（2026-11-26）
 
-同步上游 PaperPhoneLite 3.1.7 公用客户端（`cb0fe15`）。macOS Lite 保留私聊、群聊和联系人，仍无朋友圈、时间线或「发现」页面。
+同步上游 PaperPhoneLite 3.1.8 公用客户端（`db9fb80`）。聊天控件、验证标记、群消息状态、二维码和设置采用 Lucide 图标。聊天继续支持表情、最近使用的表情和贴纸。macOS Lite 保留私聊、群聊和联系人，仍无朋友圈、时间线或「发现」页面。
 
 - 「个人信息 → 账号删除」可设置连续未登录 3、6、12、24 或 36 个月后由服务器自动删除账号，默认 12 个月。每次成功登录重新计时，后台刷新令牌不会延期。该页面也可输入密码立即删除账号。
 - 已启用两步验证的账号可以在登录页使用用户名和六位认证器验证码重置密码。重置成功后，服务器撤销旧设备会话。
 - 图片、头像、语音、视频和附件缓存按账号隔离。重复打开可复用本地媒体，重连后重新验证；「个人信息 → 清除缓存」可移除本地缓存。
 - 自动删除和密码重置需要 PaperPhoneLite 3.1.7 服务端。升级服务端前备份 MySQL，首次清理会在启动时执行。
 
-开发环境需要 Node.js 22+ 和 npm。运行 `npm ci`、`npm run typecheck`、`npm run test:security`、`npm run test:i18n` 和 `npm run build`。原生开发使用 `npm run dev:electron`。执行 `npm run build:mac` 生成 Apple Silicon 的 DMG 和 ZIP，输出位于 `release/3.1.7/`。参见 [测试说明](tests/README.md)。
+开发环境需要 Node.js 22+ 和 npm。运行 `npm ci`、`npm run typecheck`、`npm run test:security`、`npm run test:i18n` 和 `npm run build`。原生开发使用 `npm run dev:electron`。执行 `npm run build:mac` 生成 Apple Silicon 的 DMG 和 ZIP，输出位于 `release/3.1.8/`。参见 [测试说明](tests/README.md)。
 
 ## 📖 简介
 
@@ -83,18 +83,18 @@ PaperPhoneLite Desktop 是 [PaperPhoneLite](https://github.com/619dev/PaperPhone
 
 ### 从 Release 下载
 
-已发布版本见 [Releases](../../releases)。下表为本地打包 3.1.7 时的预期文件名；更新源码不会发布这些文件：
+已发布版本见 [Releases](../../releases)。下表为本地打包 3.1.8 时的预期文件名；更新源码不会发布这些文件：
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhoneLite-3.1.7-macOS-arm64.dmg` | 推荐：DMG 安装镜像（arm64） |
-| `PaperPhoneLite-3.1.7-arm64-mac.zip` | Apple Silicon ZIP |
+| `PaperPhoneLite-3.1.8-macOS-arm64.dmg` | 推荐：DMG 安装镜像（arm64） |
+| `PaperPhoneLite-3.1.8-arm64-mac.zip` | Apple Silicon ZIP |
 
-3.1.7 打包配置仅面向 Apple Silicon（arm64），要求 Developer ID 签名并启用公证。源码构建不代表安装包已签名或公证；产物需通过 `npm run verify:mac` 验证。
+3.1.8 打包配置仅面向 Apple Silicon（arm64），要求 Developer ID 签名并启用公证。源码构建不代表安装包已签名或公证；产物需通过 `npm run verify:mac` 验证。
 
 ## 🧅 内嵌 Tor 与 WebTunnel
 
-macOS 客户端内嵌 Tor Project 官方 Tor 与 lyrebird 运行时，3.1.7 仅打包 Apple Silicon 运行时。应用启动后自动建立 Tor 线路并将 Electron 网络会话切换到本地 SOCKS5；直连 20 秒仍未完成 bootstrap 时，会自动从 Tor Project Moat 获取并校验 WebTunnel bridge，缓存有效 bridge 后重启 Tor。登录按钮只会在 Tor 完成 100% bootstrap 后启用，不会把 `.onion` 请求回退到明网。
+macOS 客户端内嵌 Tor Project 官方 Tor 与 lyrebird 运行时，3.1.8 仅打包 Apple Silicon 运行时。应用启动后自动建立 Tor 线路并将 Electron 网络会话切换到本地 SOCKS5；直连 20 秒仍未完成 bootstrap 时，会自动从 Tor Project Moat 获取并校验 WebTunnel bridge，缓存有效 bridge 后重启 Tor。登录按钮只会在 Tor 完成 100% bootstrap 后启用，不会把 `.onion` 请求回退到明网。
 
 WebTunnel 获取失败时会尝试上次成功缓存的 bridge；用户也可在登录页查看实时状态并手动重试。
 

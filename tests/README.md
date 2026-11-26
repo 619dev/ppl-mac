@@ -27,4 +27,6 @@ Run `npm run verify:mac` to check architecture, Developer ID signatures, notariz
 
 See [English guide](../README_EN.md) and [中文说明](../README_CN.md).
 
-Also verify that Profile shows 3.1.7, offers the five inactivity periods, and reloads a saved setting. Use a disposable account to check immediate deletion and the `account_deleted` session event. With two-factor authentication enabled, reset a test password using the current authenticator code, sign in with the new password, and confirm that previous sessions were revoked. Open media online, reopen it offline after restarting Electron, and confirm that Clear cache removes its local copy.
+Also verify that Profile shows 3.1.8, offers the five inactivity periods, and reloads a saved setting. Use a disposable account to check immediate deletion and the `account_deleted` session event. With two-factor authentication enabled, reset a test password using the current authenticator code, sign in with the new password, and confirm that previous sessions were revoked. Open media online, reopen it offline after restarting Electron, and confirm that Clear cache removes its local copy.
+
+Check the verification badge and group signature, pending key, and failed signature icons. Open the emoji picker, send an emoji and find it under Recent, then send a sticker. Check the QR scanner and language picker on macOS.

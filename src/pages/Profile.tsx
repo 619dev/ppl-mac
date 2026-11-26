@@ -10,7 +10,7 @@ import { allLangs, langNames, LangCode } from '../i18n'
 import { QRCodeCanvas } from '../components/QRCode'
 import { isPushSupported, isPushSubscribed, subscribePush, unsubscribePush } from '../api/push'
 import { logoutOneSignal } from '../api/onesignal'
-import { Camera, ChevronLeft, ChevronRight, Smartphone, Check, Copy, KeyRound, Shield, Fingerprint, Moon, Globe, Bell, Download as DownloadIcon, Monitor, CheckCircle, FileText, ExternalLink, Trash2, AlertTriangle } from 'lucide-react'
+import { Camera, ChevronLeft, ChevronRight, Smartphone, Check, Copy, KeyRound, Shield, Fingerprint, Moon, Globe, Bell, Download as DownloadIcon, Monitor, CheckCircle, FileText, ExternalLink, Trash2, AlertTriangle, Languages } from 'lucide-react'
 import { clearOfflineCache } from '../utils/offlineCache'
 import { PRESENTATION_CODECS, type PresentationCodecId } from '../crypto/presentationCodec'
 import { disablePresentationCrypto, enablePresentationCrypto, getPresentationSettings, isPresentationUnlocked, lockPresentationCrypto, unlockPresentationCrypto, updatePresentationSettings } from '../crypto/presentationCrypto'
@@ -301,7 +301,7 @@ export default function Profile() {
                     setNtfyLoading(false)
                   }}
                 >
-                  {ntfyRegistered ? t('ntfy.registered') : ntfyLoading ? t('common.loading') : t('ntfy.register')}
+                  {ntfyRegistered ? <><Check size={14} /> {t('ntfy.registered')}</> : ntfyLoading ? t('common.loading') : t('ntfy.register')}
                 </button>
                 <button
                   className="btn btn-sm"
@@ -976,11 +976,6 @@ function Sessions({ onBack, t }: { onBack: () => void; t: (k: string) => string 
 function LanguagePicker({ onBack, t, lang, setLang }: { onBack: () => void; t: (k: string) => string; lang: LangCode; setLang: (l: string) => void }) {
   const [selected, setSelected] = useState<LangCode>(lang)
 
-  const flags: Record<LangCode, string> = {
-    zh: '🇨🇳', en: '🇺🇸', ja: '🇯🇵', ko: '🇰🇷',
-    fr: '🇫🇷', de: '🇩🇪', ru: '🇷🇺', es: '🇪🇸',
-  }
-
   // Secondary label: show the language name in that language if it differs from current
   const nativeNames: Record<LangCode, string> = {
     zh: '中文', en: 'English', ja: '日本語', ko: '한국어',
@@ -1013,7 +1008,7 @@ function LanguagePicker({ onBack, t, lang, setLang }: { onBack: () => void; t: (
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, flex: 1 }}>
-                <span style={{ fontSize: 28 }}>{flags[l]}</span>
+                <Languages size={22} style={{ color: isSelected ? 'var(--accent)' : 'var(--text-muted)' }} />
                 <div>
                   <div style={{ fontWeight: isSelected ? 600 : 400, fontSize: 15 }}>{nativeNames[l]}</div>
                   {l !== lang && (

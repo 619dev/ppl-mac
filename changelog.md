@@ -1,5 +1,12 @@
 # Changelog / 更新日志
 
+## 3.1.8 — 2026-11-26
+
+- 同步上游 PaperPhoneLite 3.1.8 公用客户端（`db9fb80`）。聊天控件、验证标记、群消息状态、二维码和设置采用 Lucide 图标。聊天继续支持表情、最近使用的表情和贴纸。macOS Lite 保留私聊、群聊和联系人，仍无朋友圈、时间线或「发现」页面。
+- This release ports the shared PaperPhoneLite 3.1.8 client (`db9fb80`). Chat controls, verification badges, group-message status, QR scanning, and settings use Lucide icons. Chat retains emoji, recent emoji, and stickers. macOS Lite includes private chat, groups, and contacts. Moments, Timeline, and Discover remain absent.
+- 个人信息页底部显示 3.1.8。更新发布文档，仅打包 Apple Silicon。
+- The Profile footer shows 3.1.8. Updated the release documentation and packaged Apple Silicon builds.
+
 ## 3.1.7 — 2026-11-20
 
 - 同步公用客户端 `cb0fe15`。账号删除设置支持 3、6、12、24 或 36 个月未登录自动删除，默认 12 个月。已启用两步验证的用户可用六位验证码重置密码。
